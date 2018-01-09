@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="./easyui/themes/bootstrap/easyui.css"/>
+    <link rel="stylesheet" type="text/css" href="./easyui/themes/icon.css"/>
+    <link rel="stylesheet" type="text/css" href="./css/paramAdmin.css"/>
+    <link rel="stylesheet" type="text/css" href="./css/common.css"/>
+    <script type="text/javascript" src="./easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="./easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="./js/paramAdmin.js"></script>
+</head>
+<body style="margin: 0px 0px 0px 20px">
+    <div style="width: 100%;height: 280px">
+        <div style="height: 40px;padding: 0px 3px 3px 3px"><h3>【 学院/专业信息维护 】</h3></div>
+        <div style="width: 48%;height: 240px;float: left; margin: 0px 5px 0px 5px;">
+            <div style="width: 100%;height: 40px;float: left;">
+                <input id="collegeText" type="text" class="easyui-textbox" style=" width: 150px" data-options="prompt:'请输入新增学院全称 '"/>
+                <a class="easyui-linkbutton" href="javascript:void (0)" onclick="insertParam('college')" >新增↓</a>
+            </div>
+            <div style="width: 100%;height: 200px;float: left;">
+                <table id="collegeParam" class="easyui-datagrid"
+                       data-options="singleSelect:true,collapsible:true,method:'get'">
+                    <thead>
+                    <tr>
+                        <th data-options="field:'COLLEGE_CODE',width:100,align:'center'">学院编码</th>
+                        <th data-options="field:'COLLEGE',width:400,align:'center'">学院</th>
+                        <th data-options="field:'_operate',width:80,formatter:colFormatOpera,align:'center'">操作</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+
+        </div>
+        <div style="width: 48%;height: 240px;float: left;margin: 0px 5px 0px 5px;">
+            <div style="width: 100%;height: 40px;float: left;">
+                <input id="specialtyText" type="text" class="easyui-textbox" style="width: 150px" data-options="prompt:'请输入新增专业全称 '"/>
+                <a class="easyui-linkbutton" href="javascript:void (0)" onclick="insertParam('specialty')">新增↓</a>
+            </div>
+            <div style="width: 100%;height: 200px;float: left;">
+                <table id="specialtyParam" class="easyui-datagrid"
+                       data-options="singleSelect:true,collapsible:true,method:'get'">
+                    <thead>
+                    <tr>
+                        <th data-options="field:'SPECIALTY_CODE',width:100,align:'center'">专业编码</th>
+                        <th data-options="field:'SPECIALTY',width:400,align:'center'">专业</th>
+                        <th data-options="field:'_operate',width:80,formatter:speFormatOpera,align:'center'">操作</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+
+        </div>
+    </div>
+    <div style="width: 100%;height: 280px">
+        <div style="height: 40px;padding: 0px 3px 3px 3px"><h3>【 出版社信息维护 】</h3></div>
+        <div style="width: 100%;height: 240px;float: left; margin: 0px 5px 0px 5px;">
+            <div style="width: 100%;height: 40px;float: left;">
+                <input id="pressText" type="text" class="easyui-textbox" style="width: 150px" data-options="prompt:'请输入新增出版社全称 '"/>
+                <a class="easyui-linkbutton" href="javascript:void (0)" onclick="insertParam('press')" >新增↓</a>
+            </div>
+            <div style="width: 100%;height: 200px;float: left;">
+                <table id="pressParam" class="easyui-datagrid"
+                       data-options="singleSelect:true,collapsible:true,method:'get'">
+                    <thead>
+                    <tr>
+                        <th data-options="field:'PRESS_CODE',width:100,align:'center'">出版社编码</th>
+                        <th data-options="field:'PRESS',width:400,align:'center'">出版社</th>
+                        <th data-options="field:'_operate',width:80,formatter:pressFormatOpera,align:'center'">操作</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+
+        </div>
+    </div>
+    <div style="width: 100%;height: 280px">
+        <div style="height: 40px;padding: 0px 3px 3px 3px"><h3>【 拓展读物类型信息维护 】</h3></div>
+        <div style="width: 100%;height: 240px;float: left; margin: 0px 5px 0px 5px;">
+            <div style="width: 100%;height: 40px;float: left;">
+                <input id="typeText" type="text" class="easyui-textbox" style="width: 150px" data-options="prompt:'请输入新增类型全称 '"/>
+                <a class="easyui-linkbutton" href="javascript:void (0)" onclick="insertParam('type')" >新增↓</a>
+            </div>
+            <div style="width: 100%;height: 200px;float: left;">
+                <table id="typeParam" class="easyui-datagrid"
+                       data-options="singleSelect:true,collapsible:true,method:'get'">
+                    <thead>
+                    <tr>
+                        <th data-options="field:'TYPE_CODE',width:100,align:'center'">类型编码</th>
+                        <th data-options="field:'TYPE',width:400,align:'center'">类型</th>
+                        <th data-options="field:'_operate',width:80,formatter:typeFormatOpera,align:'center'">操作</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+
+        </div>
+    </div>
+    <div style="width: 100%;height: 280px">
+        <div style="height: 40px;padding: 0px 3px 3px 3px"><h3>【 名著小说类型信息维护 】</h3></div>
+        <div style="width: 100%;height: 240px;float: left; margin: 0px 5px 0px 5px;">
+            <div style="width: 100%;height: 40px;float: left;">
+                <input id="styleText" type="text" class="easyui-textbox" style="width: 150px" data-options="prompt:'请输入新增类型全称 '"/>
+                <a class="easyui-linkbutton" href="javascript:void (0)" onclick="insertParam('style')" >新增↓</a>
+            </div>
+            <div style="width: 100%;height: 200px;float: left;">
+                <table id="styleParam" class="easyui-datagrid"
+                       data-options="singleSelect:true,collapsible:true,method:'get'">
+                    <thead>
+                    <tr>
+                        <th data-options="field:'STYLE_CODE',width:100,align:'center'">类型编码</th>
+                        <th data-options="field:'STYLE',width:400,align:'center'">类型</th>
+                        <th data-options="field:'_operate',width:80,formatter:styleFormatOpera,align:'center'">操作</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>

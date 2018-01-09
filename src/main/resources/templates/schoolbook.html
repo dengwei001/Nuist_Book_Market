@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" type="text/css" href="./easyui/themes/bootstrap/easyui.css"/>
+    <link rel="stylesheet" type="text/css" href="./easyui/themes/icon.css"/>
+    <link rel="stylesheet" type="text/css" href="./css/common.css"/>
+    <script type="text/javascript" src="./easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="./easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="./js/schoolbook.js"></script>
+
+    <title>BookList</title>
+    <!--修改ui样式-->
+    <style>
+        .panel-body {
+            background-color: #f5ff51;
+            color: #333;
+            font-size: 12px;
+        }
+        .datagrid-row-selected {
+            background: #FF9900;
+            color: #fff;
+        }
+        .datagrid-footer td {
+            border-width: 0 0px 1px 0;
+            border-style: none ;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+
+</head>
+<body style="margin: 0px">
+
+        <div id="queryParam" style="width:100%;padding: 15px 15px 15px 15px;background: url('')">
+
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <label>学院:</label><input id="college" class="easyui-combobox " style="width:100px;height:32px;"/>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <label>专业:</label><input id="specialty" class="easyui-combobox" style="width:100px;height:32px;"/>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <label>出版社:</label><input id="press" class="easyui-combobox" style="width:100px;height:32px;"/>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <label>书名:</label><input id="bookName" class="easyui-textbox" style="width:100px;height:32px;"/>
+
+            <a href="javascript:void(0)" data-options="iconCls:'icon-search'" class="easyui-linkbutton" onclick="querySchoolBook()"> </a>
+
+        </div>
+
+    <div style="width: 100%;height: 100%">
+        <table id="bookGrid" class="easyui-datagrid"
+               data-options="singleSelect:true,collapsible:true,method:'get'">
+            <thead>
+            <tr>
+                <th data-options="field:'IMAGE',width:100,formatter:formatImg,align:'center'">缩略图</th>
+                <th data-options="field:'BOOK_ID',width:100,align:'center'">ID</th>
+                <th data-options="field:'BOOK_NAME',width:100,align:'center'">书名</th>
+                <th data-options="field:'COLLEGE',width:100,align:'center'">学院</th>
+                <th data-options="field:'SPECIALTY',width:100,align:'center'">专业</th>
+                <th data-options="field:'AUTHOR',width:100,align:'center'">作者</th>
+                <th data-options="field:'PRESS',width:100,align:'center'">出版社</th>
+                <th data-options="field:'SELLER',width:100,align:'center'">卖家</th>
+                <th data-options="field:'PRICE',width:100,align:'center'">价格</th>
+                <th data-options="field:'_operate',width:80,formatter:formatOpera,align:'center'">购买</th>
+            </tr>
+            </thead>
+        </table>
+    </div>
+        <div id="detail" class="easyui-dialog" title="详情" data-options="" style="width:600px;height:350px;padding:10px">
+            <div style="width: 270px;height:300px;float: left">
+                <img id="bigImg" src="" style="width: 260px;" />
+            </div>
+            <div style="width: 270px;height:300px;float: left;">
+                <b>新旧度：</b><span id="old"></span><br/><br/>
+                <b>破损：</b><span id="damage"></span><br/><br/>
+                <b>简介：</b><span id="abstract"></span>
+            </div>
+        </div>
+</body>
+</html>

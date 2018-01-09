@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nuist.bookMarket.mapper.NovelMapper">
+  <select id="selectNovel" resultType="java.util.HashMap">
+    SELECT * FROM novel
+    <where>
+      <if test="BOOK_ID!=null and BOOK_ID!=''">
+        BOOK_ID = #{BOOK_ID}
+      </if>
+      <if test="BOOK_NAME != null and BOOK_NAME != ''">
+        AND BOOK_NAME LIKE CONCAT('%',#{BOOK_NAME},'%')
+      </if>
+      <if test="STYLE!=null and STYLE!='' and STYLE !='全部'">
+        AND STYLE = #{STYLE}
+      </if>
+      <if test="PRESS!=null and PRESS!='' and PRESS !='全部'">
+        AND PRESS = #{PRESS}
+      </if>
+    </where>
+  </select>
+
+  <insert id="insertNovel">
+    INSERT INTO novel (BOOK_ID,BOOK_NAME,STYLE,SELLER,AUTHOR,PRESS,PRICE,IMAGE,SELLER_ID)
+    VALUES (#{BOOK_ID},#{BOOK_NAME},#{STYLE},#{SELLER},#{AUTHOR},#{PRESS},#{PRICE},#{IMAGE},#{SELLER_ID})
+  </insert>
+
+  <select id="selectBySellerId" resultType="java.util.HashMap">
+        SELECT * FROM novel WHERE SELLER_ID = #{SELLER_ID}
+  </select>
+
+</mapper>

@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" type="text/css" href="./easyui/themes/bootstrap/easyui.css"/>
+    <link rel="stylesheet" type="text/css" href="./easyui/themes/icon.css"/>
+    <link rel="stylesheet" type="text/css" href="./css/mystore.css"/>
+    <script type="text/javascript" src="./easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="./easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="./js/myStore.js"></script>
+    <title>Title</title>
+</head>
+<body>
+    <iframe id="hide" name="hide" src="" style="display: none"></iframe>
+    <div>
+        <input type="button" id="button" value="我要卖书" onclick="sellBook()"/>
+    </div>
+    <div>
+        <div id="schoolDiv">
+            <table id="schoolBook" class="easyui-datagrid" data-options="singleSelect:true,collapsible:true,method:'get'" style="height: auto">
+                <thead>
+                    <tr>
+                        <th data-options="field:'BOOK_ID',width:100,align:'center'">ID</th>
+                        <th data-options="field:'IMAGE',width:100,formatter:formatImg,align:'center'">缩略图</th>
+                        <th data-options="field:'BOOK_NAME',width:100,align:'center'">书名</th>
+                        <th data-options="field:'COLLEGE',width:100,align:'center'">学院</th>
+                        <th data-options="field:'SPECIALTY',width:100,align:'center'">专业</th>
+                        <th data-options="field:'AUTHOR',width:100,align:'center'">作者</th>
+                        <th data-options="field:'PRESS',width:100,align:'center'">出版社</th>
+                        <th data-options="field:'SELLER',width:100,align:'center'">卖家</th>
+                        <th data-options="field:'PRICE',width:100,align:'center'">价格</th>
+                        <!--<th data-options="field:'_operate',width:80,formatter:formatOpera,align:'center'">购买</th>-->
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <div id="referenceDiv">
+            <table id="reference" class="easyui-datagrid"
+                   data-options="singleSelect:true,collapsible:true,method:'get'">
+                <thead>
+                    <tr>
+                        <th data-options="field:'BOOK_ID',width:100,align:'center'">ID</th>
+                        <th data-options="field:'IMAGE',width:100,formatter:formatImg,align:'center'">缩略图</th>
+                        <th data-options="field:'BOOK_NAME',width:100,align:'center'">书名</th>
+                        <th data-options="field:'TYPE',width:100,align:'center'">类型</th>
+                        <th data-options="field:'AUTHOR',width:100,align:'center'">作者</th>
+                        <th data-options="field:'PRESS',width:100,align:'center'">出版社</th>
+                        <th data-options="field:'SELLER',width:100,align:'center'">卖家</th>
+                        <th data-options="field:'PRICE',width:100,align:'center'">价格</th>
+                        <!--<th data-options="field:'_operate',width:80,formatter:formatOpera,align:'center'">购买</th>-->
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <div id="novelDiv">
+            <table id="novel" class="easyui-datagrid"
+                   data-options="singleSelect:true,collapsible:true,method:'get'">
+                <thead>
+                    <tr>
+                        <th data-options="field:'BOOK_ID',width:100,align:'center'">ID</th>
+                        <th data-options="field:'IMAGE',width:100,formatter:formatImg,align:'center'">缩略图</th>
+                        <th data-options="field:'BOOK_NAME',width:100,align:'center'">书名</th>
+                        <th data-options="field:'STYLE',width:100,align:'center'">类型</th>
+                        <th data-options="field:'AUTHOR',width:100,align:'center'">作者</th>
+                        <th data-options="field:'PRESS',width:100,align:'center'">出版社</th>
+                        <th data-options="field:'SELLER',width:100,align:'center'">卖家</th>
+                        <th data-options="field:'PRICE',width:100,align:'center'">价格</th>
+                        <!--<th data-options="field:'_operate',width:80,formatter:formatOpera,align:'center'">购买</th>-->
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+    <div id="upLoad" class="easyui-dialog" title="上传书籍" data-options="" style="width:700px;height:500px;padding:10px">
+        <div style="text-align: center;">
+            <label class="cus-label">
+                <input class="cus-radio" type="radio" name="demo-radio" checked="checked" onclick="chooseDiv('schoolBook')" />
+                <span class="cus-radioInput"></span><font size="3">教科书籍</font>
+            </label>
+            <label class="cus-label">
+                <input class="cus-radio" type="radio" name="demo-radio" onclick="chooseDiv('reference')" />
+                <span class="cus-radioInput"></span><font size="3">拓展读物</font>
+            </label>
+            <label class="cus-label">
+                <input class="cus-radio" type="radio" name="demo-radio" onclick="chooseDiv('novel')" />
+                <span class="cus-radioInput"></span><font size="3">名著小说</font>
+            </label>
+        </div>
+        <div id="schoolBookUpLoad" style="margin-top: 30px">
+            <form id="schoolForm" action="/book_market/myStore/upLoadBook" method="post" enctype="multipart/form-data" style="text-align: center" target="hide" onsubmit="return validateUpLoadForm('schoolBook')">
+                <table cellpadding="0" width="500px" style="margin: auto">
+                    <tr align="center">
+                        <td>学院：</td>
+                        <td><input id="college" name="COLLEGE" class="easyui-combobox " style="width:150px;height:32px;"/></td>
+                        <td>专业：</td>
+                        <td><input id="specialty" name="SPECIALTY" class="easyui-combobox" style="width:150px;height:32px;"/></td>
+                    </tr>
+                    <tr align="center">
+                        <td>出版社：</td>
+                        <td><input id="schoolPress" name="PRESS" class="easyui-combobox" style="width:150px;height:32px;"/></td>
+                        <td>新旧度：</td>
+                        <td>
+                            <select id="old" class="easyui-combobox" style="width:150px;height:32px;"
+                                   name="OLD" data-options="editable:false">
+                                <option value="五成新" selected="selected">五成新</option>
+                                <option value="六成新">六成新</option>
+                                <option value="七成新">七成新</option>
+                                <option value="八成新">八成新</option>
+                                <option value="九成新">九成新</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr align="center">
+                        <td>破损：</td>
+                        <td>
+                            <select id="damage" class="easyui-combobox" style="width:150px;height:32px;"
+                                   name="DAMAGE" data-options="editable:false">
+                                <option value="无破损" selected="selected">无破损</option>
+                                <option value="轻微破损">轻微破损</option>
+                                <option value="有破损">有破损</option>
+                                <option value="破损较严重">破损较严重</option>
+                            </select>
+                        </td>
+                        <td>作者：</td>
+                        <td><input id="schAuthor" class="easyui-textbox" style="width:150px;height:32px;"
+                            name="AUTHOR" data-options="required:true"/></td>
+                    </tr>
+                    <tr align="center">
+                        <td>书名：</td>
+                        <td><input id="schBookName" class="easyui-textbox" style="width:150px;height:32px;"                                    name="BOOK_NAME" data-options="required:true"/></td>
+                        <td>价格：</td>
+                        <td><input id="schPrice" class="easyui-textbox" style="width:150px;height:32px;"
+                            name="PRICE" data-options="required:true"/></td>
+                    </tr>
+                    <tr align="center">
+                        <td >书图：</td>
+                        <td ><input class="easyui-filebox" name="file" data-options="buttonText:'选择文件', accept:'image/jpeg' "
+                                   style="width:150px;height:32px;"/></td>
+                    </tr>
+                    <tr>
+                        <td>简介：</td>
+                        <td colspan="3">
+                            <input id="schAbstract" class="easyui-textbox" name="ABSTRACT" data-options="multiline:true,required:true" style="width: 400px;height: 150px" />
+                        </td>
+                    </tr>
+                    <tr align="center">
+                        <td colspan="4"><input type="submit" id="button" value="上传" /></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+        <div id="referenceUpLoad" style="margin-top: 30px">
+            <form id="referenceForm" method="post" enctype="multipart/form-data" style="text-align: center" action="/book_market/myStore/upLoadBook" target="hide" onsubmit="return validateUpLoadForm('reference')">
+                <table cellpadding="0" width="500px" style="margin: auto">
+                    <tr align="center">
+                        <td>类型：</td>
+                        <td><input id="type" name="TYPE" class="easyui-combobox" style="width:150px;height:32px;"/></td>
+                        <td>出版社：</td>
+                        <td><input id="referencePress" name="PRESS" class="easyui-combobox" style="width:150px;height:32px;"/></td>
+                    </tr>
+                    <tr align="center">
+                        <td>新旧度：</td>
+                        <td>
+                            <select id="old" name="OLD" class="easyui-combobox" style="width:150px;height:32px;"
+                                    data-options="editable:false">
+                                <option value="五成新" selected="selected">五成新</option>
+                                <option value="六成新">六成新</option>
+                                <option value="七成新">七成新</option>
+                                <option value="八成新">八成新</option>
+                                <option value="九成新">九成新</option>
+                            </select>
+                        </td>
+                        <td>破损：</td>
+                        <td>
+                            <select id="damage" name="DAMAGE" class="easyui-combobox" style="width:150px;height:32px;"
+                                    data-options="editable:false">
+                                <option value="无破损" selected="selected">无破损</option>
+                                <option value="轻微破损">轻微破损</option>
+                                <option value="有破损">有破损</option>
+                                <option value="破损较严重">破损较严重</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr align="center">
+                        <td>作者：</td>
+                        <td><input id="refAuthor" name="AUTHOR" class="easyui-textbox" style="width:150px;height:32px;"
+                            data-options="required:true"/></td>
+
+                        <td>书名：</td>
+                        <td><input id="refBookName" name="BOOK_NAME" class="easyui-textbox" style="width:150px;height:32px;"
+                            data-options="required:true"/></td>
+                    </tr>
+                    <tr align="center">
+                        <td>价格：</td>
+                        <td><input id="refPrice" name="PRICE" class="easyui-textbox" style="width:150px;height:32px;"
+                         data-options="required:true"/></td>
+                        <td >书图：</td>
+                        <td ><input class="easyui-filebox" name="file" data-options="buttonText:'选择文件', accept:'image/jpeg' "
+                                    style="width:150px;height:32px;"/></td>
+                    </tr>
+                    <tr>
+                        <td>简介：</td>
+                        <td colspan="3">
+                            <input id="refAbstract" class="easyui-textbox" name="ABSTRACT" data-options="multiline:true,required:true" style="width: 400px;height: 150px" />
+                        </td>
+                    </tr>
+                    <tr align="center">
+                        <td colspan="4"><input type="submit" id="button" value="上传"/></td>
+                    </tr>
+
+                </table>
+            </form>
+        </div>
+        <div id="novelUpLoad" style="margin-top: 30px">
+            <form id="novelForm" method="post" enctype="multipart/form-data" style="text-align: center" action="/book_market/myStore/upLoadBook" target="hide" onsubmit="return validateUpLoadForm('novel')">
+                <table cellpadding="0" width="500px" style="margin: auto">
+                    <tr align="center">
+                        <td>类型：</td>
+                        <td><input id="style" name="STYLE" class="easyui-combobox" style="width:150px;height:32px;"/></td>
+                        <td>出版社：</td>
+                        <td><input id="novelPress" name="PRESS" class="easyui-combobox" style="width:150px;height:32px;"/></td>
+                    </tr>
+                    <tr align="center">
+                        <td>新旧度：</td>
+                        <td>
+                            <select id="old" name="OLD" class="easyui-combobox" style="width:150px;height:32px;"
+                                    data-options="editable:false">
+                                <option value="五成新" selected="selected">五成新</option>
+                                <option value="六成新">六成新</option>
+                                <option value="七成新">七成新</option>
+                                <option value="八成新">八成新</option>
+                                <option value="九成新">九成新</option>
+                            </select>
+                        </td>
+                        <td>破损：</td>
+                        <td>
+                            <select id="damage" name="DAMAGE" class="easyui-combobox" style="width:150px;height:32px;" data-options="editable:false">
+                                <option value="无破损" selected="selected">无破损</option>
+                                <option value="轻微破损">轻微破损</option>
+                                <option value="有破损">有破损</option>
+                                <option value="破损较严重">破损较严重</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr align="center">
+                        <td>作者：</td>
+                        <td><input id="novelAuthor" name="AUTHOR" class="easyui-textbox" style="width:150px;height:32px;"
+                            data-options="required:true"/></td>
+
+                        <td>书名：</td>
+                        <td><input id="novelBookName" name="BOOK_NAME" class="easyui-textbox" style="width:150px;height:32px;"
+                            data-options="required:true"/></td>
+                    </tr>
+                    <tr align="center">
+                        <td>价格：</td>
+                        <td><input id="novelPrice" name="PRICE" class="easyui-textbox" style="width:150px;height:32px;"
+                            data-options="required:true"/></td>
+                        <td >书图：</td>
+                        <td ><input class="easyui-filebox" name="file" data-options="buttonText:'选择文件', accept:'image/jpeg' " style="width:150px;height:32px;"/></td>
+                    </tr>
+                    <tr>
+                        <td>简介：</td>
+                        <td colspan="3">
+                            <input id="novelAbstract" class="easyui-textbox" name="ABSTRACT" data-options="multiline:true,required:true" style="width: 400px;height: 150px" />
+                        </td>
+                    </tr>
+                    <tr align="center">
+                        <td colspan="4"><input type="submit" id="button" value="上传"/></td>
+                    </tr>
+
+                </table>
+
+
+            </form>
+        </div>
+
+    </div>
+</body>
+</html>

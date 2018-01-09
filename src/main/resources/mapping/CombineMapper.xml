@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nuist.bookMarket.mapper.CombineMapper">
+    <select id="selectByBookId" resultType="java.util.HashMap">
+        SELECT * FROM  detail WHERE  BOOK_ID = #{BOOK_ID}
+    </select>
+    
+    <insert id="insertDetail">
+        INSERT INTO detail (BOOK_ID,ABSTRACT,OLD,BIGIMAGE,DAMAGE)
+        VALUES (#{BOOK_ID},#{ABSTRACT},#{OLD},#{BIGIMAGE},#{DAMAGE})
+    </insert>
+
+</mapper>

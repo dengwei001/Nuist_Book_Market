@@ -1,0 +1,13 @@
+*{margin:0;padding:0;list-style-type:none;}
+body{background-color:#fff;font-size:18px;font-family:"Arial","Tahoma","微软雅黑","雅黑";line-height:18px;padding:0px;margin:0px;text-align:left;}
+a{display:block;float:left;}del, div.clear{height:0px;font-size:0px;line-height:0px;padding:0px;margin:0px;display:block;clear:both;overflow:hidden;}
+#navigation{width:100%;text-align:left;margin:auto auto auto auto;}
+/*导航*/
+.menu10{font-size:14px;line-height:14px;background:blue  repeat-x left top;
+    margin-bottom:0px;}
+.menu10 .center10{width:100%;height:46px;background: #0E2D5F;float:left;}
+.menu10 a:link{height:26px;width:80px;background:url("/book_market/images/aback.jpg") repeat-x left top; text-decoration:none;color:#fff;padding:20px 40px 0px 40px;}
+.menu10 a:visited{height:26px;background:deepskyblue; text-decoration:none;color:#fff;padding:20px 40px 0px 40px;}
+.menu10 a:hover{ background:blueviolet;color:white;background-position:left -46px;}
+.menu10 a:active{color:white;background-position:left -46px;}
+

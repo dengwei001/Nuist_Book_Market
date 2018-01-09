@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nuist.bookMarket.mapper.SchoolBookMapper">
+  <select id="selectAll" resultType="java.util.HashMap">
+    SELECT * FROM schoolbook
+  </select>
+
+  <select id="querySchoolBook"  resultType="java.util.HashMap">
+    SELECT * FROM schoolbook
+    <where>
+      1=1
+      <if test="SPECIALTY != null and SPECIALTY != '' and SPECIALTY != '全部'">
+        AND SPECIALTY=#{SPECIALTY}
+      </if>
+      <if test="COLlEGE != '全部' and COLLEGE != null and COLLEGE != ''">
+      AND COLLEGE=#{COLLEGE}
+      </if>
+      <if test="PRESS != null and PRESS != '' and PRESS != '全部'">
+        AND PRESS=#{PRESS}
+      </if>
+      <if test="BOOK_NAME != null and BOOK_NAME != ''">
+        AND BOOK_NAME LIKE CONCAT('%',#{BOOK_NAME},'%')
+      </if>
+    </where>
+  </select>
+
+  <insert id="insertSchoolBook">
+    INSERT INTO schoolbook (BOOK_ID,BOOK_NAME,COLLEGE,SPECIALTY,SELLER,AUTHOR,PRESS,PRICE,IMAGE,SELLER_ID)
+    VALUES (#{BOOK_ID},#{BOOK_NAME},#{COLLEGE},#{SPECIALTY},#{SELLER},#{AUTHOR},#{PRESS},#{PRICE},#{IMAGE},#{SELLER_ID})
+  </insert>
+  
+  <select id="selectBySellerId" resultType="java.util.HashMap">
+    SELECT * FROM schoolbook WHERE SELLER_ID = #{SELLER_ID}
+  </select>
+
+</mapper>

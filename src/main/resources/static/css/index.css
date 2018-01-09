@@ -1,0 +1,26 @@
+
+html { overflow-x:hidden; }
+html { overflow-y:hidden; }
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    /*background:url("/book_market/images/left3.jpg") repeat-y center top;*/
+
+}
+
+li a {
+    display: block;
+    color: #000;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+/* 鼠标移动到选项上修改背景颜色 */
+li a:hover {
+    background-color: #555;
+    color: white;
+}
+

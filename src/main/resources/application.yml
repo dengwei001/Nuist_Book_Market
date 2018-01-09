@@ -1,0 +1,42 @@
+spring:
+  thymeleaf:
+    prefix: classpath:/templates/
+    cache: false
+  activemq:
+    pool:
+      configuration:
+        block-if-session-pool-is-full-timeout:
+
+server:
+  port: 8080
+
+boot:
+  datasource:
+      url: jdbc:mysql://120.79.93.1:3306/book_trade?serverTimezone=UTC&autoReconnect=true&useUnicode=true&characterEncoding=utf8
+      username: root
+      password: root
+      driverClassName: com.mysql.jdbc.Driver
+      validationQuery: select 1
+      maxActive: 20
+      maxIdle: 5
+      minIdle: 1
+      initialSize: 4
+      testOnReturn: false
+      testWhileIdle: true
+      testOnBorrow: false
+      logAbandoned: false
+      timeBetweenEvictionRunsMillis: 600000
+      minEvictableIdleTimeMillis: 600000
+      removeAbandoned: true
+
+mybatis:
+  mapper-locations: classpath:mapping/*.xml
+  type-aliases-package: com.nuist.bookMarket.model
+
+#pagehelper
+pagehelper:
+    helperDialect: mysql
+    reasonable: true
+    supportMethodsArguments: true
+    params: count=countSql
+

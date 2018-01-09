@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nuist.bookMarket.mapper.ParamAdminMapper">
+
+  <select id="selectSpecialty" resultType="java.util.HashMap">
+    SELECT DISTINCT * FROM specialty WHERE COLLEGE_CODE=#{COLLEGE_CODE}
+  </select>
+
+  <select id="selectPress" resultType="java.util.HashMap">
+    SELECT DISTINCT * FROM press
+  </select>
+
+  <select id="selColByColName" resultType="java.util.HashMap">
+    SELECT * FROM college WHERE COLLEGE = #{COLLEGE}
+  </select>
+
+  <select id="selSpeBySpeName" resultType="java.util.HashMap">
+    SELECT * FROM specialty WHERE SPECIALTY = #{SPECIALTY} AND COLLEGE_CODE = #{COLLEGE_CODE}
+  </select>
+
+  <select id="selPressByPressName" resultType="java.util.HashMap">
+    SELECT * FROM press WHERE PRESS = #{PRESS}
+  </select>
+
+  <select id="selectCollege" resultType="java.util.HashMap">
+    SELECT DISTINCT * FROM college
+  </select>
+
+  <insert id="insertCollege">
+    INSERT INTO college (COLLEGE_CODE,COLLEGE,CREATE_TIME,END_TIME)
+    VALUES (#{COLLEGE_CODE},#{COLLEGE},#{CREATE_TIME},#{END_TIME})
+  </insert>
+
+  <insert id="insertSpecialty">
+    INSERT INTO specialty (SPECIALTY_CODE,SPECIALTY,COLLEGE_CODE,CREATE_TIME,END_TIME)
+    VALUES (#{SPECIALTY_CODE},#{SPECIALTY},#{COLLEGE_CODE},#{CREATE_TIME},#{END_TIME})
+  </insert>
+
+  <insert id="insertPress">
+    INSERT INTO press (PRESS_CODE,PRESS,CREATE_TIME,END_TIME)
+    VALUES (#{PRESS_CODE},#{PRESS},#{CREATE_TIME},#{END_TIME})
+  </insert>
+
+  <delete id="delColByColCode">
+    DELETE FROM college WHERE COLLEGE_CODE = #{COLLEGE_CODE}
+  </delete>
+
+  <delete id="delSpeBySpeCode">
+    DELETE FROM specialty WHERE SPECIALTY_CODE = #{SPECIALTY_CODE}
+  </delete>
+
+  <delete id="delPressByPressCode">
+    DELETE FROM press WHERE PRESS_CODE = #{PRESS_CODE}
+  </delete>
+
+  <select id="selectType" resultType="java.util.HashMap">
+    SELECT DISTINCT * FROM ref_type
+  </select>
+
+  <delete id="delTypeByTypeCode">
+    DELETE FROM ref_type WHERE TYPE_CODE = #{TYPE_CODE}
+  </delete>
+
+  <insert id="insertType">
+    INSERT INTO ref_type (TYPE_CODE,TYPE,CREATE_TIME,END_TIME)
+    VALUES (#{TYPE_CODE},#{TYPE},#{CREATE_TIME},#{END_TIME})
+  </insert>
+
+  <select id="selTypeByTypeName" resultType="java.util.HashMap">
+    SELECT * FROM ref_type WHERE TYPE = #{TYPE}
+  </select>
+
+  <select id="selectStyle" resultType="java.util.HashMap">
+    SELECT DISTINCT * FROM nov_style
+  </select>
+
+  <delete id="delStyleByStyleCode">
+    DELETE FROM nov_style WHERE STYLE_CODE = #{STYLE_CODE}
+  </delete>
+
+  <insert id="insertStyle">
+    INSERT INTO nov_style (STYLE_CODE,STYLE,CREATE_TIME,END_TIME)
+    VALUES (#{STYLE_CODE},#{STYLE},#{CREATE_TIME},#{END_TIME})
+  </insert>
+
+  <select id="selStyleByStyleName" resultType="java.util.HashMap">
+    SELECT * FROM nov_style WHERE STYLE = #{STYLE}
+  </select>
+
+  <select id="selectCollegeByCode" resultType="java.util.HashMap">
+    SELECT COLLEGE FROM college WHERE COLLEGE_CODE = #{COLLEGE_CODE}
+  </select>
+
+  <select id="selectSpecialtyByCode" resultType="java.util.HashMap">
+    SELECT SPECIALTY FROM specialty WHERE SPECIALTY_CODE = #{SPECIALTY_CODE}
+  </select>
+
+  <select id="selectPressByCode" resultType="java.util.HashMap">
+    SELECT PRESS FROM press WHERE PRESS_CODE = #{PRESS_CODE}
+  </select>
+
+  <select id="selectTypeByCode" resultType="java.util.HashMap">
+    SELECT TYPE FROM ref_type WHERE TYPE_CODE = #{TYPE_CODE}
+  </select>
+
+  <select id="selectStyleByCode" resultType="java.util.HashMap">
+    SELECT STYLE FROM nov_style WHERE STYLE_CODE = #{STYLE_CODE}
+  </select>
+
+</mapper>

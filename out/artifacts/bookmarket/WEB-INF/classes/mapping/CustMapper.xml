@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nuist.bookmMarket.mapper.CustMapper" >
+  <!--<resultMap id="BaseResultMap" type="com.nuist.bookmMarket.model.Cust" >-->
+    <!--<id column="CUST_ID" property="custId" jdbcType="INTEGER" />-->
+    <!--<result column="CUST_NAME" property="custName" jdbcType="VARCHAR" />-->
+    <!--<result column="PASSWORD" property="password" jdbcType="INTEGER" />-->
+    <!--<result column="CUST_RIGHT" property="custRight" jdbcType="INTEGER" />-->
+  <!--</resultMap>-->
+  <sql id="Base_Column_List" >
+    CUST_ID, CUST_NAME, PASSWORD, CUST_RIGHT
+  </sql>
+  <select id="selectByPrimaryKey" resultType="java.util.HashMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where CUST_ID = #{custId,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectAll" resultType="java.util.HashMap">
+    SELECT * FROM user;
+  </select>
+
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user
+    where CUST_ID = #{custId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.nuist.bookmMarket.model.Cust" >
+    insert into user (CUST_ID, CUST_NAME, PASSWORD, 
+      CUST_RIGHT)
+    values (#{custId,jdbcType=INTEGER}, #{custName,jdbcType=VARCHAR}, #{password,jdbcType=INTEGER}, 
+      #{custRight,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.nuist.bookmMarket.model.Cust" >
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="custId != null" >
+        CUST_ID,
+      </if>
+      <if test="custName != null" >
+        CUST_NAME,
+      </if>
+      <if test="password != null" >
+        PASSWORD,
+      </if>
+      <if test="custRight != null" >
+        CUST_RIGHT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="custId != null" >
+        #{custId,jdbcType=INTEGER},
+      </if>
+      <if test="custName != null" >
+        #{custName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=INTEGER},
+      </if>
+      <if test="custRight != null" >
+        #{custRight,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.nuist.bookmMarket.model.Cust" >
+    update user
+    <set >
+      <if test="custName != null" >
+        CUST_NAME = #{custName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        PASSWORD = #{password,jdbcType=INTEGER},
+      </if>
+      <if test="custRight != null" >
+        CUST_RIGHT = #{custRight,jdbcType=INTEGER},
+      </if>
+    </set>
+    where CUST_ID = #{custId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.nuist.bookmMarket.model.Cust" >
+    update user
+    set CUST_NAME = #{custName,jdbcType=VARCHAR},
+      PASSWORD = #{password,jdbcType=INTEGER},
+      CUST_RIGHT = #{custRight,jdbcType=INTEGER}
+    where CUST_ID = #{custId,jdbcType=INTEGER}
+  </update>
+</mapper>
