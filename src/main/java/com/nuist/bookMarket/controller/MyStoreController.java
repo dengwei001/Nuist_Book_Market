@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Controller
 @RequestMapping("/myStore")
@@ -77,27 +78,24 @@ public class MyStoreController {
     @RequestMapping("/getMyBook")
     @ResponseBody
     public Object getMyBook(@RequestParam Map param){
+        int page = Integer.parseInt((String) param.get("page"));
+        int rows = Integer.parseInt((String) param.get("rows"));
         User user = (User) SecurityUtils.getSubject().getPrincipal();
         param.put("SELLER_ID",user.getUserid());
-        List list = new ArrayList();
-        switch ((String)param.get("book")){
-            case "schoolBook":
-                PageHelper.startPage(Integer.parseInt(param.get("page").toString()),Integer.parseInt(param.get("rows").toString()),true);
-                list =  schoolBookService.queryBySellerId(param);
-                break;
-            case "reference":
-                PageHelper.startPage(Integer.parseInt(param.get("page").toString()),Integer.parseInt(param.get("rows").toString()),true);
-                list =  referenceService.queryBySellerId(param);
-                break;
-            case "novel":
-                PageHelper.startPage(Integer.parseInt(param.get("page").toString()),Integer.parseInt(param.get("rows").toString()),true);
-                list =  novelService.queryBySellerId(param);
-                break;
-            default:
+        List list1 = schoolBookService.queryBySellerId(param);
+        List list2 =  referenceService.queryBySellerId(param);
+        List list3 =  novelService.queryBySellerId(param);
+        list1.addAll(list2);
+        list1.addAll(list3);
+        int total = list1.size();
+        if (page*rows>total){
+            list1 = list1.subList((page-1)*rows,list1.size());
+        }else {
+            list1 = list1.subList((page-1)*rows,page*rows);
         }
         Map<String,Object> resultMap = new HashMap<>();
-        resultMap.put("total",Integer.parseInt(String.valueOf(new PageInfo(list).getTotal())));
-        resultMap.put("rows",list);
+        resultMap.put("total",total);
+        resultMap.put("rows",list1);
         return resultMap;
     }
 }

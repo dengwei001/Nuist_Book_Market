@@ -10,6 +10,7 @@ import com.nuist.bookMarket.mapper.ParamAdminMapper;
 import com.nuist.bookMarket.mapper.SchoolBookMapper;
 import com.nuist.bookMarket.mapper.UserMapper;
 import com.nuist.bookMarket.model.User;
+import com.nuist.bookMarket.service.JSONArrayService;
 import com.nuist.bookMarket.util.MD5Utils;
 import com.nuist.bookMarket.util.SequenceUtils;
 import org.junit.Test;
@@ -19,11 +20,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
 
 import javax.sql.DataSource;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,6 +47,10 @@ public class BookMarketApplicationTests {
 	private SequenceUtils sequenceUtils;
 	@Autowired
 	private ParamAdminMapper paramAdminMapper;
+	@Autowired
+	private JedisPool jedisPool;
+	@Autowired
+	JSONArrayService jsonArrayService;
 
 
 	@Test
@@ -114,5 +122,52 @@ public class BookMarketApplicationTests {
 		jsonArray.add(map);
 		logger.debug(jsonArray.toJSONString());
 
+	}
+
+	@Test
+	public void testJedisPool() {
+		Jedis jedis = jedisPool.getResource();
+		logger.debug(jedis.get("dengwei"));
+		List list = schoolBookMapper.selectAll();
+		jedis.lpush("testList", String.valueOf(list));
+		logger.debug(String.valueOf(jedis.lrange("testList",0,-1)));
+		jedis.hmset("testMap", (Map<String, String>) list.get(0));
+		for (int i=0;i<list.size();i++){
+			jedis.lpush("testList", String.valueOf(list.get(i)));
+		}
+		jedis.hset("testMap2","1234", String.valueOf(list.get(0)));
+	}
+
+	@Test
+	public void testJSONArray(){
+		List book = schoolBookMapper.selectAll();
+		JSONArray jsonBook = new JSONArray(book);
+		logger.debug(String.valueOf(jsonBook));
+		//删除
+		jsonBook = jsonArrayService.del(jsonBook,"BOOK_ID","180107100000071");
+		Jedis jedis = jedisPool.getResource();
+		jedis.set("userId", String.valueOf(jsonBook));
+		//更新
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("BOOK_NAME","001");
+		jsonObject.put("BOOK_ID","123132131321");
+		JSONArray jsonArrayUp = jsonArrayService.update(jsonBook,jsonObject,"BOOK_ID");
+		logger.debug(String.valueOf(jsonArrayUp));
+		logger.debug(String.valueOf(jsonBook));
+		//查询
+		JSONObject jsonObject1 = jsonArrayService.query(jsonBook,"BOOK_ID","123132131321");
+		logger.debug(String.valueOf(jsonObject1));
+		String gou = jedis.get("1234");
+		logger.debug(gou);
+		JSONArray gouJSON;
+		if (gou!=null){
+			gouJSON = JSONArray.parseArray(gou);
+			gouJSON.add(jsonObject);
+
+		}else {
+			gouJSON = new JSONArray();
+			gouJSON.add(jsonObject);
+		}
+		logger.debug(String.valueOf(gouJSON));
 	}
 }

@@ -2,9 +2,12 @@ package com.nuist.bookMarket.config;
 
 import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
+import redis.clients.jedis.JedisPool;
+import redis.clients.jedis.JedisPoolConfig;
 
 import javax.sql.DataSource;
 
@@ -12,6 +15,7 @@ import javax.sql.DataSource;
  * Created by lenovo on 2017/8/10.
  */
 @Configuration
+@EnableCaching
 public class DataSourceConfig {
 
     @Autowired
@@ -42,5 +46,19 @@ public class DataSourceConfig {
         return dataSource;
     }
 
+    //注册redis数据库
+    @Bean("jedisPool")
+    public JedisPool redisPoolFactory() {
+        JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
+        jedisPoolConfig.setMaxTotal(Integer.parseInt(env.getProperty("redis.maxTotal")));
+        jedisPoolConfig.setMaxIdle(Integer.parseInt(env.getProperty("redis.maxIdle")));
+        jedisPoolConfig.setMaxWaitMillis(Long.parseLong(env.getProperty("redis.maxWait")));
+        jedisPoolConfig.setTestOnBorrow(Boolean.parseBoolean(env.getProperty("redis.testOnBorrow")));
+        JedisPool jedisPool = new JedisPool(jedisPoolConfig,
+                                            env.getProperty("redis.host"),
+                                            Integer.parseInt(env.getProperty("redis.port")),
+                                            Integer.parseInt(env.getProperty("redis.timeout")));
+        return jedisPool;
+    }
 
 }

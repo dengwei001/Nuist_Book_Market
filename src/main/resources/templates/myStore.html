@@ -16,61 +16,26 @@
         <input type="button" id="button" value="我要卖书" onclick="sellBook()"/>
     </div>
     <div>
-        <div id="schoolDiv">
-            <table id="schoolBook" class="easyui-datagrid" data-options="singleSelect:true,collapsible:true,method:'get'" style="height: auto">
-                <thead>
-                    <tr>
-                        <th data-options="field:'BOOK_ID',width:100,align:'center'">ID</th>
-                        <th data-options="field:'IMAGE',width:100,formatter:formatImg,align:'center'">缩略图</th>
-                        <th data-options="field:'BOOK_NAME',width:100,align:'center'">书名</th>
-                        <th data-options="field:'COLLEGE',width:100,align:'center'">学院</th>
-                        <th data-options="field:'SPECIALTY',width:100,align:'center'">专业</th>
-                        <th data-options="field:'AUTHOR',width:100,align:'center'">作者</th>
-                        <th data-options="field:'PRESS',width:100,align:'center'">出版社</th>
-                        <th data-options="field:'SELLER',width:100,align:'center'">卖家</th>
-                        <th data-options="field:'PRICE',width:100,align:'center'">价格</th>
-                        <!--<th data-options="field:'_operate',width:80,formatter:formatOpera,align:'center'">购买</th>-->
-                    </tr>
-                </thead>
-            </table>
-        </div>
-        <div id="referenceDiv">
-            <table id="reference" class="easyui-datagrid"
-                   data-options="singleSelect:true,collapsible:true,method:'get'">
-                <thead>
-                    <tr>
-                        <th data-options="field:'BOOK_ID',width:100,align:'center'">ID</th>
-                        <th data-options="field:'IMAGE',width:100,formatter:formatImg,align:'center'">缩略图</th>
-                        <th data-options="field:'BOOK_NAME',width:100,align:'center'">书名</th>
-                        <th data-options="field:'TYPE',width:100,align:'center'">类型</th>
-                        <th data-options="field:'AUTHOR',width:100,align:'center'">作者</th>
-                        <th data-options="field:'PRESS',width:100,align:'center'">出版社</th>
-                        <th data-options="field:'SELLER',width:100,align:'center'">卖家</th>
-                        <th data-options="field:'PRICE',width:100,align:'center'">价格</th>
-                        <!--<th data-options="field:'_operate',width:80,formatter:formatOpera,align:'center'">购买</th>-->
-                    </tr>
-                </thead>
-            </table>
-        </div>
-        <div id="novelDiv">
-            <table id="novel" class="easyui-datagrid"
-                   data-options="singleSelect:true,collapsible:true,method:'get'">
-                <thead>
-                    <tr>
-                        <th data-options="field:'BOOK_ID',width:100,align:'center'">ID</th>
-                        <th data-options="field:'IMAGE',width:100,formatter:formatImg,align:'center'">缩略图</th>
-                        <th data-options="field:'BOOK_NAME',width:100,align:'center'">书名</th>
-                        <th data-options="field:'STYLE',width:100,align:'center'">类型</th>
-                        <th data-options="field:'AUTHOR',width:100,align:'center'">作者</th>
-                        <th data-options="field:'PRESS',width:100,align:'center'">出版社</th>
-                        <th data-options="field:'SELLER',width:100,align:'center'">卖家</th>
-                        <th data-options="field:'PRICE',width:100,align:'center'">价格</th>
-                        <!--<th data-options="field:'_operate',width:80,formatter:formatOpera,align:'center'">购买</th>-->
-                    </tr>
-                </thead>
-            </table>
-        </div>
+        <table id="MYBook" class="easyui-datagrid" title="我的书籍" data-options="singleSelect:true,collapsible:true,method:'get'" style="height: 500px">
+            <thead>
+            <tr>
+                <th data-options="field:'BOOK_ID',width:100,align:'center'">ID</th>
+                <th data-options="field:'IMAGE',width:100,formatter:formatImg,align:'center'">缩略图</th>
+                <th data-options="field:'BOOK_NAME',width:100,align:'center'">书名</th>
+                <th data-options="field:'COLLEGE',width:100,align:'center'">学院</th>
+                <th data-options="field:'SPECIALTY',width:100,align:'center'">专业</th>
+                <th data-options="field:'TYPE',width:100,align:'center'">拓展类型</th>
+                <th data-options="field:'STYLE',width:100,align:'center'">名著小说类型</th>
+                <th data-options="field:'AUTHOR',width:100,align:'center'">作者</th>
+                <th data-options="field:'PRESS',width:100,align:'center'">出版社</th>
+                <th data-options="field:'SELLER',width:100,align:'center'">卖家</th>
+                <th data-options="field:'PRICE',width:100,align:'center'">价格</th>
+                <th data-options="field:'_operate',width:80,formatter:formatOpera,align:'center'">C操作</th>
+            </tr>
+            </thead>
+        </table>
     </div>
+
     <div id="upLoad" class="easyui-dialog" title="上传书籍" data-options="" style="width:700px;height:500px;padding:10px">
         <div style="text-align: center;">
             <label class="cus-label">
@@ -274,6 +239,16 @@
             </form>
         </div>
 
+    </div>
+    <div id="detail" class="easyui-dialog" title="详情" data-options="" style="width:600px;height:350px;padding:10px">
+        <div style="width: 270px;height:300px;float: left">
+            <img id="bigImg" src="" style="width: 260px;" />
+        </div>
+        <div style="width: 270px;height:300px;float: left;">
+            <b>新旧度：</b><span id="oldDetail"></span><br/><br/>
+            <b>破损：</b><span id="damageDetail"></span><br/><br/>
+            <b>简介：</b><span id="abstract"></span>
+        </div>
     </div>
 </body>
 </html>

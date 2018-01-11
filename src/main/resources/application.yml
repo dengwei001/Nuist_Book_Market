@@ -6,6 +6,8 @@ spring:
     pool:
       configuration:
         block-if-session-pool-is-full-timeout:
+  couchbase:
+    bootstrap-hosts:
 
 server:
   port: 8080
@@ -28,6 +30,19 @@ boot:
       timeBetweenEvictionRunsMillis: 600000
       minEvictableIdleTimeMillis: 600000
       removeAbandoned: true
+
+redis:
+  host: 120.79.93.1
+  port: 6379
+  timeout: 10000
+  maxWait: 10000
+#   可用连接实例的最大数目，默认值为8
+  maxTotal: 512
+#    控制一个pool最多有多少个状态为idle(空闲的)的jedis实例，默认值是8
+  maxIdle: 50
+#    在borrow一个jedis实例时，是否提前进行validate操作；如果为true，则得到的jedis实例均是可用的
+  testOnBorrow: true
+
 
 mybatis:
   mapper-locations: classpath:mapping/*.xml

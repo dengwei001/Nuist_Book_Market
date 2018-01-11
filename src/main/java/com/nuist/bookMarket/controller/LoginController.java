@@ -31,7 +31,7 @@ public class LoginController {
                 System.out.println("kaptchaValidateFailed -- > 验证码错误");
                 msg = "验证码错误";
             } else {
-                msg = "else >> "+exception;
+                msg = "系统出现错误，请稍后再尝试 ";
                 System.out.println("else -- >" + exception);
             }
         }
