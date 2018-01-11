@@ -15,6 +15,8 @@ public interface ParamAdminMapper {
 
     List<Map<String,Object>> selectSpecialty(Map param);
 
+    List<Map<String,Object>> selectAllSpecialty();
+
     List<Map<String,Object>> selectPress();
 
     int insertCollege(Map map);

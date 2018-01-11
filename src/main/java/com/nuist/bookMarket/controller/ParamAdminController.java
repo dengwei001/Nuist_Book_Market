@@ -1,5 +1,8 @@
 package com.nuist.bookMarket.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.nuist.bookMarket.service.ParamAdminService;
@@ -10,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import redis.clients.jedis.Jedis;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,6 +28,8 @@ public class ParamAdminController {
     private SequenceService sequenceService;
     @Autowired
     private ParamAdminService paramAdminService;
+    @Autowired
+    private Jedis jedis;
 
     @RequestMapping("/getCollege")
     @ResponseBody
@@ -38,7 +44,6 @@ public class ParamAdminController {
         }else {
             return paramAdminService.getCollege();
         }
-
     }
 
     @RequestMapping("/getSpecialty")
@@ -68,7 +73,7 @@ public class ParamAdminController {
             resultMap.put("rows",list);
             return resultMap;
         }else {
-            return paramAdminService.getPress();
+            return JSONArray.parseArray(jedis.get("press"));
         }
     }
 

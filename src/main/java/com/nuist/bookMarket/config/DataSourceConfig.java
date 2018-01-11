@@ -6,6 +6,7 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
+import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 
@@ -59,6 +60,12 @@ public class DataSourceConfig {
                                             Integer.parseInt(env.getProperty("redis.port")),
                                             Integer.parseInt(env.getProperty("redis.timeout")));
         return jedisPool;
+    }
+
+    @Bean("jedis")
+    public Jedis jedis(){
+        Jedis jedis = redisPoolFactory().getResource();
+        return jedis;
     }
 
 }

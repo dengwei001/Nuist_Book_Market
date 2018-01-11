@@ -6,6 +6,10 @@
     SELECT DISTINCT * FROM specialty WHERE COLLEGE_CODE=#{COLLEGE_CODE}
   </select>
 
+  <select id="selectAllSpecialty" resultType="java.util.HashMap">
+    SELECT DISTINCT * FROM specialty
+  </select>
+
   <select id="selectPress" resultType="java.util.HashMap">
     SELECT DISTINCT * FROM press
   </select>
