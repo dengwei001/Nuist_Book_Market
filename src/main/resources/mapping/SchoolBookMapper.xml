@@ -9,6 +9,9 @@
     SELECT * FROM schoolbook
     <where>
       1=1
+      <if test="BOOK_ID != null and BOOK_ID != ''">
+        AND BOOK_ID=#{BOOK_ID}
+      </if>
       <if test="SPECIALTY != null and SPECIALTY != '' and SPECIALTY != '全部'">
         AND SPECIALTY=#{SPECIALTY}
       </if>

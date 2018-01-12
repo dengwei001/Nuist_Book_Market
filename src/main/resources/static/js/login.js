@@ -41,20 +41,20 @@ function registerUser() {
                     $.messager.alert({
                         title:'注册成功',
                         msg:'注册成功啦！欢迎你的加入！',
-                        icon:'msg',
+                        icon:'info',
                     });
                     $('#registerDialog').dialog('close');
                 }else if (data==false) {
                     $.messager.alert({
                         title:'失败',
                         msg:"注册失败,用户名已存在！",
-                        icon:'msg'
+                        icon:'warning'
                     });
                 }else {
                     $.messager.alert({
                         title: '失败',
                         msg: "系统繁忙，请稍候再试！",
-                        icon: 'msg',
+                        icon: 'warning',
                     })
                 }
             }
@@ -63,7 +63,7 @@ function registerUser() {
         $.messager.alert({
             title: '失败',
             msg: "请检查你的输入",
-            icon: 'msg',
+            icon: 'warning',
         })
     )
 

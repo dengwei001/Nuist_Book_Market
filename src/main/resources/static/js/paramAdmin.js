@@ -179,6 +179,7 @@ function insertParam(type) {
                     $.messager.show({
                         title:'新增',
                         msg:'新增成功！',
+                        icon:'info',
                         timeout:5000,
                         showType:'slide'
                     });
@@ -186,6 +187,7 @@ function insertParam(type) {
                 }else {
                     $.messager.alert({
                         title:'失败',
+                        timeout:5000,
                         msg:data[0].answer,
                         icon:'info'
                     })
@@ -236,6 +238,7 @@ function deleteParam(code,paramType) {
                     $.messager.show({
                         title:'删除',
                         msg:'删除成功！',
+                        icon:'info',
                         timeout:5000,
                         showType:'slide'
                     });

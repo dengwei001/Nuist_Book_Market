@@ -254,28 +254,28 @@ function validateUpLoadForm(id) {
         $.messager.alert({
             title:'上传失败',
             msg:'作者不能为空！',
-            icon:'msg',
+            icon:'warning',
         });
         return false;
     }else if (bookName.length<1){
         $.messager.alert({
             title:'上传失败',
             msg:'书名不能为空！',
-            icon:'msg',
+            icon:'warning',
         });
         return false;
     }else if (price.length<1){
         $.messager.alert({
             title:'上传失败',
             msg:'价格不能为空！',
-            icon:'msg',
+            icon:'warning',
         });
         return false;
     }else if (abstract.length<15){
         $.messager.alert({
             title:'上传失败',
             msg:'简介补得少于15字！',
-            icon:'msg',
+            icon:'warning',
         });
         return false;
     }else{
@@ -283,7 +283,7 @@ function validateUpLoadForm(id) {
         $.messager.alert({
             title:'上传成功',
             msg:'上传成功，可以在我的小店中查看',
-            icon:'msg',
+            icon:'info',
         });
         return true;
     }

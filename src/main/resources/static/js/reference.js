@@ -96,11 +96,11 @@ function formatImg(val,row){
     return img;
 }
 
-
+var reference = "reference";
 function formatOpera(val,row){
     var operate = "<a href='javascript:void(0)' onclick='openDetail("+row.BOOK_ID+")' style='width: 100%;text-align: center'>"+"详情"+"</a>"+
         "<br/><br/>"+
-        "<a href='javascript:void(0)' onclick='addToShopping("+row.BOOK_ID+")' style='width: 100%;text-align: center'>"+"加入购物车"+"</a>";
+        "<a href='javascript:void(0)' onclick='addToShopping("+row.BOOK_ID+","+'reference'+")' style='width: 100%;text-align: center'>"+"加入购物车"+"</a>";
     return operate;
 }
 
@@ -124,8 +124,31 @@ function openDetail(bookId) {
     $('#detail').dialog('open');
 }
 
-function addToShopping(bookId) {
-    alert("加入购物车"+bookId);
+function addToShopping(bookId,bookType) {
+    $.ajax({
+        method:'post',
+        cache:false,
+        data:{
+            BOOK_ID: bookId,
+            bookType: bookType
+        },
+        url:'/book_market/shoppingCar/addToCar',
+        success:function (data) {
+            if (data == true){
+                $.messager.alert({
+                    title:'成功',
+                    msg:'加入成功，可在个人中心购物车中查看',
+                    icon:'info'
+                })
+            }else {
+                $.messager.alert({
+                    title:'成功',
+                    msg:data,
+                    icon:'info'
+                })
+            }
+        }
+    })
 }
 
 function queryReference(){

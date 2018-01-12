@@ -62,6 +62,11 @@ public class ViewController {
         return "baseInfo";
     }
 
+    @RequestMapping("/shoppingCar")
+    public String toShoppingCar(){
+        return "shoppingCar";
+    }
+
     @RequestMapping("/administrstor")
     public String toAdministrstor(){
         User user = (User) SecurityUtils.getSubject().getPrincipal();

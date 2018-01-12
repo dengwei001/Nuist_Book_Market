@@ -2,6 +2,8 @@ $(function () {
     $('#userCenterTabs').tabs({
         tabPosition:'left',
         tabHeight:50,
+        tabWidth:146,
+        fit:true,
         onSelect:function () {
             var tab = $('#userCenterTabs').tabs('getSelected');
             var index = $('#userCenterTabs').tabs('getTabIndex',tab);
@@ -12,14 +14,13 @@ $(function () {
                 window.frames['myStore'].document.location.reload()
             }
             if (index==2){
-                window.frames['myStore'].document.location.reload()
+                window.frames['shoppingCar'].document.location.reload()
             }
 
         }
     });
+    //刷新tabs的大小
+    $('#userCenterTabs').tabs('resize',{
+        width:$(window).width()-150
+    })
 })
-window.onload=function () {
-    //刷新iframe的大小
-    $('#userCenterTabs').tabs('select',1);
-    $('#userCenterTabs').tabs('select',0);
-}

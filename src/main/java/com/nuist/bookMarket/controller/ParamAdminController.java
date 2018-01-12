@@ -73,7 +73,7 @@ public class ParamAdminController {
             resultMap.put("rows",list);
             return resultMap;
         }else {
-            return JSONArray.parseArray(jedis.get("press"));
+            return paramAdminService.getPress();
         }
     }
 
