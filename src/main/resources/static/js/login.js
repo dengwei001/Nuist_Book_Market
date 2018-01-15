@@ -5,7 +5,13 @@ $(function(){
         iconAlign:'left'
     })
     $('.easyui-textbox').textbox('textbox').css('background','none')
-
+    //绑定回车时间，回车提交登录表单
+    document.onkeydown = function(e){
+        var ev = document.all ? window.event : e;
+        if(ev.keyCode==13) {
+            submitLogin()
+        }
+    }
 })
 
 function submitLogin() {

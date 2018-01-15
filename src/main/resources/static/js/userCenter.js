@@ -1,4 +1,5 @@
 $(function () {
+    $('#baseInfo').attr('src','/book_market/baseInfo');
     $('#userCenterTabs').tabs({
         tabPosition:'left',
         tabHeight:50,
@@ -24,3 +25,8 @@ $(function () {
         width:$(window).width()-150
     })
 })
+window.onload=function () {
+    //当页面加载完成后再加载
+    $('#myStore').attr('src','/book_market/myStore');
+    $('#shoppingCar').attr('src','/book_market/shoppingCar');
+}

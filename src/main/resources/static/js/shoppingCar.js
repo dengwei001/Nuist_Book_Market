@@ -4,7 +4,7 @@ $(function () {
         fit:false,
         fitColumns:true,
         pagination:true,
-        url:'/book_market/myStore/getMyBook',
+        url:'/book_market/shoppingCar/getCar',
         loadFilter:function (data) {
             for (var i=0;i<data.rows.length;i++){
                 // 两种添加写法

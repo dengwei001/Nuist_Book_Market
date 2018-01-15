@@ -67,40 +67,88 @@ $(function () {
             }
         }
     })
-
-
-    $('#bookGrid').datagrid('resize',{
-        height:$(window).height()-62
-    });
-
-    $('#bookGrid').datagrid({
-        // showHeader:false,
-        fit:true,
-        pagination:true,
-        fitColumns:true,
-        url:'/book_market/schoolBook/getBook',
-    });
-    $('#bookGrid').datagrid('getPager').pagination({
-        pageSize: 10,//每页显示的记录条数，默认为10
-        pageList: [10,20,30,50],//可以设置每页记录条数的列表
+    $('#pagination').pagination({
+        pageSize: 15,//每页显示的记录条数，默认为10
+        pageNumber:1,
+        pageList: [15,30,40,60],//可以设置每页记录条数的列表
         beforePageText: '第',//页数文本框前显示的汉字
         afterPageText: '页    共 {pages} 页',
         displayMsg: '当前显示 {from} - {to} 条记录   共 {total} 条记录',
+        onSelectPage: function(pageNumber, pageSize){
+           querySchoolBook();
+        }
     });
-    $('#bookGrid').datagrid('hideColumn','BOOK_ID');
+    $('#bookPanel').panel('resize',{
+        height:$(window).height()-94
+    })
+    $.ajax({
+        method:'get',
+        data:{
+            page:1,
+            rows:15
+        },
+        url:'/book_market/schoolBook/getBook',
+        success:function (data) {
+            for (var i=0;i<data.rows.length;i++){
+                creatBook(data.rows[i]);
+            };
+            $('#pagination').pagination({
+                total:data.total,
+            });
+        }
+    })
 })
+function creatBook(row){
+    var schoolBookDiv = $('#schoolBookDiv');
+    var bookDiv=$('<div></div>');        //创建一个父div
+    bookDiv.addClass('bookDiv');    //添加css样式
+    var detailLink=$('<a></a>');
+    detailLink.attr('href','javascript:void(0)');
+    detailLink.attr('onclick','openDetail('+row.BOOK_ID +')')
+    detailLink.appendTo(bookDiv);
+    //创建图片DIV
+    var imgDiv=$('<div></div>');
+    imgDiv.addClass('imgDiv');
+    var img=$('<img/>');
+    img.attr('src',row.IMAGE);
+    img.appendTo(imgDiv);
+    img.addClass('bookImg');
+    imgDiv.appendTo(detailLink);
+    //价格Div
+    var priceDiv=$('<Div></Div>');
+    var price=$('<b></b>');
+    price.addClass('priceClass');
+    price.text('￥'+row.PRICE);
+    price.appendTo(priceDiv);
+    priceDiv.addClass('priceDiv');
+    priceDiv.appendTo(detailLink);
+    //创建名称DIV
+    var bookNameDiv=$('<Div></Div>');
+    var p0=$('<p></p>');
+    var p3=$('<p></p>');
+    p0.text('《'+row.BOOK_NAME+'》 '+row.AUTHOR+'著 '+row.PRESS);
+    p3.text(' 卖家：'+row.SELLER);
+    p0.addClass('bookName');
+    p0.appendTo(bookNameDiv);
+    p3.addClass('bookName');
+    p3.appendTo(bookNameDiv);
+    bookNameDiv.appendTo(detailLink);
 
-function formatImg(val,row){
-    var img = " <img  src="+row.IMAGE+" "+"style="+"width:100px;"+"/>";
-    return img;
-}
-
-var schoolBook = "schoolBook";
-function formatOpera(val,row){
-    var operate = "<a href='javascript:void(0)' onclick='openDetail("+row.BOOK_ID+")' style='width: 100%;text-align: center'>"+"详情"+"</a>"+
-        "<br/><br/>"+
-        "<a href='javascript:void(0)' onclick='addToShopping(" +row.BOOK_ID+","+'schoolBook'+")' style='width: 100%;text-align: center'>"+"加入购物车"+"</a>";
-    return operate;
+    //创建链接DIV
+    var linkDiv=$('<Div></Div>');
+    var carLink=$('<a></a>');
+    carLink.attr('href','javascript:void(0)');
+    carLink.addClass('carA');
+    carLink.attr('onclick','addToShopping('+row.BOOK_ID+','+'"schoolBook"'+')');
+    var carLogo=$('<img/>')
+    carLogo.attr('src','/book_market/images/shoppingCar.jpg')
+    carLogo.addClass('carLogo');
+    carLogo.appendTo(carLink);
+    carLink.appendTo(linkDiv);
+    linkDiv.addClass('linkDiv');
+    linkDiv.appendTo(bookDiv);
+    //添加到主DIV
+    bookDiv.appendTo(schoolBookDiv);
 }
 
 function openDetail(bookId) {
@@ -182,24 +230,34 @@ function getSpecialty(collegeCode) {
         }
     })
 }
-function querySchoolBook(){
-
+function querySchoolBook(page,rows){
+    var pager = $('#pagination').pagination('options');
     var college = $('#college').combobox('getText');
     var specialty = $('#specialty').combobox('getText');
     var press = $('#press').combobox('getText');
     var bookName = $('#bookName').textbox('getText');
-    $('#bookGrid').datagrid({
-        // showHeader:false,
-        queryParams:{
+    $.ajax({
+        method:'get',
+        data:{
             COLLEGE:college,
             SPECIALTY:specialty,
             PRESS:press,
-            BOOK_NAME:bookName
+            BOOK_NAME:bookName,
+            page:pager.pageNumber,
+            rows:pager.pageSize
         },
-        fit:true,
-        pagination:true,
-        fitColumns:true,
-        url:'/book_market/schoolBook/querySchoolBook'
-    });
+        url:'/book_market/schoolBook/querySchoolBook',
+        success:function (data) {
+            $('#schoolBookDiv').empty();
+            for (var i=0;i<data.rows.length;i++){
+                creatBook(data.rows[i]);
+            };
+            $('#pagination').pagination({
+                total:data.total,
+                pageSize:pager.pageSize
+            });
+            $('#bookPanel').panel('refresh');
+        }
+    })
 }
 

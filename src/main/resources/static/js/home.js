@@ -1,4 +1,3 @@
-
 $(function () {
     $('#mainPage').css("width",$(window).width());
     $('#mainPage').css("height",$(window).height()-46);
@@ -7,7 +6,7 @@ $(function () {
         type:'get',
         url:'/book_market/getUserName',
         success:function (data) {
-            $('#username').text(data)
+            $('#username').text(data);
         }
     });
 

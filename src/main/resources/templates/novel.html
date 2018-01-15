@@ -10,18 +10,6 @@
     <script type="text/javascript" src="./js/novel.js"></script>
     <title>novel</title>
 
-    <!--修改ui样式-->
-    <style>
-        .panel-body {
-            background-color: #f5ff51;
-            color: #333;
-            font-size: 12px;
-        }
-        .datagrid-row-selected {
-            background: #FF9900;
-            color: #fff;
-        }
-    </style>
 </head>
 <body style="margin: 0px">
     <div id="queryParam" style="width:100%;padding: 15px 15px">
@@ -33,24 +21,11 @@
 
         <a href="javascript:void(0)" data-options="iconCls:'icon-search'" class="easyui-linkbutton" onclick="queryNovel()"> </a>
     </div>
-    <div id="data" style="width: 100%;height: 100%">
-        <table id="bookGrid" class="easyui-datagrid"
-               data-options="singleSelect:true,collapsible:true,method:'get'">
-            <thead>
-            <tr>
-                <th data-options="field:'IMAGE',width:100,formatter:formatImg,align:'center'">缩略图</th>
-                <th data-options="field:'BOOK_ID',width:100,align:'center'">ID</th>
-                <th data-options="field:'BOOK_NAME',width:100,align:'center'">书名</th>
-                <th data-options="field:'STYLE',width:100,align:'center'">类型</th>
-                <th data-options="field:'AUTHOR',width:100,align:'center'">作者</th>
-                <th data-options="field:'PRESS',width:100,align:'center'">出版社</th>
-                <th data-options="field:'SELLER',width:100,align:'center'">卖家</th>
-                <th data-options="field:'PRICE',width:100,align:'center'">价格</th>
-                <th data-options="field:'_operate',width:80,formatter:formatOpera,align:'center'">购买</th>
-            </tr>
-            </thead>
-        </table>
+    <div id="bookPanel" class="easyui-panel" title="名著小说" data-options="heigth:'100%'" style="background:red;width:100%;height:100%;padding-top:10px;padding-left:15px;overflow-x: hidden;">
+        <div id="novelDiv" style="width: 100%;height:100%;text-align: center;">
+        </div>
     </div>
+    <div id="pagination" style="background:#efefef;border:1px solid #ccc;width: 100%;float: right;bottom: 0px;"></div>
     <div id="detail" class="easyui-dialog" title="详情" data-options="" style="width:600px;height:350px;padding:10px">
         <div style="width: 270px;height:300px;float: left">
             <img id="bigImg" src="" style="width: 260px;height: 270px;" />

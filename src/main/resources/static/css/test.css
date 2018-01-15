@@ -1,0 +1,15 @@
+.bookDiv{
+    width: 23%;
+    border: 1px solid #F00;
+    float: left;
+}
+.bookImg{
+    width: 100%;
+}
+.bookName{
+    text-align: center;
+    font-size: 18px;
+}
+.linkDiv{
+    text-align: center;
+}

@@ -2,9 +2,36 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8"/>
+    <link rel="stylesheet" type="text/css" href="./easyui/themes/bootstrap/easyui.css"/>
+    <link rel="stylesheet" type="text/css" href="./easyui/themes/icon.css"/>
+    <link rel="stylesheet" type="text/css" href="./css/test.css"/>
+    <script type="text/javascript" src="./easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="./easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="./js/test.js"></script>
     <title>Title</title>
+    <style>
+
+
+    </style>
 </head>
 <body>
-
+    <input type="button" value="创建div" onclick="creat()"/>
+    <div id="p" class="easyui-panel" title="Basic Panel" style="position:relative;width:1000px;height:500px;padding:10px;overflow-x: hidden">
+        <div id="schoolBookDiv" style="width: 100%;">
+            <div style="width: 23%;border:1px solid #F00;float: left">
+                <div>
+                    <img src="/book_market/bookImages/15708488_1469252087464.jpg" width="100%"/>
+                </div>
+                <div>
+                    <p style="text-align: center;font-size: 18px">单片机</p>
+                </div>
+                <div style="text-align: center">
+                    <a href="javascript:void (0)">详情</a>
+                    <a href="javascript:void (0)">加入购物车</a>
+                </div>
+            </div>
+        </div>
+        <div id="pagination" style="background:#efefef;border:1px solid #ccc;width: 100%;position:absolute;bottom: 0px"></div>
+    </div>
 </body>
 </html>
