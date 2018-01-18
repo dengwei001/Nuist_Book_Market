@@ -8,6 +8,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.nuist.bookMarket.model.User;
 import com.nuist.bookMarket.service.*;
+import com.nuist.bookMarket.util.MD5Utils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,9 @@ import java.util.Map;
 @RequestMapping("/myInfo")
 public class MyInfoController {
 
+    @Autowired
+    private UserService userService;
+
     @RequestMapping("/getUser")
     @ResponseBody
     public Object getUser(){
@@ -40,5 +44,31 @@ public class MyInfoController {
             userMap.put("mobile",user.getMobile());
             userMap.put("userRole",user.getUserrole());
         return (JSON.toJSON(userMap));
+    }
+
+    @RequestMapping("/changePassword")
+    @ResponseBody
+    public Object changePassword(@RequestParam Map param){
+        User user = (User) SecurityUtils.getSubject().getPrincipal();
+        String oldPassword = MD5Utils.md5((String) param.get("oldPassword"));
+        String newPassword = MD5Utils.md5((String) param.get("newPassword"));
+        if (user.getPassword().equals(oldPassword)){
+            Map map = new HashMap();
+            map.put("password",newPassword);
+            map.put("userId",user.getUserid());
+            return userService.changePassword(map);
+        }else {
+            return "原密码不正确！";
+        }
+    }
+
+    @RequestMapping("/changeMobile")
+    @ResponseBody
+    public Object changeMobile(@RequestParam Map param){
+        User user = (User) SecurityUtils.getSubject().getPrincipal();
+        Map map = new HashMap();
+        map.put("mobile",param.get("newMobile"));
+        map.put("userId",user.getUserid());
+        return userService.changeMobile(map);
     }
 }

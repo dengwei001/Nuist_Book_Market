@@ -13,4 +13,6 @@ public interface UserMapper {
     List<Map> selectAll();
 
     int insertUser(Map map);
+
+    int updateUser(Map map);
 }

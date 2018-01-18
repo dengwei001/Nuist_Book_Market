@@ -40,7 +40,7 @@ public class MyStoreController {
 
     @RequestMapping("/upLoadBook")
     @ResponseBody
-    public void upLoadBook(@RequestParam("file")MultipartFile file, @RequestParam Map param, HttpServletRequest request) throws Exception {
+    public Object upLoadBook(@RequestParam("file")MultipartFile file, @RequestParam Map param, HttpServletRequest request) throws Exception {
         if(!file.isEmpty()){
             User user = (User) SecurityUtils.getSubject().getPrincipal();
             String bookId = sequenceService.getBookId();
@@ -71,7 +71,9 @@ public class MyStoreController {
             String path = request.getSession().getServletContext().getRealPath("/");
             System.out.println(path);
             file.transferTo(new File(path+"/WEB-INF/classes/static/bookImages/"+imageName));
-
+            return true;
+        }else {
+            return false;
         }
     }
 
@@ -82,9 +84,9 @@ public class MyStoreController {
         int rows = Integer.parseInt((String) param.get("rows"));
         User user = (User) SecurityUtils.getSubject().getPrincipal();
         param.put("SELLER_ID",user.getUserid());
-        List list1 = schoolBookService.queryBySellerId(param);
-        List list2 =  referenceService.queryBySellerId(param);
-        List list3 =  novelService.queryBySellerId(param);
+        List list1 = schoolBookService.queryBookAndDetailBySellerId(param);
+        List list2 =  referenceService.queryBookAndDetailBySellerId(param);
+        List list3 =  novelService.queryBookAndDetailBySellerId(param);
         list1.addAll(list2);
         list1.addAll(list3);
         int total = list1.size();

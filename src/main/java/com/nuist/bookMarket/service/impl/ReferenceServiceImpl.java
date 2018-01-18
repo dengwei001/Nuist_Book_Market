@@ -25,7 +25,17 @@ public class ReferenceServiceImpl implements ReferenceService {
     }
 
     @Override
-    public List<Map<String, Object>> queryBySellerId(Map map) {
-        return referenceMapper.selectBySellerId(map);
+    public List<Map<String, Object>> queryBookAndDetailBySellerId(Map map) {
+        return referenceMapper.selectBookAndDetailBySellerId(map);
+    }
+
+    @Override
+    public List<Map<String, Object>> queryBookAndDetailById(Map map) {
+        return referenceMapper.selectBookAndDetailById(map);
+    }
+
+    @Override
+    public int updateById(Map map) {
+        return referenceMapper.updateById(map);
     }
 }

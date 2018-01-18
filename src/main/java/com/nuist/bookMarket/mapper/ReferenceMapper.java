@@ -10,7 +10,12 @@ public interface ReferenceMapper {
 
     int insertReference(Map map);
 
-    List<Map<String,Object>> selectBySellerId(Map map);
+    List<Map<String,Object>> selectBookAndDetailBySellerId(Map map);
+
+    List<Map<String,Object>> selectBookAndDetailById(Map map);
+
+    int updateById(Map map);
+
 
 
 }

@@ -9,5 +9,32 @@
         INSERT INTO detail (BOOK_ID,ABSTRACT,OLD,BIGIMAGE,DAMAGE)
         VALUES (#{BOOK_ID},#{ABSTRACT},#{OLD},#{BIGIMAGE},#{DAMAGE})
     </insert>
+    
+    <select id="selectBookById" resultType="java.util.HashMap">
+        SELECT
+            BOOK_ID,
+            STOCK
+        FROM
+            schoolbook
+        WHERE
+            BOOK_ID = #{BOOK_ID} AND STOCK>0
+        UNION
+            SELECT
+                BOOK_ID,
+                STOCK
+            FROM
+                reference
+            WHERE
+                BOOK_ID = #{BOOK_ID} AND STOCK>0
+            UNION
+                SELECT
+                    BOOK_ID,
+                    STOCK
+                FROM
+                    novel
+                WHERE
+                    BOOK_ID = #{BOOK_ID} AND STOCK>0
+    </select>
 
+    
 </mapper>

@@ -34,7 +34,7 @@ function registerUser() {
     var resMobile = $('#resMobile').textbox('getValue');
     if (resPassword.length>=6&&resUsername!=null&&resName!=null&&resMobile.length==11){
         $.ajax({
-            method:'post',
+            type:'post',
             data:{
                 username:resUsername,
                 password:resPassword,

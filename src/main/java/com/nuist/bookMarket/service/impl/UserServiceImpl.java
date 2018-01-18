@@ -23,4 +23,14 @@ public class UserServiceImpl implements UserService {
     public int insertUser(Map map) {
         return userMapper.insertUser(map);
     }
+
+    @Override
+    public int changePassword(Map map) {
+        return userMapper.updateUser(map);
+    }
+
+    @Override
+    public int changeMobile(Map map) {
+        return userMapper.updateUser(map);
+    }
 }

@@ -9,4 +9,6 @@ public interface CombineMapper {
 
     int insertDetail(Map map);
 
+    List selectBookById(Map map);
+
 }

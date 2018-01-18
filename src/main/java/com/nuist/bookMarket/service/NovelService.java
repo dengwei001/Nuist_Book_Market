@@ -9,6 +9,11 @@ public interface NovelService {
 
     int insertNovel(Map map);
 
-    List<Map<String,Object>> queryBySellerId(Map map);
+    List<Map<String,Object>> queryBookAndDetailBySellerId(Map map);
+
+    List<Map<String,Object>> queryBookAndDetailById(Map map);
+
+    int updateById(Map map);
+
 
 }

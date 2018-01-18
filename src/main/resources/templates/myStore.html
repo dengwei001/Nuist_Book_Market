@@ -5,37 +5,49 @@
     <link rel="stylesheet" type="text/css" href="./easyui/themes/bootstrap/easyui.css"/>
     <link rel="stylesheet" type="text/css" href="./easyui/themes/icon.css"/>
     <link rel="stylesheet" type="text/css" href="./css/mystore.css"/>
+    <link rel="stylesheet" type="text/css" href="./css/common.css"/>
     <script type="text/javascript" src="./easyui/jquery.min.js"></script>
     <script type="text/javascript" src="./easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="./js/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript" src="./js/jquery-form.js"></script>
     <script type="text/javascript" src="./js/myStore.js"></script>
-    <title>Title</title>
+    <title>myStore</title>
+    <style>
+        .datagrid-btable {
+            width: 100%;
+            color: #333;
+            border-collapse: separate;
+        }
+    </style>
 </head>
 <body>
     <iframe id="hide" name="hide" src="" style="display: none"></iframe>
     <div>
-        <input type="button" id="button" value="我要卖书" onclick="sellBook()"/>
-    </div>
-    <div>
-        <table id="MYBook" class="easyui-datagrid" title="我的书籍" data-options="singleSelect:true,collapsible:true,method:'get'" style="height: 500px">
+        <table id="MYBook" class="easyui-datagrid" title="我的书籍" data-options="singleSelect:true,collapsible:true,method:'get',toolbar:'#toolbar'" style="height: 500px">
             <thead>
             <tr>
-                <th data-options="field:'BOOK_ID',width:100,align:'center'">ID</th>
-                <th data-options="field:'IMAGE',width:100,formatter:formatImg,align:'center'">缩略图</th>
+                <th data-options="field:'IMAGE',width:100,align:'center'">书图</th>
+                <th data-options="field:'BOOK_ID',width:100,align:'center'">书籍ID</th>
                 <th data-options="field:'BOOK_NAME',width:100,align:'center'">书名</th>
                 <th data-options="field:'COLLEGE',width:100,align:'center'">学院</th>
                 <th data-options="field:'SPECIALTY',width:100,align:'center'">专业</th>
                 <th data-options="field:'TYPE',width:100,align:'center'">拓展类型</th>
                 <th data-options="field:'STYLE',width:100,align:'center'">名著小说类型</th>
+                <th data-options="field:'OLD',width:100,align:'center'">新旧度</th>
+                <th data-options="field:'DAMAGE',width:100,align:'center'">破损</th>
                 <th data-options="field:'AUTHOR',width:100,align:'center'">作者</th>
                 <th data-options="field:'PRESS',width:100,align:'center'">出版社</th>
-                <th data-options="field:'SELLER',width:100,align:'center'">卖家</th>
-                <th data-options="field:'PRICE',width:100,align:'center'">价格</th>
-                <th data-options="field:'_operate',width:80,formatter:formatOpera,align:'center'">操作</th>
+                <th data-options="field:'STOCK',width:100,align:'center'">库存</th>
+                <th data-options="field:'PRICE',width:100,align:'center'">单价</th>
+                <th data-options="field:'ABSTRACT',width:100,align:'center'">描述</th>
+                <th data-options="field:'_operate',width:80,align:'center'">操作</th>
             </tr>
             </thead>
         </table>
     </div>
-
+    <div id="toolbar">
+        <input type="button" id="button" value="我要卖书" onclick="sellBook()"/>
+    </div>
     <div id="upLoad" class="easyui-dialog" title="上传书籍" data-options="" style="width:700px;height:500px;padding:10px">
         <div style="text-align: center;">
             <label class="cus-label">
@@ -52,7 +64,7 @@
             </label>
         </div>
         <div id="schoolBookUpLoad" style="margin-top: 30px">
-            <form id="schoolForm" action="/book_market/myStore/upLoadBook" method="post" enctype="multipart/form-data" style="text-align: center" target="hide" onsubmit="return validateUpLoadForm('schoolBook')">
+            <form id="schoolForm" enctype="multipart/form-data" style="text-align: center">
                 <table cellpadding="0" width="500px" style="margin: auto">
                     <tr align="center">
                         <td>学院：</td>
@@ -98,24 +110,26 @@
                             name="PRICE" data-options="required:true"/></td>
                     </tr>
                     <tr align="center">
+                        <td>数量：</td>
+                        <td><input id="schStock" class="easyui-textbox" style="width:150px;height:32px;"
+                                   name="STOCK" data-options="required:true"/></td>
                         <td >书图：</td>
-                        <td ><input class="easyui-filebox" name="file" data-options="buttonText:'选择文件', accept:'image/jpeg' "
-                                   style="width:150px;height:32px;"/></td>
+                        <td ><input class="easyui-filebox" id="schoolBookImage" name="file" data-options="buttonText:'选择文件', accept:'image/jpeg',prompt:'选择图片' " style="width:150px;height:32px;"/></td>
                     </tr>
                     <tr>
-                        <td>简介：</td>
+                        <td>详细描述：</td>
                         <td colspan="3">
                             <input id="schAbstract" class="easyui-textbox" name="ABSTRACT" data-options="multiline:true,required:true" style="width: 400px;height: 150px" />
                         </td>
                     </tr>
                     <tr align="center">
-                        <td colspan="4"><input type="submit" id="button" value="上传" /></td>
+                        <td colspan="4"><input type="button" id="button" onclick="submitForm('schoolBook')" value="上传" /></td>
                     </tr>
                 </table>
             </form>
         </div>
         <div id="referenceUpLoad" style="margin-top: 30px">
-            <form id="referenceForm" method="post" enctype="multipart/form-data" style="text-align: center" action="/book_market/myStore/upLoadBook" target="hide" onsubmit="return validateUpLoadForm('reference')">
+            <form id="referenceForm" enctype="multipart/form-data" style="text-align: center">
                 <table cellpadding="0" width="500px" style="margin: auto">
                     <tr align="center">
                         <td>类型：</td>
@@ -159,25 +173,29 @@
                         <td>价格：</td>
                         <td><input id="refPrice" name="PRICE" class="easyui-textbox" style="width:150px;height:32px;"
                          data-options="required:true"/></td>
+                        <td>数量：</td>
+                        <td><input id="refStock" name="STOCK" class="easyui-textbox" style="width:150px;height:32px;"
+                                   data-options="required:true"/></td>
+                    </tr>
+                    <tr align="center">
                         <td >书图：</td>
-                        <td ><input class="easyui-filebox" name="file" data-options="buttonText:'选择文件', accept:'image/jpeg' "
+                        <td ><input id="referenceImage" class="easyui-filebox" name="file" data-options="buttonText:'选择文件', accept:'image/jpeg' "
                                     style="width:150px;height:32px;"/></td>
                     </tr>
                     <tr>
-                        <td>简介：</td>
+                        <td>详细描述：</td>
                         <td colspan="3">
                             <input id="refAbstract" class="easyui-textbox" name="ABSTRACT" data-options="multiline:true,required:true" style="width: 400px;height: 150px" />
                         </td>
                     </tr>
                     <tr align="center">
-                        <td colspan="4"><input type="submit" id="button" value="上传"/></td>
+                        <td colspan="4"><input type="button" id="button" onclick="submitForm('reference')" value="上传"/></td>
                     </tr>
-
                 </table>
             </form>
         </div>
         <div id="novelUpLoad" style="margin-top: 30px">
-            <form id="novelForm" method="post" enctype="multipart/form-data" style="text-align: center" action="/book_market/myStore/upLoadBook" target="hide" onsubmit="return validateUpLoadForm('novel')">
+            <form id="novelForm" enctype="multipart/form-data" style="text-align: center">
                 <table cellpadding="0" width="500px" style="margin: auto">
                     <tr align="center">
                         <td>类型：</td>
@@ -220,35 +238,27 @@
                         <td>价格：</td>
                         <td><input id="novelPrice" name="PRICE" class="easyui-textbox" style="width:150px;height:32px;"
                             data-options="required:true"/></td>
+                        <td>数量：</td>
+                        <td><input id="novelStock" name="STOCK" class="easyui-textbox" style="width:150px;height:32px;"
+                                   data-options="required:true"/></td>
+                    </tr>
+                    <tr align="center">
                         <td >书图：</td>
-                        <td ><input class="easyui-filebox" name="file" data-options="buttonText:'选择文件', accept:'image/jpeg' " style="width:150px;height:32px;"/></td>
+                        <td ><input id="novelImage" class="easyui-filebox" name="file" data-options="buttonText:'选择文件', accept:'image/jpeg' " style="width:150px;height:32px;"/></td>
                     </tr>
                     <tr>
-                        <td>简介：</td>
+                        <td>详细描述：</td>
                         <td colspan="3">
                             <input id="novelAbstract" class="easyui-textbox" name="ABSTRACT" data-options="multiline:true,required:true" style="width: 400px;height: 150px" />
                         </td>
                     </tr>
                     <tr align="center">
-                        <td colspan="4"><input type="submit" id="button" value="上传"/></td>
+                        <td colspan="4"><input type="button" id="button" onclick="submitForm('novel')" value="上传"/></td>
                     </tr>
-
                 </table>
-
-
             </form>
         </div>
 
-    </div>
-    <div id="detail" class="easyui-dialog" title="详情" data-options="" style="width:600px;height:350px;padding:10px">
-        <div style="width: 270px;height:300px;float: left">
-            <img id="bigImg" src="" style="width: 260px;" />
-        </div>
-        <div style="width: 270px;height:300px;float: left;">
-            <b>新旧度：</b><span id="oldDetail"></span><br/><br/>
-            <b>破损：</b><span id="damageDetail"></span><br/><br/>
-            <b>简介：</b><span id="abstract"></span>
-        </div>
     </div>
 </body>
 </html>

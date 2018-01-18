@@ -9,4 +9,8 @@ public interface CombineService {
 
     int insertDetail(Map map);
 
+    List<Map<String,Object>> queryBookById(Map map);
+
+    int updateBookById(Map map);
+
 }

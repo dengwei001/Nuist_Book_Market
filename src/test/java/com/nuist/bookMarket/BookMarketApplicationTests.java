@@ -123,6 +123,7 @@ public class BookMarketApplicationTests {
 		JSONArray jsonArray = new JSONArray();
 		jsonArray.add(map);
 		logger.debug(jsonArray.toJSONString());
+		logger.debug(jedisPool.getResource().set("a","a"));
 
 	}
 

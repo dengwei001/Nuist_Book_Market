@@ -4,6 +4,7 @@
   <select id="selectNovel" resultType="java.util.HashMap">
     SELECT * FROM novel
     <where>
+      STOCK>0
       <if test="BOOK_ID!=null and BOOK_ID!=''">
         BOOK_ID = #{BOOK_ID}
       </if>
@@ -20,12 +21,46 @@
   </select>
 
   <insert id="insertNovel">
-    INSERT INTO novel (BOOK_ID,BOOK_NAME,STYLE,SELLER,AUTHOR,PRESS,PRICE,IMAGE,SELLER_ID)
-    VALUES (#{BOOK_ID},#{BOOK_NAME},#{STYLE},#{SELLER},#{AUTHOR},#{PRESS},#{PRICE},#{IMAGE},#{SELLER_ID})
+    INSERT INTO novel (BOOK_ID,BOOK_NAME,STYLE,SELLER,AUTHOR,PRESS,PRICE,IMAGE,SELLER_ID,STOCK)
+    VALUES (#{BOOK_ID},#{BOOK_NAME},#{STYLE},#{SELLER},#{AUTHOR},#{PRESS},#{PRICE},#{IMAGE},#{SELLER_ID},#{STOCK})
   </insert>
 
-  <select id="selectBySellerId" resultType="java.util.HashMap">
-        SELECT * FROM novel WHERE SELLER_ID = #{SELLER_ID}
+  <select id="selectBookAndDetailBySellerId" resultType="java.util.HashMap">
+        SELECT * FROM novel,detail WHERE SELLER_ID = #{SELLER_ID} AND novel.BOOK_ID=detail.BOOK_ID
   </select>
+
+  <select id="selectBookAndDetailById" resultType="java.util.HashMap">
+    SELECT * FROM novel,detail WHERE novel.BOOK_ID = #{BOOK_ID} AND novel.BOOK_ID=detail.BOOK_ID AND STOCK>0
+  </select>
+
+  <update id="updateById">
+    UPDATE novel
+    <set>
+      <if test="BOOK_NAME!=null and BOOK_NAME!=''">
+        BOOK_NAME=#{BOOK_NAME}
+      </if>
+      <if test="STYLE!=null and STYLE!=''">
+        STYLE=#{STYLE}
+      </if>
+      <if test="AUTHOR!=null and AUTHOR!=''">
+        AUTHOR=#{AUTHOR}
+      </if>
+      <if test="PRESS!=null and PRESS!=''">
+        PRESS=#{PRESS}
+      </if>
+      <if test="PRICE!=null and PRICE!=''">
+        PRICE=#{PRICE}
+      </if>
+      <if test="STOCK!=null">
+        STOCK=#{STOCK}
+      </if>
+      <if test="IMAGE!=null and IMAGE!=''">
+        IMAGE=#{IMAGE}
+      </if>
+    </set>
+    <where>
+      BOOK_ID=#{BOOK_ID}
+    </where>
+  </update>
 
 </mapper>

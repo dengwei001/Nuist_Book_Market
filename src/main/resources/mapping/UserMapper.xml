@@ -21,4 +21,17 @@
     VALUES (#{username},#{password},#{name},#{userId},#{userRole},#{mobile})
   </insert>
 
+  <update id="updateUser">
+    UPDATE user
+    <set>
+      <if test="password!=null and password!=''">
+        password=#{password}
+      </if>
+      <if test="mobile!=null and mobile!=''">
+        mobile=#{mobile}
+      </if>
+    </set>
+    WHERE userId=#{userId}
+  </update>
+
 </mapper>

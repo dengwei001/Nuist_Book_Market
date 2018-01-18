@@ -30,7 +30,17 @@ public class SchoolBookServiceImpl implements SchoolBookService{
     }
 
     @Override
-    public List<Map<String, Object>> queryBySellerId(Map map) {
-        return schoolBookMapper.selectBySellerId(map);
+    public List<Map<String, Object>> queryBookAndDetailBySellerId(Map map) {
+        return schoolBookMapper.selectBookAndDetailBySellerId(map);
+    }
+
+    @Override
+    public List<Map<String, Object>> queryBookAndDetailById(Map map) {
+        return schoolBookMapper.selectBookAndDetailById(map);
+    }
+
+    @Override
+    public int updateById(Map map) {
+        return schoolBookMapper.updateById(map);
     }
 }

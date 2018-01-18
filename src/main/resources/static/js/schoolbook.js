@@ -82,7 +82,7 @@ $(function () {
         height:$(window).height()-94
     })
     $.ajax({
-        method:'get',
+        type:'get',
         data:{
             page:1,
             rows:15
@@ -127,7 +127,7 @@ function creatBook(row){
     var p0=$('<p></p>');
     var p3=$('<p></p>');
     p0.text('《'+row.BOOK_NAME+'》 '+row.AUTHOR+'著 '+row.PRESS);
-    p3.text(' 卖家：'+row.SELLER);
+    p3.text(' 卖家：'+row.SELLER+'  库存:'+row.STOCK);
     p0.addClass('bookName');
     p0.appendTo(bookNameDiv);
     p3.addClass('bookName');
@@ -140,8 +140,8 @@ function creatBook(row){
     carLink.attr('href','javascript:void(0)');
     carLink.addClass('carA');
     carLink.attr('onclick','addToShopping('+row.BOOK_ID+','+'"schoolBook"'+')');
-    var carLogo=$('<img/>')
-    carLogo.attr('src','/book_market/images/shoppingCar.jpg')
+    var carLogo=$('<img/>');
+    carLogo.attr('src','/book_market/images/shoppingCar.jpg');
     carLogo.addClass('carLogo');
     carLogo.appendTo(carLink);
     carLink.appendTo(linkDiv);
@@ -153,7 +153,7 @@ function creatBook(row){
 
 function openDetail(bookId) {
     $.ajax({
-        method:'get',
+        type:'get',
         data:{
             BOOK_ID :bookId
         },
@@ -172,30 +172,36 @@ function openDetail(bookId) {
 }
 
 function addToShopping(bookId,bookType) {
-    $.ajax({
-        method:'post',
-        cache:false,
-        data:{
-            BOOK_ID: bookId,
-            bookType: bookType
-        },
-        url:'/book_market/shoppingCar/addToCar',
-        success:function (data) {
-            if (data == true){
-                $.messager.alert({
-                    title:'成功',
-                    msg:'加入成功，可在个人中心购物车中查看',
-                    icon:'info'
-                })
-            }else {
-                $.messager.alert({
-                    title:'失败',
-                    msg:data,
-                    icon:'info'
-                })
-            }
+    $.messager.prompt('加入购物车', '购买数量:', function(r){
+        if (r){
+            $.ajax({
+                type:'post',
+                cache:false,
+                data:{
+                    number:r,
+                    BOOK_ID: bookId,
+                    bookType: bookType
+                },
+                url:'/book_market/shoppingCar/addToCar',
+                success:function (data) {
+                    if (data == true){
+                        $.messager.alert({
+                            title:'成功',
+                            msg:'加入成功，可在个人中心购物车中查看',
+                            icon:'info'
+                        })
+                    }else {
+                        $.messager.alert({
+                            title:'失败',
+                            msg:data,
+                            icon:'info'
+                        })
+                    }
+                }
+            })
         }
-    })
+    });
+
 }
 
 function getSpecialty(collegeCode) {
@@ -237,7 +243,7 @@ function querySchoolBook(page,rows){
     var press = $('#press').combobox('getText');
     var bookName = $('#bookName').textbox('getText');
     $.ajax({
-        method:'get',
+        type:'get',
         data:{
             COLLEGE:college,
             SPECIALTY:specialty,

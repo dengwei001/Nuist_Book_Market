@@ -26,7 +26,17 @@ public class NovelServiceImpl implements NovelService {
     }
 
     @Override
-    public List<Map<String, Object>> queryBySellerId(Map map) {
-        return novelMapper.selectBySellerId(map);
+    public List<Map<String, Object>> queryBookAndDetailBySellerId(Map map) {
+        return novelMapper.selectBookAndDetailBySellerId(map);
+    }
+
+    @Override
+    public List<Map<String, Object>> queryBookAndDetailById(Map map) {
+        return novelMapper.selectBookAndDetailById(map);
+    }
+
+    @Override
+    public int updateById(Map map) {
+        return novelMapper.updateById(map);
     }
 }

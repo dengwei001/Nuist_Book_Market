@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" href="./css/common.css"/>
     <script type="text/javascript" src="./easyui/jquery.min.js"></script>
     <script type="text/javascript" src="./easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="./js/easyui-lang-zh_CN.js"></script>
     <script type="text/javascript" src="./js/baseInfo.js"></script>
     <title>Title</title>
 </head>
@@ -23,7 +24,7 @@
             <tr>
                 <td width="100px">用户名：</td>
                 <td id="username" ></td>
-                <td width="100px"><a href="javascript:void (0)">修改密码</a></td>
+                <td width="100px"><a href="javascript:void (0)" onclick="openChangePassword()">修改密码</a></td>
             </tr>
             <tr>
                 <td width="100px">昵称：</td>
@@ -38,11 +39,24 @@
             <tr>
                 <td width="100px">手机：</td>
                 <td id="mobile"></td>
-                <td width="100px"><a href="javascript:void (0)">修改手机号</a></td>
+                <td width="100px"><a href="javascript:void (0)" onclick="openChangeMobile()">修改手机号</a></td>
             </tr>
         </table>
         <div>
-
+            <div id="changePassword" title="修改密码" class="easyui-dialog" style="padding: 30px;text-align: center">
+                <div>
+                    <label>原始密码:<input class="easyui-textbox" type="password" id="oldPassword" /></label><br/><br/>
+                    <label>修改密码:<input class="easyui-textbox" type="password" id="newPassword" /></label><br/><br/>
+                    <label>重复密码:<input class="easyui-textbox" type="password" id="rePassword" /></label><br/><br/>
+                    <input class="easyui-linkbutton" id="button" onclick="changePasswprd()" value="修改" style="width: 50px;height: 25px;font-size: 18px"/>
+                </div>
+            </div>
+            <div id="changeMobile" title="修改手机号" class="easyui-dialog" style="padding: 30px;text-align: center">
+                <div>
+                    <label>新手机号:<input class="easyui-textbox" type="text" id="newMobile" /></label><br/><br/>
+                    <input class="easyui-linkbutton" id="button" onclick="changeMobile()" value="修改" style="width: 50px;height: 25px;font-size: 18px"/>
+                </div>
+            </div>
         </div>
     </div>
 </body>

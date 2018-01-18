@@ -168,7 +168,7 @@ function insertParam(type) {
     }
     if (paramName!=null&&paramName!=''){
         $.ajax({
-            method:'post',
+            type:'post',
             data:{
                 paramName : paramName,
                 extra: extra
@@ -229,7 +229,7 @@ function deleteParam(code,paramType) {
     $.messager.confirm('删除','确定要删除这条数据吗？',function(r){
         if (r){
             $.ajax({
-                method:'post',
+                type:'post',
                 data:{
                     paramCode: code,
                 },

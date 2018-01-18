@@ -8,4 +8,8 @@ public interface UserService {
     User getUserByUserName(String username);
 
     int insertUser(Map map);
+
+    int changePassword(Map map);
+
+    int changeMobile(Map map);
 }

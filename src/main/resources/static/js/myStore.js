@@ -1,5 +1,4 @@
 $(function () {
-    $('#detail').dialog('close');
     $('#upLoad').dialog('close');
     //初始化div的显示与隐藏
     $('#schoolBookUpLoad').show();
@@ -8,8 +7,10 @@ $(function () {
 
     $('#MYBook').datagrid({
         fit:false,
+        showHeader:false,
         fitColumns:true,
         pagination:true,
+        view:cardview,
         url:'/book_market/myStore/getMyBook',
         loadFilter:function (data) {
             for (var i=0;i<data.rows.length;i++){
@@ -35,6 +36,108 @@ $(function () {
         displayMsg: '当前显示 {from} - {to} 条记录   共 {total} 条记录',
     });
 })
+
+var cardview = $.extend({}, $.fn.datagrid.defaults.view, {
+    renderRow: function(target, fields, frozen, rowIndex, rowData){
+        if (typeof (rowData.BOOK_ID)=="undefined"){
+            var cc = [];
+            cc.push('<td colspan=' + fields.length + ' style="padding:10px 5px;border-bottom:1px dashed;">');
+            cc.push('<div style="float:left;width: 100%;text-align: center">');
+            cc.push('<p>没有相关记录</p>');
+            cc.push('</div>');
+            cc.push('</td>') ;
+            return cc.join('');
+        }else {
+            var cc = [];
+            if (rowData.STOCK==0){
+                cc.push('<td colspan=' + fields.length + ' style="background:red;padding:10px 5px;border-bottom:1px dashed;">');
+            }else {
+                cc.push('<td colspan=' + fields.length + ' style="padding:10px 5px;border-bottom:1px dashed;">');
+            }
+            if (!frozen){
+                cc.push('<div style="float:left;width: 100%">');
+                cc.push('<div style="float:left;width: 15%;text-align: center">');
+                cc.push('<img src="/book_market/' + rowData.IMAGE + '" style="height:100px;float:left">');
+                cc.push('</div>');
+                cc.push('<div style="float:left;width: 15%;padding: 0px 20px 0px 20px">');
+                for(var i=1; i<7; i++){
+                    var copts = $(target).datagrid('getColumnOption', fields[i]);
+                    cc.push('<p style="margin-top: 3px;margin-bottom: 3px"><span class="c-label">' + copts.title + ':</span> ' + rowData[fields[i]] + '</p>');
+                }
+                cc.push('</div>');
+                cc.push('<div style="float:left;width: 15%;padding: 0px 20px 0px 20px">');
+                for(var i=7; i<13; i++){
+                    var copts = $(target).datagrid('getColumnOption', fields[i]);
+                    cc.push('<p style="margin-top: 3px;margin-bottom: 3px"><span class="c-label">' + copts.title + ':</span> ' + rowData[fields[i]] + '</p>');
+                }
+                cc.push('</div>');
+                cc.push('<div style="float:left;width: 30%;padding: 0px 20px 0px 20px">');
+                for(var i=13; i<14; i++){
+                    var copts = $(target).datagrid('getColumnOption', fields[i]);
+                    cc.push('<p style="margin-top: 3px;margin-bottom: 3px"><span class="c-label">' + copts.title + ':</span> ' + rowData[fields[i]] + '</p>');
+                }
+                cc.push('</div>');
+                cc.push('<div style="float:right;width: *%;padding: 0px 60px 0px 20px">');
+                for(var i=14; i<fields.length; i++){
+                    var copts = $(target).datagrid('getColumnOption', fields[i]);
+                    cc.push('<p style="margin-top: 3px;margin-bottom: 3px">'
+                        +'<a href="javascript:void(0) ">修改</a>'
+                        + '</p>');
+                    cc.push('<p style="margin-top: 3px;margin-bottom: 3px">'
+                        +'<a href="javascript:void(0) ">下架</a>'
+                        + '</p>');
+                    cc.push('<p style="margin-top: 3px;margin-bottom: 3px">'
+                        +'<a href="javascript:void(0) ">确认</a>'
+                        + '</p>');
+                }
+                cc.push('</div>');
+                cc.push('</div>');
+            }
+            cc.push('</td>') ;
+            return cc.join('');
+        }
+    }
+});
+
+//用jquery-form.js提交表单
+function submitForm(id) {
+    var right = validateUpLoadForm(id);
+    if (right){
+        var form;
+        switch (id){
+            case 'schoolBook':
+                var form = $('#schoolForm');
+                break;
+            case 'reference':
+                var form = $('#referenceForm');
+                break;
+            case 'novel':
+                var form = $('#novelForm');
+        }
+        form.ajaxSubmit({
+            url:'/book_market/myStore/upLoadBook',
+            type:'post',
+            dataType:'json',
+            success:function (data) {
+                if (data){
+                    $('#MYBook').datagrid('reload');
+                    $('#upLoad').dialog('close');
+                    $.messager.alert({
+                        title:'上传成功',
+                        msg:'上传成功，可以在我的小店中查看',
+                        icon:'info',
+                    });
+                }else {
+                    $.messager.alert({
+                        title:'上传失败',
+                        msg:'请检查您的输入信息是否正确',
+                        icon:'info',
+                    });
+                }
+            }
+        })
+    }
+}
 
 function sellBook() {
     $("#college").combobox({
@@ -235,18 +338,25 @@ function validateUpLoadForm(id) {
             var bookName = $('#schBookName').textbox('getValue');
             var price = $('#schPrice').textbox('getValue');
             var abstract = $('#schAbstract').textbox('getValue');
+            var stock = parseInt($('#schStock').textbox('getValue'));
+            var image = $('#schoolBookImage').filebox('getValue');
+            console.log(image);
             break;
         case 'reference':
             var author = $('#refAuthor').textbox('getValue');
             var bookName = $('#refBookName').textbox('getValue');
             var price = $('#refPrice').textbox('getValue');
             var abstract = $('#refAbstract').textbox('getValue');
+            var stock = parseInt($('#refStock').textbox('getValue'));
+            var image = $('#referenceImage').filebox('getValue');
             break;
         case 'novel':
             var author = $('#novelAuthor').textbox('getValue');
             var bookName = $('#novelBookName').textbox('getValue');
             var price = $('#novelPrice').textbox('getValue');
             var abstract = $('#novelAbstract').textbox('getValue');
+            var stock = parseInt($('#novelStock').textbox('getValue'));
+            var image = $('#novelImage').filebox('getValue');
             break;
         default:
     }
@@ -274,17 +384,36 @@ function validateUpLoadForm(id) {
     }else if (abstract.length<15){
         $.messager.alert({
             title:'上传失败',
-            msg:'简介补得少于15字！',
+            msg:'简介不得少于15字！',
             icon:'warning',
         });
         return false;
-    }else{
-        $('#upLoad').dialog('close');
+    }else if (isNaN(stock)){
         $.messager.alert({
-            title:'上传成功',
-            msg:'上传成功，可以在我的小店中查看',
-            icon:'info',
+            title:'上传失败',
+            msg:'请输入正确数量',
+            icon:'warning',
         });
+    }else if (stock<1){
+        $.messager.alert({
+            title:'上传失败',
+            msg:'数量不能小于1本',
+            icon:'warning',
+        });
+    } else if (image.length<=1){
+        $.messager.alert({
+            title:'上传失败',
+            msg:'请选择图片',
+            icon:'warning',
+        });
+        return false;
+    }else if (abstract.length>150){
+        $.messager.alert({
+            title:'上传失败',
+            msg:'简介不得大于180字！',
+            icon:'warning',
+        });
+     }else{
         return true;
     }
 }
@@ -320,23 +449,4 @@ function formatOpera(val,row){
         "<br/><br/>"+
         "<a href='javascript:void(0)' onclick='addToShopping("+row.BOOK_ID+")' style='width: 100%;text-align: center'>"+"修改"+"</a>";
     return operate;
-}
-function openDetail(bookId) {
-    $.ajax({
-        method:'get',
-        data:{
-            BOOK_ID :bookId
-        },
-        url:'/book_market/combine/getDetail',
-        success:function (data) {
-            if (data!=null){
-                var detail = data[0];
-                $('#bigImg').attr('src',detail.BIGIMAGE);
-                $('#oldDetail').text(detail.OLD);
-                $('#damageDetail').text(detail.DAMAGE);
-                $('#abstract').text(detail.ABSTRACT);
-            }
-        }
-    })
-    $('#detail').dialog('open');
 }
