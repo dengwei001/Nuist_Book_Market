@@ -7,8 +7,8 @@
 
     <link rel="stylesheet" type="text/css" href="./easyui/themes/bootstrap/easyui.css"/>
     <link rel="stylesheet" type="text/css" href="./easyui/themes/icon.css"/>
-    <link rel="stylesheet" type="text/css" href="./css/login.css"/>
     <link rel="stylesheet" type="text/css" href="./css/jquery.idcode.css"/>
+    <link rel="stylesheet" type="text/css" href="./css/login.css"/>
     <script type="text/javascript" src="./easyui/jquery.min.js"></script>
     <script type="text/javascript" src="./easyui/jquery.easyui.min.js"></script>
     <script type="text/javascript" src="./js/easyui-lang-zh_CN.js"></script>
@@ -18,68 +18,54 @@
     <!--[if lt IE 9]>
     <script src="/js/html5shiv.js"></script>
     <![endif]-->
-    <style>
-        /*修改easyui样式*/
-        .textbox .textbox-text {
-            font-size: 16px;
-            border: 0;
-            margin: 0;
-            padding: 4px;
-            white-space: normal;
-            vertical-align: top;
-            outline-style: none;
-            resize: none;
-            -moz-border-radius: 5px 5px 5px 5px;
-            -webkit-border-radius: 5px 5px 5px 5px;
-            border-radius: 5px 5px 5px 5px;
-        }
-    </style>
 </head>
 
-<body id="body" style="overflow: hidden;padding: 150px 35%" text="yellow" >
+<body id="body" style="overflow: hidden;padding-top: 200px" text="yellow" >
     <canvas></canvas>
-            <div class="easyui-panel" style="width:400px;height: 320px;
-            background-color: transparent;border: hidden;" id="loginDiv">
-                <div style="padding:10px 60px 20px 60px">
-                    <form id="loginForm" method="post" action="/book_market/login">
-                        <table cellpadding="10" width="100%">
-                            <tr align="center">
-                                <td colspan="2">
-                                    <input iconCls="icon-man" class="easyui-textbox" type="text" id="username"
-                                           name="username" data-options="required:true,prompt:'请输入用户名 '"
-                                           style="height: 30px;width:225px;background:none;font-size: 16px" />
-                                </td>
-                            </tr>
-                            <tr align="center">
-                                <td colspan="2">
-                                    <input class="easyui-textbox" type="password" id="password" name="password"
-                                           iconCls="icon-lock" data-options="required:true,prompt:'请输入密码 '"
-                                           style="height: 30px;width:225px;background: none" />
-                                </td>
-                            </tr>
-                            <tr align="center">
-                                <td colspan="2">
-                                    <input class="easyui-textbox" type="text" id="Txtidcode" name="validate"
-                                           iconCls="icon-valid" data-options=""
-                                           style="height: 30px;width:140px;background: none" />
-                                    <span id="idcode" ></span>
-                                </td>
-                            </tr>
-                            <tr align="center">
-                                <td id="message" th:text="${msg}" style="color: #FF9900;font-size: 18px" colspan="2"></td>
-                            </tr>
-                            <tr align="center">
-                                <td>
-                                    <input type="button" id="button" onclick="submitLogin()" value="登录"/>
-                                </td>
-                                <td>
-                                    <input type="button" id="register" value="注册" onclick="openRegister()" />
-                                </td>
-                            </tr>
-                        </table>
-                    </form>
-                </div>
+    <div style="width: 100%;height: 500px;">
+        <div class="easyui-panel" style="width:400px;height: 320px;background-color: transparent;border: hidden;" id="loginDiv">
+            <div style="padding:10px 60px 20px 60px">
+                <form id="loginForm" method="post" action="/book_market/login">
+                    <table cellpadding="10" width="100%">
+                        <tr align="center">
+                            <td colspan="2">
+                                <input iconCls="icon-man" class="easyui-textbox" type="text" id="username"
+                                       name="username" data-options="required:true,prompt:'请输入用户名 '"
+                                       style="height: 30px;width:225px;background:none;font-size: 16px" />
+                            </td>
+                        </tr>
+                        <tr align="center">
+                            <td colspan="2">
+                                <input class="easyui-textbox" type="password" id="password" name="password"
+                                       iconCls="icon-lock" data-options="required:true,prompt:'请输入密码 '"
+                                       style="height: 30px;width:225px;background: none" />
+                            </td>
+                        </tr>
+                        <tr align="center">
+                            <td colspan="2">
+                                <input class="easyui-textbox" type="text" id="Txtidcode" name="validate"
+                                       iconCls="icon-valid" data-options=""
+                                       style="height: 30px;width:140px;background: none" />
+                                <span id="idcode" ></span>
+                            </td>
+                        </tr>
+                        <tr align="center">
+                            <td id="message" th:text="${msg}" style="color: #FF9900;font-size: 18px" colspan="2"></td>
+                        </tr>
+                        <tr align="center">
+                            <td>
+                                <input type="button" id="button" onclick="submitLogin()" value="登录"/>
+                            </td>
+                            <td>
+                                <input type="button" id="register" value="注册" onclick="openRegister()" />
+                            </td>
+                        </tr>
+                    </table>
+                </form>
             </div>
+        </div>
+    </div>
+
             <div id="registerDialog" class="easyui-dialog" title="注册" style="width:350px;height:350px;padding:10px;">
                 <div>
                     <div style="padding:10px 30px 20px 30px">

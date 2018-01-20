@@ -15,4 +15,6 @@ public interface NovelMapper {
 
     int updateById(Map map);
 
+    int deleteById(Map map);
+
 }

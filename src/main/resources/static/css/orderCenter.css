@@ -1,0 +1,10 @@
+.datagrid-toolbar{
+    background: #F5F5F5;
+    float:right;
+    padding-right: 18px;
+}
+.datagrid-btable {
+    width: 100%;
+    color: #333;
+    border-collapse: separate;
+}

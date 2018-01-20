@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -100,4 +101,36 @@ public class MyStoreController {
         resultMap.put("rows",list1);
         return resultMap;
     }
+
+    @RequestMapping("/updateBook")
+    @ResponseBody
+    public Object updateBook(@RequestParam Map param) throws IOException {
+        Map map = new HashMap();
+        map.put("BOOK_ID",param.get("BOOK_ID"));
+        map.put("OLD",param.get("OLD"));
+        map.put("DAMAGE",param.get("DAMAGE"));
+        map.put("AUTHOR",param.get("AUTHOR"));
+        map.put("BOOK_NAME",param.get("BOOK_NAME"));
+        map.put("PRICE",param.get("PRICE"));
+        map.put("STOCK",param.get("STOCK"));
+        map.put("ABSTRACT",param.get("ABSTRACT"));
+        combineService.updateBookById(map);
+        combineService.updateDetailById(map);
+        return true;
+    }
+
+    @RequestMapping("/delBook")
+    @ResponseBody
+    public Object delBook(@RequestParam Map map){
+        int delBook = combineService.deleteBookById(map);
+        int delDetail = combineService.deleteDetailById(map);
+        if (delBook==1&&delDetail==1){
+            return 1;
+        }else {
+            return 0;
+        }
+    }
+
 }
+
+

@@ -35,3 +35,9 @@ input#button {
 .cus-radio:checked + .cus-radioInput:after{background-color:#00A1E9;border-radius:100%;content:"";display:inline-block;height:17px;width:17px}
 .cus-checkbox.cus-radioInput,.cus-radio:checked + .cus-checkbox.cus-radioInput:after{border-radius:0}
 .cus-radio:checked + .cus-radioInput{border:2px solid #00A1E9;}
+
+.datagrid-btable {
+    width: 100%;
+    color: #333;
+    border-collapse: separate;
+}

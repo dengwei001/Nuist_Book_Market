@@ -29,3 +29,16 @@
     -ms-transition: all .2s;
 }
 
+.datagrid-toolbar{
+    background: #F5F5F5;
+    float:right;
+    padding-right: 18px;
+    position: absolute;
+    bottom: 0px;
+}
+.datagrid-btable {
+    width: 100%;
+    color: #333;
+    border-collapse: separate;
+}
+

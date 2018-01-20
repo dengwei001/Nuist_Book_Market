@@ -49,4 +49,26 @@ public class CombineServiceImpl implements CombineService {
             return 0;
         }
     }
+
+    @Override
+    public int updateDetailById(Map map) {
+        return combineMapper.updateDetailById(map);
+    }
+
+    @Override
+    public int deleteBookById(Map map) {
+        int sc = schoolBookService.deleteById(map);
+        int re = referenceService.deleteById(map);
+        int no = novelService.deleteById(map);
+        if (sc==1||re==1||no==1){
+            return 1;
+        }else {
+            return 0;
+        }
+    }
+
+    @Override
+    public int deleteDetailById(Map map) {
+        return combineMapper.deleteDetailById(map);
+    }
 }

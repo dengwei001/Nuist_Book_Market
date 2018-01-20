@@ -17,5 +17,7 @@ public interface SchoolBookService {
 
     int updateById(Map map);
 
+    int deleteById(Map map);
+
 
 }

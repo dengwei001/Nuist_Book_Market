@@ -36,30 +36,35 @@
     UPDATE reference
     <set>
       <if test="BOOK_NAME!=null and BOOK_NAME!=''">
-        BOOK_NAME=#{BOOK_NAME}
+        BOOK_NAME=#{BOOK_NAME},
       </if>
       <if test="TYPE!=null and TYPE!=''">
-        TYPE=#{TYPE}
+        TYPE=#{TYPE},
       </if>
       <if test="AUTHOR!=null and AUTHOR!=''">
-        AUTHOR=#{AUTHOR}
+        AUTHOR=#{AUTHOR},
       </if>
       <if test="PRESS!=null and PRESS!=''">
-        PRESS=#{PRESS}
+        PRESS=#{PRESS},
       </if>
       <if test="PRICE!=null and PRICE!=''">
-        PRICE=#{PRICE}
+        PRICE=#{PRICE},
       </if>
       <if test="STOCK!=null">
-        STOCK=#{STOCK}
+        STOCK=#{STOCK},
       </if>
       <if test="IMAGE!=null and IMAGE!=''">
-        IMAGE=#{IMAGE}
+        IMAGE=#{IMAGE},
       </if>
+      BOOK_ID=#{BOOK_ID}
     </set>
     <where>
       BOOK_ID=#{BOOK_ID}
     </where>
   </update>
+
+  <delete id="deleteById">
+    DELETE FROM reference WHERE BOOK_ID=#{BOOK_ID}
+  </delete>
 
 </mapper>

@@ -17,4 +17,6 @@ public interface SchoolBookMapper {
 
     int updateById(Map map);
 
+    int deleteById(Map map);
+
 }

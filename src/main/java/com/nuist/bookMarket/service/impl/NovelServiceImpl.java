@@ -39,4 +39,9 @@ public class NovelServiceImpl implements NovelService {
     public int updateById(Map map) {
         return novelMapper.updateById(map);
     }
+
+    @Override
+    public int deleteById(Map map) {
+        return novelMapper.deleteById(map);
+    }
 }

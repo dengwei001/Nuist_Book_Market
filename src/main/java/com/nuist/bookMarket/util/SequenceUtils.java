@@ -47,6 +47,11 @@ public class SequenceUtils {
         String promotionId = getSingleSequence("user$seq");
         return promotionId;
     }
+    public String getOrderId() throws Exception {
+        String promotionId = getSingleSequence("order$seq");
+        return promotionId;
+    }
+
 
 
 

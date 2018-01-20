@@ -15,6 +15,9 @@ public interface ReferenceService {
 
     int updateById(Map map);
 
+    int deleteById(Map map);
+
+
 
 
 }

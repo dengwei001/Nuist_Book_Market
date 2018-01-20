@@ -40,37 +40,42 @@
     SELECT * FROM schoolbook,detail WHERE schoolbook.BOOK_ID = #{BOOK_ID} AND schoolbook.BOOK_ID=detail.BOOK_ID AND STOCK>0
   </select>
   
-  <update id="updateById">
+  <update id="updateById" parameterType="java.util.HashMap">
     UPDATE schoolbook
     <set>
       <if test="BOOK_NAME!=null and BOOK_NAME!=''">
-        BOOK_NAME=#{BOOK_NAME}
+        BOOK_NAME=#{BOOK_NAME},
       </if>
       <if test="COLLEGE!=null and COLLEGE!=''">
-        COLLEGE=#{COLLEGE}
+        COLLEGE=#{COLLEGE},
       </if>
       <if test="SPECIALTY!=null and SPECIALTY!=''">
-        SPECIALTY=#{SPECIALTY}
+        SPECIALTY=#{SPECIALTY},
       </if>
       <if test="AUTHOR!=null and AUTHOR!=''">
-        AUTHOR=#{AUTHOR}
+        AUTHOR=#{AUTHOR},
       </if>
       <if test="PRESS!=null and PRESS!=''">
-        PRESS=#{PRESS}
+        PRESS=#{PRESS},
       </if>
       <if test="PRICE!=null and PRICE!=''">
-        PRICE=#{PRICE}
+        PRICE=#{PRICE},
       </if>
       <if test="STOCK!=null">
-        STOCK=#{STOCK}
+        STOCK=#{STOCK,},
       </if>
       <if test="IMAGE!=null and IMAGE!=''">
-        IMAGE=#{IMAGE}
+        IMAGE=#{IMAGE},
       </if>
+      BOOK_ID=#{BOOK_ID}
     </set>
     <where>
       BOOK_ID=#{BOOK_ID}
     </where>
   </update>
+
+  <delete id="deleteById">
+    DELETE FROM schoolbook WHERE BOOK_ID=#{BOOK_ID}
+  </delete>
 
 </mapper>

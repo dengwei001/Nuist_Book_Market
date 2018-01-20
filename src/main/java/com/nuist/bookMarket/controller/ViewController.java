@@ -72,6 +72,11 @@ public class ViewController {
         return "test";
     }
 
+    @RequestMapping("/orderCenter")
+    public String toOrderCenter(){
+        return "orderCenter";
+    }
+
     @RequestMapping("/administrstor")
     public String toAdministrstor(){
         User user = (User) SecurityUtils.getSubject().getPrincipal();

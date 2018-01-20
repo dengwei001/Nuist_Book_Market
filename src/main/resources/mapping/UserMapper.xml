@@ -13,9 +13,15 @@
   <select id="selectAll" resultType="java.util.HashMap" >
     SELECT * FROM user
   </select>
+
   <select id="selectByUserName" resultMap="BaseResultMap">
     SELECT * FROM user WHERE username=#{username}
   </select>
+
+  <select id="selectByUserId" resultMap="BaseResultMap">
+    SELECT * FROM user WHERE userId=#{userId}
+  </select>
+
   <insert id="insertUser">
     INSERT INTO user (username,password,name,userId,userRole,mobile)
     VALUES (#{username},#{password},#{name},#{userId},#{userRole},#{mobile})

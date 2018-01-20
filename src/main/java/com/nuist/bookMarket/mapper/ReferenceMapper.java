@@ -16,6 +16,8 @@ public interface ReferenceMapper {
 
     int updateById(Map map);
 
+    int deleteById(Map map);
+
 
 
 }

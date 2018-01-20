@@ -1,6 +1,30 @@
-
-body{background: url("/book_market/images/background.jpg");background-size: 100% 100%;text-align: center}
+body{background: url("/book_market/images/background02.jpg");background-size: 100% 100%;text-align: center}
 #loginDiv{margin:0 auto;border:1px solid #000;width:300px;height:100px}
+
+/*修改easyui样式*/
+.textbox .textbox-text {
+    font-size: 16px;
+    border: 0;
+    margin: 0;
+    padding: 4px;
+    white-space: normal;
+    vertical-align: top;
+    outline-style: none;
+    resize: none;
+    -moz-border-radius: 5px 5px 5px 5px;
+    -webkit-border-radius: 5px 5px 5px 5px;
+    border-radius: 5px 5px 5px 5px;
+}
+.panel {
+    overflow: hidden;
+    text-align: left;
+    margin: 0;
+    border: 0;
+    float: right;
+    -moz-border-radius: 0 0 0 0;
+    -webkit-border-radius: 0 0 0 0;
+    border-radius: 0 0 0 0;
+}
 
 canvas{position: fixed; top: 0px; left: 0px; }
 
@@ -65,3 +89,5 @@ input#register {
     -webkit-transition: all .2s;
     -ms-transition: all .2s;
 }
+
+

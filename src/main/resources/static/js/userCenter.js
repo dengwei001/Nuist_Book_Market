@@ -17,7 +17,9 @@ $(function () {
             if (index==2){
                 window.frames['shoppingCar'].document.location.reload()
             }
-
+            if (index==3){
+                window.frames['orderCenter'].document.location.reload()
+            }
         }
     });
     //刷新tabs的大小
@@ -29,4 +31,5 @@ window.onload=function () {
     //当页面加载完成后再加载
     $('#myStore').attr('src','/book_market/myStore');
     $('#shoppingCar').attr('src','/book_market/shoppingCar');
+    $('#orderCenter').attr('src','/book_market/orderCenter');
 }

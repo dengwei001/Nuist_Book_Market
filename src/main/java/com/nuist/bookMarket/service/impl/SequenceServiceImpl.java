@@ -61,4 +61,11 @@ public class SequenceServiceImpl implements SequenceService {
     public String getUserId() throws Exception {
         return sequenceUtils.getUserId();
     }
+
+    @Override
+    public String getOrderId() throws Exception {
+        String orderId = sequenceUtils.getOrderId();
+        String pre = DateUtils.getSysdate(PRE_DATE_FORMAT);
+        return pre+orderId;
+    }
 }

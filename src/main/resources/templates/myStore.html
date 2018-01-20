@@ -12,18 +12,10 @@
     <script type="text/javascript" src="./js/jquery-form.js"></script>
     <script type="text/javascript" src="./js/myStore.js"></script>
     <title>myStore</title>
-    <style>
-        .datagrid-btable {
-            width: 100%;
-            color: #333;
-            border-collapse: separate;
-        }
-    </style>
 </head>
-<body>
-    <iframe id="hide" name="hide" src="" style="display: none"></iframe>
+<body style="margin: 0px">
     <div>
-        <table id="MYBook" class="easyui-datagrid" title="我的书籍" data-options="singleSelect:true,collapsible:true,method:'get',toolbar:'#toolbar'" style="height: 500px">
+        <table id="MYBook" class="easyui-datagrid" title="我的书籍" data-options="singleSelect:true,collapsible:true,method:'get',toolbar:'#toolbar'" >
             <thead>
             <tr>
                 <th data-options="field:'IMAGE',width:100,align:'center'">书图</th>
@@ -260,5 +252,79 @@
         </div>
 
     </div>
+    <div id="updateBook" class="easyui-dialog" title="信息维护" style="width:700px;height:500px;padding:10px;">
+        <form id="updateBookForm" enctype="multipart/form-data" style="text-align: center">
+            <table cellpadding="0" width="500px" style="margin: auto">
+                <tr style="display: none">
+                    <td>ID：</td>
+                    <td><input id="bookId" class="easyui-textbox" style="width:150px;height:32px;"
+                               name="BOOK_ID" data-options="required:true"/></td>
+                </tr>
+                <tr align="center">
+                    <td>学院：</td>
+                    <td><input id="updateCollege" name="COLLEGE" class="easyui-combobox " style="width:150px;height:32px;background: #eeeeee" disabled="disabled"/></td>
+                    <td>专业：</td>
+                    <td><input id="updateSpecialty" name="SPECIALTY" class="easyui-combobox" style="width:150px;height:32px;background: #eeeeee" disabled="disabled"/></td>
+                </tr>
+                <tr align="center">
+                    <td>名著小说类型：</td>
+                    <td><input id="updateStyle" name="STYLE" class="easyui-combobox" style="width:150px;height:32px;background: #eeeeee" disabled="disabled"/></td>
+                    <td>拓展类型：</td>
+                    <td><input id="updateType" name="TYPE" class="easyui-combobox" style="width:150px;height:32px;background: #eeeeee" disabled="disabled"/></td>
+                </tr>
+                <tr align="center">
+                    <td>出版社：</td>
+                    <td><input id="updatePress" name="PRESS" class="easyui-combobox" style="width:150px;height:32px;background: #eeeeee;" disabled="disabled"/></td>
+                    <td>新旧度：</td>
+                    <td>
+                        <select id="updateOld" class="easyui-combobox" style="width:150px;height:32px;" name="OLD" data-options="editable:false">
+                            <option value="五成新" selected="selected">五成新</option>
+                            <option value="六成新">六成新</option>
+                            <option value="七成新">七成新</option>
+                            <option value="八成新">八成新</option>
+                            <option value="九成新">九成新</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr align="center">
+                    <td>破损：</td>
+                    <td>
+                        <select id="updateDamage" class="easyui-combobox" style="width:150px;height:32px;" name="DAMAGE" data-options="editable:false">
+                            <option value="无破损" selected="selected">无破损</option>
+                            <option value="轻微破损">轻微破损</option>
+                            <option value="有破损">有破损</option>
+                            <option value="破损较严重">破损较严重</option>
+                        </select>
+                    </td>
+                    <td>作者：</td>
+                    <td><input id="updateAuthor" class="easyui-textbox" style="width:150px;height:32px;"
+                               name="AUTHOR" data-options="required:true"/></td>
+                </tr>
+                <tr align="center">
+                    <td>书名：</td>
+                    <td><input id="updateBookName" class="easyui-textbox" style="width:150px;height:32px;"                                    name="BOOK_NAME" data-options="required:true"/></td>
+                    <td>价格：</td>
+                    <td><input id="updatePrice" class="easyui-textbox" style="width:150px;height:32px;"
+                               name="PRICE" data-options="required:true"/></td>
+                </tr>
+                <tr align="center">
+                    <td>数量：</td>
+                    <td><input id="updateStock" class="easyui-textbox" style="width:150px;height:32px;"
+                               name="STOCK" data-options="required:true"/></td>
+                </tr>
+                <tr>
+                    <td>详细描述：</td>
+                    <td colspan="3">
+                        <input id="updateAbstract" class="easyui-textbox" name="ABSTRACT" data-options="multiline:true,required:true" style="width: 400px;height: 150px" />
+                    </td>
+                </tr>
+                <tr align="center">
+                    <td colspan="4"><input type="button" id="button" onclick="submitUpdateForm()" value="修改" /></td>
+                </tr>
+            </table>
+        </form>
+
+    </div>
+
 </body>
 </html>

@@ -11,4 +11,8 @@ public interface CombineMapper {
 
     List selectBookById(Map map);
 
+    int updateDetailById(Map map);
+
+    int deleteDetailById(Map map);
+
 }

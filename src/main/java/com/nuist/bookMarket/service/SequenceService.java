@@ -16,5 +16,7 @@ public interface SequenceService {
 
     String getUserId() throws Exception;
 
+    String getOrderId() throws Exception;
+
 
 }

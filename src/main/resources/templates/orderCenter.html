@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" type="text/css" href="./easyui/themes/bootstrap/easyui.css"/>
+    <link rel="stylesheet" type="text/css" href="./easyui/themes/icon.css"/>
+    <link rel="stylesheet" type="text/css" href="./css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="./css/orderCenter.css"/>
+    <script type="text/javascript" src="./easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="./easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="./js/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript" src="./js/orderCenter.js"></script>
+    <title>orderCenter</title>
+</head>
+<body style="margin: 0px">
+    <div>
+        <div id="buyerDiv" style="width: 100%;height: 100%;">
+            <table id="buyerOrder" class="easyui-datagrid" title="购物订单" data-options="singleSelect:true,collapsible:true,method:'get',toolbar:'#buyerToolbar'">
+                <thead>
+                    <tr>
+                        <th data-options="field:'ORDER_ID',width:100,align:'center'">订单ID</th>
+                        <th data-options="field:'BOOK_ID',width:100,align:'center'">书籍ID</th>
+                        <th data-options="field:'BOOK_NAME',width:100,align:'center'">书名</th>
+                        <th data-options="field:'PRICE',width:100,align:'center'">单价</th>
+                        <th data-options="field:'NUM',width:100,align:'center'">数量</th>
+                        <th data-options="field:'AMOUNT',width:100,align:'center'">合计</th>
+                        <th data-options="field:'SELLER',width:100,align:'center'">卖家</th>
+                        <th data-options="field:'SELLER_ID',width:100,align:'center'">卖家ID</th>
+                        <th data-options="field:'SELLER_MOBILE',width:100,align:'center'">卖家电话</th>
+                        <th data-options="field:'CREATE_TIME',width:100,align:'center'">下单时间</th>
+                        <th data-options="field:'END_TIME',width:100,align:'center'">失效时间</th>
+                        <th data-options="field:'ORDER_STATE',width:100,align:'center'">订单状态</th>
+                        <th data-options="field:'_operate',width:100,align:'center'">操作</th>
+                    </tr>
+                </thead>
+            </table>
+            <div id="buyerToolbar" style="width: 100%;text-align: right;">
+                <button onclick="changeDiv('buyerDiv')">查看小店订单</button>
+            </div>
+        </div>
+        <div id="sellerDiv" style="width: 100%;height: 100%;">
+            <table id="sellerOrder" class="easyui-datagrid" title="我的小店订单" data-options="singleSelect:true,collapsible:true,method:'get',toolbar:'#sellerToolbar'">
+                <thead>
+                    <tr>
+                        <th data-options="field:'ORDER_ID',width:100,align:'center'">订单ID</th>
+                        <th data-options="field:'BOOK_ID',width:100,align:'center'">书籍ID</th>
+                        <th data-options="field:'BOOK_NAME',width:100,align:'center'">书名</th>
+                        <th data-options="field:'PRICE',width:100,align:'center'">单价</th>
+                        <th data-options="field:'NUM',width:100,align:'center'">数量</th>
+                        <th data-options="field:'AMOUNT',width:100,align:'center'">合计</th>
+                        <th data-options="field:'CUSTOM',width:100,align:'center'">客户</th>
+                        <th data-options="field:'CUSTOM_ID',width:100,align:'center'">客户ID</th>
+                        <th data-options="field:'CUSTOM_MOBILE',width:100,align:'center'">客户电话</th>
+                        <th data-options="field:'CREATE_TIME',width:100,align:'center'">下单时间</th>
+                        <th data-options="field:'END_TIME',width:100,align:'center'">失效时间</th>
+                        <th data-options="field:'ORDER_STATE',width:100,align:'center'">订单状态</th>
+                        <th data-options="field:'_operate',width:100,align:'center'">操作</th>
+                    </tr>
+                </thead>
+            </table>
+            <div id="sellerToolbar" style="width: 100%;text-align: right;">
+                <button onclick="changeDiv('sellerDiv')">查看购买订单</button>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

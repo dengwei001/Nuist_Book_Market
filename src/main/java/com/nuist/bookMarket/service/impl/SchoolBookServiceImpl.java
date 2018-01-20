@@ -43,4 +43,9 @@ public class SchoolBookServiceImpl implements SchoolBookService{
     public int updateById(Map map) {
         return schoolBookMapper.updateById(map);
     }
+
+    @Override
+    public int deleteById(Map map) {
+        return schoolBookMapper.deleteById(map);
+    }
 }

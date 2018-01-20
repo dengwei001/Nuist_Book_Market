@@ -35,6 +35,32 @@
                 WHERE
                     BOOK_ID = #{BOOK_ID} AND STOCK>0
     </select>
+    
+    <update id="updateDetailById">
+        UPDATE detail
+        <set>
+            <if test="OLD!=null and OLD!=''">
+                OLD=#{OLD},
+            </if>
+            <if test="DAMAGE!=null and DAMAGE!=''">
+                DAMAGE=#{DAMAGE},
+            </if>
+            <if test="ABSTRACT!=null and ABSTRACT!=''">
+                ABSTRACT=#{ABSTRACT},
+            </if>
+            <if test="BIGIMAGE!=null and BIGIMAGE!=''">
+                BIGIMAGE=#{BIGIMAGE},
+            </if>
+            BOOK_ID=#{BOOK_ID}
+        </set>
+        <where>
+            BOOK_ID=#{BOOK_ID}
+        </where>
+    </update>
+
+    <delete id="deleteDetailById">
+        DELETE FROM detail WHERE BOOK_ID=#{BOOK_ID}
+    </delete>
 
     
 </mapper>

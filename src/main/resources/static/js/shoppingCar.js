@@ -1,5 +1,4 @@
 $(function () {
-    $('#detail').dialog('close');
     $('#shoppingCar').datagrid({
         fit:false,
         view:cardview,
@@ -149,7 +148,10 @@ function buyBookNow() {
             BOOK_ID:arr[i].BOOK_ID,
             BOOK_NAME:arr[i].BOOK_NAME,
             SELLER_ID:arr[i].SELLER_ID,
+            SELLER:arr[i].SELLER,
+            PRICE:arr[i].PRICE,
             NUM:arr[i].NUM,
+            AMOUNT:Number(arr[i].NUM)*Number(arr[i].PRICE)
         };
         list.push(json);
     };
@@ -161,8 +163,6 @@ function buyBookNow() {
         data: JSON.stringify(list),
         url: '/book_market/shoppingCar/buyBook',
         success:function (data) {
-            console.log(data);
-            console.log(data.webResult);
             if (data.webResult==true){
                 var msg = '';
                 var unPass=data.data;
@@ -180,17 +180,12 @@ function buyBookNow() {
                     $('#shoppingCar').datagrid('reload');
                 }else {
                     for (var i=0;i<unPass.length;i++){
-                        msg = msg+'书号为'+unPass[i].BOOK_ID+'的'+unPass[i].BOOK_NAME+'库存已不足！'+'<br/>';
+                        msg = msg+'书号为'+unPass[i].BOOK_ID+'的'+unPass[i].BOOK_NAME+'库存已不足！剩余'+unPass[i].STOCK+'本!'+'<br/>';
                     };
-                    $.messager.show({
+                    $.messager.alert({
                         title:'下单成功',
                         msg:msg,
-                        timeout:1000,
-                        showType:'slide',
-                        style:{
-                            right:'',
-                            bottom:''
-                        }
+                        width: 400,
                     });
                     $('#shoppingCar').datagrid('reload');
                 }

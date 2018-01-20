@@ -13,4 +13,10 @@ public interface CombineService {
 
     int updateBookById(Map map);
 
+    int updateDetailById(Map map);
+
+    int deleteBookById(Map map);
+
+    int deleteDetailById(Map map);
+
 }

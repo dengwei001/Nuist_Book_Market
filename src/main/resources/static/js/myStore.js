@@ -1,5 +1,6 @@
 $(function () {
     $('#upLoad').dialog('close');
+    $('#updateBook').dialog('close');
     //初始化div的显示与隐藏
     $('#schoolBookUpLoad').show();
     $('#referenceUpLoad').hide();
@@ -35,6 +36,9 @@ $(function () {
         afterPageText: '页    共 {pages} 页',
         displayMsg: '当前显示 {from} - {to} 条记录   共 {total} 条记录',
     });
+    $('#MYBook').datagrid('resize',{
+        height:$(window).height()
+    })
 })
 
 var cardview = $.extend({}, $.fn.datagrid.defaults.view, {
@@ -81,13 +85,10 @@ var cardview = $.extend({}, $.fn.datagrid.defaults.view, {
                 for(var i=14; i<fields.length; i++){
                     var copts = $(target).datagrid('getColumnOption', fields[i]);
                     cc.push('<p style="margin-top: 3px;margin-bottom: 3px">'
-                        +'<a href="javascript:void(0) ">修改</a>'
+                        +'<a href="javascript:void(0) " onclick="updateBookInfo('+rowIndex+')">信息维护</a>'
                         + '</p>');
                     cc.push('<p style="margin-top: 3px;margin-bottom: 3px">'
-                        +'<a href="javascript:void(0) ">下架</a>'
-                        + '</p>');
-                    cc.push('<p style="margin-top: 3px;margin-bottom: 3px">'
-                        +'<a href="javascript:void(0) ">确认</a>'
+                        +'<a href="javascript:void(0)" onclick="delBook('+rowData.BOOK_ID+')">撤销书籍</a>'
                         + '</p>');
                 }
                 cc.push('</div>');
@@ -439,14 +440,106 @@ function chooseDiv(id) {
     }
 }
 
-function formatImg(val,row){
-    var img = " <img  src="+row.IMAGE+" "+"style="+"width:100px;"+"/>";
-    return img;
+function updateBookInfo(index) {
+    $('#updateBook').dialog('open');
+    $('#MYBook').datagrid('selectRow',index);
+    var row = $('#MYBook').datagrid('getSelected');
+    $('#bookId').textbox('setValue',row.BOOK_ID);
+    $('#updateCollege').combobox('setValue',row.COLLEGE);
+    $('#updateSpecialty').combobox('setValue',row.SPECIALTY);
+    $('#updateStyle').combobox('setValue',row.STYLE);
+    $('#updateType').combobox('setValue',row.TYPE);
+    $('#updatePress').combobox('setValue',row.PRESS);
+    $('#updateOld').combobox('select',row.OLD);
+    $('#updateDamage').combobox('select',row.DAMAGE);
+    $('#updateAuthor').textbox('setValue',row.AUTHOR);
+    $('#updateBookName').textbox('setValue',row.BOOK_NAME);
+    $('#updatePrice').textbox('setValue',row.PRICE);
+    $('#updateStock').textbox('setValue',row.STOCK);
+    $('#updateAbstract').textbox('setValue',row.ABSTRACT);
+}
+function submitUpdateForm() {
+    var author = $('#updateAuthor').textbox('getValue');
+    var bookName = $('#updateBookName').textbox('getValue');
+    var price = $('#updatePrice').textbox('getValue');
+    var abstract = $('#updateAbstract').textbox('getValue');
+    var stock = parseInt($('#updateStock').textbox('getValue'));
+    if (author.length<1||bookName.length<1||price.length<1||abstract.length<15||isNaN(stock)||stock<1||abstract.length>150){
+        $.messager.alert({
+            title:'修改失败',
+            msg:'请检查输入！',
+            icon:'warning',
+        });
+    }else {
+        $('#updateBookForm').ajaxSubmit({
+            url:'/book_market/myStore/updateBook',
+            type:'post',
+            dataType:'json',
+            success:function (data) {
+                if (data){
+                    $('#MYBook').datagrid('reload');
+                    $('#upLoad').dialog('close');
+                    $.messager.show({
+                        title:'修改成功',
+                        msg:'修改成功',
+                        timeout:1000,
+                        showType:'slide',
+                        style:{
+                            right:'',
+                            bottom:''
+                        }
+                    });
+                }else {
+                    $.messager.alert({
+                        title:'上传失败',
+                        msg:'请检查您的输入信息是否正确',
+                        icon:'info',
+                    });
+                }
+            }
+        })
+    }
 }
 
-function formatOpera(val,row){
-    var operate = "<a href='javascript:void(0)' onclick='openDetail("+row.BOOK_ID+")' style='width: 100%;text-align: center'>"+"详情"+"</a>"+
-        "<br/><br/>"+
-        "<a href='javascript:void(0)' onclick='addToShopping("+row.BOOK_ID+")' style='width: 100%;text-align: center'>"+"修改"+"</a>";
-    return operate;
+function delBook(bookId){
+    $.messager.confirm('删除','确定要撤销书籍吗？',function (r) {
+        if (r){
+            $.ajax({
+                type:'post',
+                cache:false,
+                data:{
+                    BOOK_ID:bookId
+                },
+                url:'/book_market/myStore/delBook',
+                success:function (data) {
+                    if (data==1){
+                        $('#MYBook').datagrid('reload');
+                        $.messager.show({
+                            title:'删除成功',
+                            msg:'删除成功',
+                            timeout:1000,
+                            showType:'slide',
+                            style:{
+                                right:'',
+                                bottom:''
+                            }
+                        });
+                    }else {
+                        $.messager.show({
+                            title:'删除失败',
+                            msg:'删除失败，请稍后再试',
+                            timeout:1000,
+                            showType:'slide',
+                            style:{
+                                right:'',
+                                bottom:''
+                            }
+                        });
+                    }
+
+                }
+            })
+        }
+    })
+
 }

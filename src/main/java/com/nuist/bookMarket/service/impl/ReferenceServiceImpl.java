@@ -38,4 +38,9 @@ public class ReferenceServiceImpl implements ReferenceService {
     public int updateById(Map map) {
         return referenceMapper.updateById(map);
     }
+
+    @Override
+    public int deleteById(Map map) {
+        return referenceMapper.deleteById(map);
+    }
 }

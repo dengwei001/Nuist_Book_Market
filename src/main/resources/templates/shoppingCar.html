@@ -11,20 +11,6 @@
     <script type="text/javascript" src="./js/easyui-lang-zh_CN.js"></script>
     <script type="text/javascript" src="./js/shoppingCar.js"></script>
     <title>ShoppingCar</title>
-    <style>
-        .datagrid-toolbar{
-            background: #F5F5F5;
-            float:right;
-            padding-right: 18px;
-            position: absolute;
-            bottom: 0px;
-        }
-        .datagrid-btable {
-            width: 100%;
-            color: #333;
-            border-collapse: separate;
-        }
-    </style>
 </head>
 <body style="margin: 0px">
     <div style="width: 100%;height: 100%">
@@ -48,7 +34,7 @@
                 <th data-options="field:'PRICE',width:100,align:'center'">单价</th>
                 <th data-options="field:'ABSTRACT',width:100,align:'center'">描述</th>
                 <th data-options="field:'NUM',width:100,align:'center'">数量</th>
-                <th data-options="field:'amount',width:100,align:'center'">合计</th>
+                <th data-options="field:'AMOUNT',width:100,align:'center'">合计</th>
                 <th data-options="field:'_operate',width:100,align:'center'">操作</th>
             </tr>
             </thead>
@@ -59,17 +45,6 @@
             <button id="button" onclick="delFromCar()">移出购物车</button>&nbsp;&nbsp;
         </div>
     </div>
-    <div id="detail" class="easyui-dialog" title="详情" data-options="" style="width:600px;height:350px;padding:10px">
-        <div style="width: 270px;height:300px;float: left">
-            <img id="bigImg" src="" style="width: 260px;" />
-        </div>
-        <div style="width: 270px;height:300px;float: left;">
-            <b>新旧度：</b><span id="oldDetail"></span><br/><br/>
-            <b>破损：</b><span id="damageDetail"></span><br/><br/>
-            <b>详细描述：</b><span id="abstract"></span>
-        </div>
-    </div>
-
 
 </body>
 </html>

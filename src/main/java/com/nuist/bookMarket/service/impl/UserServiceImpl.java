@@ -33,4 +33,9 @@ public class UserServiceImpl implements UserService {
     public int changeMobile(Map map) {
         return userMapper.updateUser(map);
     }
+
+    @Override
+    public User getUserByUserId(String userId) {
+        return userMapper.selectByUserId(userId);
+    }
 }
