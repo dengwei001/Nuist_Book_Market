@@ -51,9 +51,16 @@
                     <input class="easyui-linkbutton" id="button" onclick="changePasswprd()" value="修改" style="width: 50px;height: 25px;font-size: 18px"/>
                 </div>
             </div>
-            <div id="changeMobile" title="修改手机号" class="easyui-dialog" style="padding: 30px;text-align: center">
-                <div>
-                    <label>新手机号:<input class="easyui-textbox" type="text" id="newMobile" /></label><br/><br/>
+            <div id="changeMobile" title="修改手机号" class="easyui-dialog" style="padding: 30px;text-align: center;width: 450px">
+                <div style="text-align: left;padding-left: 50px;position: relative">
+                    <label>新手机号:<input class="easyui-textbox" type="text" id="newMobile" /></label>
+                    <input type="button" id="sendMessage" onclick="sendMessageCode()" value="获取验证码" style="height: 24px;position: absolute;top: 0px"/><br/><br/>
+                </div>
+                <div style="padding-left: 63px;text-align: left;">
+                    <label>验证码:<input class="easyui-textbox" type="text" id="messageCode" />
+                    </label><br/><br/>
+                </div>
+                <div style="text-align: center">
                     <input class="easyui-linkbutton" id="button" onclick="changeMobile()" value="修改" style="width: 50px;height: 25px;font-size: 18px"/>
                 </div>
             </div>

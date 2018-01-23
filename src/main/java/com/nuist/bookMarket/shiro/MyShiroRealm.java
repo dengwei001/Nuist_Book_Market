@@ -35,14 +35,6 @@ public class MyShiroRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException{
         //获取用户输入的username
         String username = (String) token.getPrincipal();
-//        try {
-//            String password = MD5Utils.EncoderByMd5(token.getCredentials().toString());
-//            ((UsernamePasswordToken) token).setPassword(password);
-//        } catch (NoSuchAlgorithmException e) {
-//            e.printStackTrace();
-//        } catch (UnsupportedEncodingException e) {
-//            e.printStackTrace();
-//        }
 
         //根据username查询数据库的User
         User user = userService.getUserByUserName(username);

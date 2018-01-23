@@ -1,6 +1,7 @@
 package com.nuist.bookMarket.controller;
 
 import com.nuist.bookMarket.model.User;
+import com.nuist.bookMarket.service.MessageService;
 import com.nuist.bookMarket.service.SequenceService;
 import com.nuist.bookMarket.service.UserService;
 import com.nuist.bookMarket.util.MD5Utils;
@@ -18,9 +19,11 @@ import java.util.Map;
 public class RegisterController {
 
     @Autowired
-    UserService userService;
+    private UserService userService;
     @Autowired
-    SequenceService sequenceService;
+    private SequenceService sequenceService;
+    @Autowired
+    private MessageService messageService;
 
     @RequestMapping("/registerUser")
     @ResponseBody
@@ -39,4 +42,18 @@ public class RegisterController {
         }
     }
 
+    @RequestMapping("/getMessageCode")
+    @ResponseBody
+    public Object getMessageCode(@RequestParam Map param){
+        String code = "@1@="+messageService.createCode();
+        messageService.sendTplSms((String) param.get("mobile"),"JSM42172-0002",code);
+        return true;
+    }
+
+    @RequestMapping("/validateMessageCode")
+    @ResponseBody
+    public Object validateMessageCode(@RequestParam Map param){
+
+        return messageService.validate((String) param.get("code"));
+    }
 }

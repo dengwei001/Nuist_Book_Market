@@ -2,6 +2,7 @@ package com.nuist.bookMarket.service;
 
 import com.nuist.bookMarket.model.User;
 
+import java.util.List;
 import java.util.Map;
 
 public interface UserService {
@@ -14,4 +15,8 @@ public interface UserService {
     int changePassword(Map map);
 
     int changeMobile(Map map);
+
+    List<Map<String,Object>> getUserId();
+
+    List<Map<String,Object>> getAllUser();
 }

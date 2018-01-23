@@ -8,12 +8,14 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.sql.DataSource;
 
 @SpringBootApplication
 @MapperScan(basePackages = "com.nuist.bookMarket.mapper")
+@EnableScheduling
 public class BookMarketApplication extends SpringBootServletInitializer {
 
 	@Override

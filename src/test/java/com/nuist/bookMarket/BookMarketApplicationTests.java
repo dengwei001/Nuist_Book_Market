@@ -10,7 +10,9 @@ import com.nuist.bookMarket.mapper.ParamAdminMapper;
 import com.nuist.bookMarket.mapper.SchoolBookMapper;
 import com.nuist.bookMarket.mapper.UserMapper;
 import com.nuist.bookMarket.model.User;
+import com.nuist.bookMarket.schedule.SynchronousOrder;
 import com.nuist.bookMarket.service.JSONArrayService;
+import com.nuist.bookMarket.service.MessageService;
 import com.nuist.bookMarket.util.MD5Utils;
 import com.nuist.bookMarket.util.SequenceUtils;
 import org.junit.Test;
@@ -27,7 +29,6 @@ import javax.sql.DataSource;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -51,6 +52,10 @@ public class BookMarketApplicationTests {
 	private JedisPool jedisPool;
 	@Autowired
 	JSONArrayService jsonArrayService;
+	@Autowired
+	private SynchronousOrder synchronousOrder;
+	@Autowired
+	private MessageService messageService;
 
 
 	@Test
@@ -65,11 +70,11 @@ public class BookMarketApplicationTests {
 	public void a() throws SQLException {
 		Map mapResult = new HashMap<>();
 		PageHelper.startPage(2,5,true);
-		List<Map> list = userMapper.selectAll() ;//查询
+		List list = userMapper.selectAll() ;//查询
 		User user = userMapper.selectByUserName("dengwei");
 		logger.debug(user.getName());
 		// 取用户列表
-		for(Map item : list) {
+		for(Object item : list) {
 			System.out.println(item.toString());
 		}
 //		List list = custMapper.selectByPrimaryKey(1);
@@ -173,4 +178,20 @@ public class BookMarketApplicationTests {
 		}
 		logger.debug(String.valueOf(gouJSON));
 	}
+
+	@Test
+	public void testSynchronousOrder() throws Exception {
+		synchronousOrder.importOrderFromRedisToSql();
+	}
+
+
+	@Test
+	public void testCreatCode(){
+		String code = messageService.createCode();
+		logger.debug(code);
+		logger.debug(String.valueOf(messageService.validate(code)));
+		logger.debug(messageService.sendTplSms("111","JSM42172-0002",code));
+	}
+
+
 }

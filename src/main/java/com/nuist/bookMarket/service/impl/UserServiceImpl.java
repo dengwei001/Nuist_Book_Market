@@ -6,6 +6,7 @@ import com.nuist.bookMarket.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 
 @Service("userService")
@@ -37,5 +38,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserByUserId(String userId) {
         return userMapper.selectByUserId(userId);
+    }
+
+    @Override
+    public List getUserId() {
+        return userMapper.selectId();
+    }
+
+    @Override
+    public List<Map<String, Object>> getAllUser() {
+        return userMapper.selectAll();
     }
 }

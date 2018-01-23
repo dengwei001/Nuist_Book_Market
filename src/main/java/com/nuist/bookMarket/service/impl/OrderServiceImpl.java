@@ -1,6 +1,7 @@
 package com.nuist.bookMarket.service.impl;
 
 import com.alibaba.fastjson.JSONArray;
+import com.nuist.bookMarket.mapper.OrderMapper;
 import com.nuist.bookMarket.model.User;
 import com.nuist.bookMarket.service.JSONArrayService;
 import com.nuist.bookMarket.service.OrderService;
@@ -13,6 +14,7 @@ import redis.clients.jedis.Jedis;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -26,6 +28,8 @@ public class OrderServiceImpl implements OrderService{
     private Jedis jedis;
     @Autowired
     private JSONArrayService jsonArrayService;
+    @Autowired
+    private OrderMapper orderMapper;
 
     @Override
     public Map createOrder(Map map, User custom) throws Exception {
@@ -56,5 +60,10 @@ public class OrderServiceImpl implements OrderService{
         }else {
             return new JSONArray();
         }
+    }
+
+    @Override
+    public int batchImportOrder(List list) {
+        return orderMapper.batchImportOrder(list);
     }
 }

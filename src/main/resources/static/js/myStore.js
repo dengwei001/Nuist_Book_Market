@@ -478,7 +478,7 @@ function submitUpdateForm() {
             success:function (data) {
                 if (data){
                     $('#MYBook').datagrid('reload');
-                    $('#upLoad').dialog('close');
+                    $('#updateBook').dialog('close');
                     $.messager.show({
                         title:'修改成功',
                         msg:'修改成功',

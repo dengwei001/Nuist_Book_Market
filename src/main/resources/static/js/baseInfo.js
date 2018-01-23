@@ -101,34 +101,51 @@ function changeMobile() {
     var newMobile=$('#newMobile').textbox('getValue');
     if (newMobile.length==11){
         $.ajax({
-            type:'post',
-            data:{
-                newMobile:newMobile
+            type: 'post',
+            data: {
+                code: $('#messageCode').textbox('getValue')
             },
-            url:'/book_market/myInfo/changeMobile',
-            success:function (data) {
-                if (data==1){
-                    $.messager.show({
-                        title:'成功',
-                        msg:'修改成功',
-                        timeout:1000,
-                        showType:'slide',
-                        style:{
-                            right:'',
-                            bottom:''
+            url: '/book_market/register/validateMessageCode',
+            success: function (data) {
+                if (data==true){
+                    $.ajax({
+                        type:'post',
+                        data:{
+                            newMobile:newMobile
+                        },
+                        url:'/book_market/myInfo/changeMobile',
+                        success:function (data) {
+                            if (data==1){
+                                $.messager.show({
+                                    title:'成功',
+                                    msg:'修改成功',
+                                    timeout:1000,
+                                    showType:'slide',
+                                    style:{
+                                        right:'',
+                                        bottom:''
+                                    }
+                                })
+                                $('#changeMobile').dialog('close');
+                            }else {
+                                $.messager.show({
+                                    title:'失败',
+                                    msg:'请检查输入信息',
+                                    timeout:1000,
+                                    showType:'slide',
+                                    style:{
+                                        right:'',
+                                        bottom:''
+                                    }
+                                })
+                            }
                         }
                     })
-                    $('#changeMobile').dialog('close');
                 }else {
-                    $.messager.show({
-                        title:'失败',
-                        msg:'请检查输入信息',
-                        timeout:1000,
-                        showType:'slide',
-                        style:{
-                            right:'',
-                            bottom:''
-                        }
+                    $.messager.alert({
+                        title: '失败',
+                        msg: "验证码不正确",
+                        icon: 'warning',
                     })
                 }
             }
@@ -145,6 +162,42 @@ function changeMobile() {
             }
         })
     }
+}
 
+// 定义发送时间间隔(s)
+var SEND_INTERVAL = 60;
+var timeLeft = SEND_INTERVAL;
 
+function sendMessageCode() {
+    var newMobile = $('#newMobile').textbox('getValue');
+    if (newMobile.length > 0) {
+        // 需要先禁用按钮（为防止用户重复点击）
+        $("#sendMessage").attr('disabled', 'disabled');
+        $.ajax({
+            type: 'post',
+            data: {
+                mobile: $('#newMobile').textbox('getValue')
+            },
+            url: '/book_market/register/getMessageCode',
+            success: function (data) {
+                timeLeft = SEND_INTERVAL;
+                timeCount();
+            }
+        });
+    }
+}
+/**
+ * 重新发送计时
+ **/
+function timeCount() {
+    window.setTimeout(function() {
+        if(timeLeft > 0) {
+            timeLeft -= 1;
+            $("#sendMessage").attr('value',timeLeft + "后重新发送");
+            timeCount();
+        } else {
+            $("#sendMessage").attr('value',"重新发送");
+            $("#sendMessage").attr('disabled',false)
+        }
+    }, 1000);
 }

@@ -12,9 +12,11 @@ public interface UserMapper {
 
     User selectByUserId(String userId);
 
-    List<Map> selectAll();
+    List<Map<String,Object>> selectAll();
 
     int insertUser(Map map);
 
     int updateUser(Map map);
+
+    List<Map<String,Object>> selectId();
 }

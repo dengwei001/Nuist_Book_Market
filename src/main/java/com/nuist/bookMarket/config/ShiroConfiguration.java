@@ -77,7 +77,7 @@ public class ShiroConfiguration {
         filterChainDefinitionMap.put("/css/**", "anon");
         filterChainDefinitionMap.put("/images/**", "anon");
         filterChainDefinitionMap.put("/bookImages/**", "anon");//静态资源文件
-        filterChainDefinitionMap.put("/register/*","anon");
+        filterChainDefinitionMap.put("/register/**","anon");
         filterChainDefinitionMap.put("/**", "authc");
 
         // 如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面

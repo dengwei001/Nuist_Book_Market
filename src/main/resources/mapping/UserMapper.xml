@@ -39,5 +39,9 @@
     </set>
     WHERE userId=#{userId}
   </update>
+  
+  <select id="selectId" resultType="java.util.HashMap">
+    SELECT userId FROM user
+  </select>
 
 </mapper>

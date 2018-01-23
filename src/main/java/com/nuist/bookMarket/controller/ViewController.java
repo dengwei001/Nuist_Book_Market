@@ -87,6 +87,11 @@ public class ViewController {
         }
     }
 
+    @RequestMapping("/userManager")
+    public String toUserManager(){
+        return "userManager";
+    }
+
 
     @RequestMapping("/getUserName")
     @ResponseBody
