@@ -103,7 +103,7 @@ var buyerardview = $.extend({}, $.fn.datagrid.defaults.view, {
                     switch (rowData[fields[11]]){
                         case '0':
                             cc.push('<p style="margin-top: 3px;margin-bottom: 3px">'
-                                +'<button id="button" onclick="cancelOrder('+rowData.ORDER_ID+','+buyer+ ')">取消订单</button>'
+                                +'<button id="button" onclick="cancelOrder('+rowData.ORDER_ID+','+buyer+','+rowData.NUM+ ')">取消订单</button>'
                                 + '</p>');
                             break;
                         case '1':
@@ -195,12 +195,12 @@ var sellerCardView = $.extend({}, $.fn.datagrid.defaults.view, {
                                 + '<button id="button" onclick="confirmTransaction(' + rowData.ORDER_ID + ')">确认交易</button>'
                                 + '</p>');
                             cc.push('<p style="margin-top: 3px;margin-bottom: 3px">'
-                                + '<button id="button" onclick="cancelOrder(' + rowData.ORDER_ID +','+seller+  ')">取消订单</button>'
+                                + '<button id="button" onclick="cancelOrder(' + rowData.ORDER_ID +','+seller+','+rowData.NUM+  ')">取消订单</button>'
                                 + '</p>');
                             break;
                         case '1':
                             cc.push('<p style="margin-top: 3px;margin-bottom: 3px">'
-                                + '<button id="button" onclick="cancelOrder(' + rowData.ORDER_ID +','+seller+ ')">取消订单</button>'
+                                + '<button id="button" onclick="cancelOrder(' + rowData.ORDER_ID +','+seller+','+rowData.NUM+ ')">取消订单</button>'
                                 + '</p>');
                             break;
                         case '2':
@@ -233,7 +233,7 @@ function changeDiv(id) {
 }
 
 function confirmTransaction(orderId) {
-    $.messager.confirm('确认','确认要进行此交易吗？',function (r) {
+    $.messager.confirm('确认','确认要进行此交易吗？',  function(r) {
         if (r){
             $.ajax({
                 type:'post',
@@ -251,7 +251,7 @@ function confirmTransaction(orderId) {
     })
 }
 
-function cancelOrder(orderId,role) {
+function cancelOrder(orderId,role,num) {
     $.messager.confirm('确认','确认要取消此交易吗？',function (r) {
         if (r){
             $.ajax({
@@ -259,7 +259,8 @@ function cancelOrder(orderId,role) {
                 cache:false,
                 data:{
                     ORDER_ID:orderId,
-                    ROLE:role
+                    ROLE:role,
+                    NUM:num
                 },
                 url:'/book_market/orderCenter/cancelOrder',
                 success:function (data) {

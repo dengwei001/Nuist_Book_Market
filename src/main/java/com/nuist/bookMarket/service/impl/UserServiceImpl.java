@@ -36,6 +36,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public int setAdmin(Map map) {
+        return userMapper.updateUser(map);
+    }
+
+    @Override
     public User getUserByUserId(String userId) {
         return userMapper.selectByUserId(userId);
     }
@@ -48,5 +53,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<Map<String, Object>> getAllUser() {
         return userMapper.selectAll();
+    }
+
+    @Override
+    public int deleteUserById(Map map) {
+        return userMapper.delUserById(map);
     }
 }

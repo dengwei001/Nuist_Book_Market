@@ -11,6 +11,7 @@ $(function () {
         showHeader:false,
         fitColumns:true,
         pagination:true,
+        cache:false,
         view:cardview,
         url:'/book_market/myStore/getMyBook',
         loadFilter:function (data) {
@@ -123,10 +124,15 @@ function submitForm(id) {
                 if (data){
                     $('#MYBook').datagrid('reload');
                     $('#upLoad').dialog('close');
-                    $.messager.alert({
+                    $.messager.show({
                         title:'上传成功',
                         msg:'上传成功，可以在我的小店中查看',
-                        icon:'info',
+                        showType:'solid',
+                        timeout:1000,
+                        style:{
+                            right:'',
+                            bottom:''
+                        }
                     });
                 }else {
                     $.messager.alert({

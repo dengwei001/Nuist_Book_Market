@@ -11,6 +11,7 @@ import com.nuist.bookMarket.util.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -25,7 +26,7 @@ public class OrderServiceImpl implements OrderService{
     @Autowired
     private SequenceService sequenceService;
     @Autowired
-    private Jedis jedis;
+    private JedisPool jedisPool;
     @Autowired
     private JSONArrayService jsonArrayService;
     @Autowired
@@ -54,6 +55,7 @@ public class OrderServiceImpl implements OrderService{
 
     @Override
     public JSONArray getOrderFromRedis(String orderKey) {
+        Jedis jedis = jedisPool.getResource();
         String order = jedis.get(orderKey);
         if (order!=null){
             return JSONArray.parseArray(order);

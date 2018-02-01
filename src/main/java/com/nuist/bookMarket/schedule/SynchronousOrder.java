@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
 
 import java.util.List;
 import java.util.Map;
@@ -17,7 +18,7 @@ import java.util.Map;
 public class SynchronousOrder {
 
     @Autowired
-    private Jedis jedis;
+    private JedisPool jedisPool;
     @Autowired
     private UserService userService;
     @Autowired
@@ -25,6 +26,7 @@ public class SynchronousOrder {
 
     @Scheduled(fixedRate = 1000*3600)
     public void importOrderFromRedisToSql()throws Exception{
+        Jedis jedis = jedisPool.getResource();
         System.out.println(DateUtils.getSysdate("yyyy-MM-dd hh:mm:ss"));
         List userIdList = userService.getUserId();
         JSONArray order = new JSONArray();

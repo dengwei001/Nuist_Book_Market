@@ -19,4 +19,6 @@ public interface UserMapper {
     int updateUser(Map map);
 
     List<Map<String,Object>> selectId();
+
+    int delUserById(Map map);
 }

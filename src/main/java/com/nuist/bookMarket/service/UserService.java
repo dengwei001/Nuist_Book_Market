@@ -16,7 +16,11 @@ public interface UserService {
 
     int changeMobile(Map map);
 
+    int setAdmin(Map map);
+
     List<Map<String,Object>> getUserId();
 
     List<Map<String,Object>> getAllUser();
+
+    int deleteUserById(Map map);
 }

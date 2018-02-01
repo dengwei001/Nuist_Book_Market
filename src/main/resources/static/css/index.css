@@ -2,15 +2,19 @@
 html { overflow-x:hidden; }
 html { overflow-y:hidden; }
 
-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-    background:#0E2D5F;
-
+.tabs-title {
+    font-size: 18px;
 }
+
+ul {
+     list-style-type: none;
+     margin: 0;
+     padding: 0;
+     width: 100%;
+     height: 100%;
+     background:#0E2D5F;
+
+ }
 
 li a {
     display: block;

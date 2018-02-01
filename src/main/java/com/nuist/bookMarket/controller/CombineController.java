@@ -19,8 +19,6 @@ public class CombineController {
 
     @Autowired
     private CombineService combineService;
-    @Autowired
-    private Jedis jedis;
 
     @RequestMapping("/getDetail")
     @ResponseBody

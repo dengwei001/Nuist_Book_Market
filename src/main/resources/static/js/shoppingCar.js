@@ -169,7 +169,7 @@ function buyBookNow() {
                 if (unPass.length<1){
                     $.messager.show({
                         title:'下单成功',
-                        msg:'在我的信息中查看订单信息',
+                        msg:'在订单中心查看订单信息',
                         timeout:1000,
                         showType:'slide',
                         style:{

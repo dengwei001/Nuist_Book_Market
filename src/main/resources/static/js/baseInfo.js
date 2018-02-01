@@ -9,10 +9,10 @@ $(function () {
             $('#userId').text(data.userId);
             $('#username').text(data.username);
             switch (data.userRole){
-                case 'superAdmin':
+                case 'adminFugled':
                     $('#userRole').text('超级管理员');
                     break;
-                case 'admin':
+                case 'administrator':
                     $('#userRole').text('管理员');
                     break;
                 case 'commonUser':

@@ -1,9 +1,12 @@
 package com.nuist.bookMarket.controller;
 
 
+import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.nuist.bookMarket.model.User;
 import com.nuist.bookMarket.service.UserService;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +25,16 @@ public class UserManagerController {
     @Autowired
     private UserService userService;
 
+    @RequestMapping("/getUserInfo")
+    @ResponseBody
+    public Object getUserName(){
+        User user = (User) SecurityUtils.getSubject().getPrincipal();
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("userRole",user.getUserrole());
+        jsonObject.put("userId",user.getUserid());
+        return jsonObject;
+    }
+
     @RequestMapping("/getAllUser")
     @ResponseBody
     public Object getAllUser(@RequestParam Map param){
@@ -32,6 +45,28 @@ public class UserManagerController {
         resultMap.put("rows",list);
         return resultMap;
     }
+
+    @RequestMapping("/deleteUser")
+    @ResponseBody
+    public Object deleteUser(@RequestParam Map param){
+        return userService.deleteUserById(param);
+    }
+
+    @RequestMapping("/setAdmin")
+    @ResponseBody
+    public Object setAdmin(@RequestParam Map param){
+        param.put("userRole","administrator");
+        return userService.setAdmin(param);
+    }
+
+    @RequestMapping("/cancelAdmin")
+    @ResponseBody
+    public Object cancelAdmin(@RequestParam Map param){
+        param.put("userRole","commonUser");
+        return userService.setAdmin(param);
+    }
+
+
 
 
 

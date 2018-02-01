@@ -100,6 +100,7 @@ function sendMessageCode() {
     if (resMobile.length > 0) {
         // 需要先禁用按钮（为防止用户重复点击）
         $("#sendMessage").attr('disabled', 'disabled');
+        $('#resMobile').attr('disabled','disabled')
         $.ajax({
             type: 'post',
             data: {
@@ -125,6 +126,7 @@ function timeCount() {
         } else {
             $("#sendMessage").attr('value',"重新发送");
             $("#sendMessage").attr('disabled',false)
+            $("#resMobile").attr('disabled',false)
         }
     }, 1000);
 }

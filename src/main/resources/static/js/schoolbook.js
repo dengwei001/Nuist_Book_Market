@@ -185,11 +185,16 @@ function addToShopping(bookId,bookType) {
                 url:'/book_market/shoppingCar/addToCar',
                 success:function (data) {
                     if (data == true){
-                        $.messager.alert({
+                        $.messager.show({
                             title:'成功',
                             msg:'加入成功，可在个人中心购物车中查看',
-                            icon:'info'
-                        })
+                            showType:'solid',
+                            timeout:1000,
+                            style:{
+                                right:'',
+                                bottom:''
+                            }
+                        });
                     }else {
                         $.messager.alert({
                             title:'失败',

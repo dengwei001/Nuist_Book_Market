@@ -26,8 +26,8 @@ $(function () {
         }
     });
     $('#collegeParam').datagrid('getPager').pagination({
-        pageSize: 5,//每页显示的记录条数，默认为10
-        pageList: [5, 10, 15],//可以设置每页记录条数的列表
+        pageSize: 10,//每页显示的记录条数，默认为10
+        pageList: [10, 20, 40],//可以设置每页记录条数的列表
         beforePageText: '第',//页数文本框前显示的汉字
         afterPageText: '页    共 {pages} 页',
         displayMsg: '当前显示 {from} - {to} 条记录   共 {total} 条记录',
@@ -46,8 +46,8 @@ $(function () {
     });
     $('#pressParam').datagrid('hideColumn','PRESS_CODE');
     $('#pressParam').datagrid('getPager').pagination({
-        pageSize: 5,//每页显示的记录条数，默认为10
-        pageList: [5, 10, 15],//可以设置每页记录条数的列表
+        pageSize: 10,//每页显示的记录条数，默认为10
+        pageList: [10, 20, 40],//可以设置每页记录条数的列表
         beforePageText: '第',//页数文本框前显示的汉字
         afterPageText: '页    共 {pages} 页',
         displayMsg: '当前显示 {from} - {to} 条记录   共 {total} 条记录',
@@ -63,8 +63,8 @@ $(function () {
     });
     $('#typeParam').datagrid('hideColumn','TYPE_CODE');
     $('#typeParam').datagrid('getPager').pagination({
-        pageSize: 5,//每页显示的记录条数，默认为10
-        pageList: [5, 10, 15],//可以设置每页记录条数的列表
+        pageSize: 10,//每页显示的记录条数，默认为10
+        pageList: [10, 20, 40],//可以设置每页记录条数的列表
         beforePageText: '第',//页数文本框前显示的汉字
         afterPageText: '页    共 {pages} 页',
         displayMsg: '当前显示 {from} - {to} 条记录   共 {total} 条记录',
@@ -80,8 +80,8 @@ $(function () {
     });
     $('#styleParam').datagrid('hideColumn','STYLE_CODE');
     $('#styleParam').datagrid('getPager').pagination({
-        pageSize: 5,//每页显示的记录条数，默认为10
-        pageList: [5, 10, 15],//可以设置每页记录条数的列表
+        pageSize: 10,//每页显示的记录条数，默认为10
+        pageList: [10, 20, 40],//可以设置每页记录条数的列表
         beforePageText: '第',//页数文本框前显示的汉字
         afterPageText: '页    共 {pages} 页',
         displayMsg: '当前显示 {from} - {to} 条记录   共 {total} 条记录',
@@ -129,8 +129,8 @@ function specialtyAdmin(collegeCode) {
     });
     $('#specialtyParam').datagrid('hideColumn','SPECIALTY_CODE');
     $('#specialtyParam').datagrid('getPager').pagination({
-        pageSize: 5,//每页显示的记录条数，默认为10
-        pageList: [5, 10, 15],//可以设置每页记录条数的列表
+        pageSize: 10,//每页显示的记录条数，默认为10
+        pageList: [10, 20, 40],//可以设置每页记录条数的列表
         beforePageText: '第',//页数文本框前显示的汉字
         afterPageText: '页    共 {pages} 页',
         displayMsg: '当前显示 {from} - {to} 条记录   共 {total} 条记录',

@@ -13,17 +13,20 @@
     <title>userManager</title>
 </head>
 <body>
+    <div>
+
+    </div>
     <div style="width: 100%;height: 100%">
         <table id="userManager" class="easyui-datagrid" title="用户管理" data-options="singleSelect:false,collapsible:true,method:'get',toolbar:'#toolbar'">
             <thead>
             <tr>
                 <th field="ck" checkbox="true"></th>
-                <th data-options="field:'userId',width:100,align:'center'">用户ID</th>
-                <th data-options="field:'username',width:100,align:'center'">用户名</th>
+                <th data-options="field:'userId',width:60,align:'center'">用户ID</th>
+                <th data-options="field:'username',width:60,align:'center'">用户名</th>
                 <th data-options="field:'name',width:100,align:'center'">昵称</th>
-                <th data-options="field:'userRole',width:100,align:'center'">用户角色</th>
+                <th data-options="field:'userRole',width:60,align:'center'">用户角色</th>
                 <th data-options="field:'mobile',width:100,align:'center'">手机号</th>
-                <th data-options="field:'_operate',width:100,align:'center'">操作</th>
+                <th data-options="field:'_operate',formatter:operate,width:100,align:'center'">操作</th>
             </tr>
             </thead>
         </table>

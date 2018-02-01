@@ -11,7 +11,7 @@
   </resultMap>
 
   <select id="selectAll" resultType="java.util.HashMap" >
-    SELECT * FROM user
+    SELECT * FROM user ORDER BY userRole ASC
   </select>
 
   <select id="selectByUserName" resultMap="BaseResultMap">
@@ -36,6 +36,9 @@
       <if test="mobile!=null and mobile!=''">
         mobile=#{mobile}
       </if>
+      <if test="userRole!=null and userRole!=''">
+        userRole=#{userRole}
+      </if>
     </set>
     WHERE userId=#{userId}
   </update>
@@ -43,5 +46,9 @@
   <select id="selectId" resultType="java.util.HashMap">
     SELECT userId FROM user
   </select>
+  
+  <delete id="delUserById">
+    DELETE FROM user WHERE userId=#{userId}
+  </delete>
 
 </mapper>

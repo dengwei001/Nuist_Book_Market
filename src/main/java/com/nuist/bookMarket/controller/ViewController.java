@@ -80,7 +80,7 @@ public class ViewController {
     @RequestMapping("/administrstor")
     public String toAdministrstor(){
         User user = (User) SecurityUtils.getSubject().getPrincipal();
-        if (user.getUserrole().equals("admin")||user.getUserrole().equals("superAdmin")){
+        if (user.getUserrole().equals("administrator")||user.getUserrole().equals("adminFugled")){
             return "administrstor";
         }else {
             return "unRight";
@@ -99,8 +99,4 @@ public class ViewController {
         User user = (User) SecurityUtils.getSubject().getPrincipal();
         return user.getName();
     }
-
-
-
-
 }

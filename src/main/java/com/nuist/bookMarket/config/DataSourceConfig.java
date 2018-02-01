@@ -55,17 +55,12 @@ public class DataSourceConfig {
         jedisPoolConfig.setMaxIdle(Integer.parseInt(env.getProperty("redis.maxIdle")));
         jedisPoolConfig.setMaxWaitMillis(Long.parseLong(env.getProperty("redis.maxWait")));
         jedisPoolConfig.setTestOnBorrow(Boolean.parseBoolean(env.getProperty("redis.testOnBorrow")));
+        jedisPoolConfig.setTestOnReturn(Boolean.parseBoolean(env.getProperty("redis.testOnReturn")));
         JedisPool jedisPool = new JedisPool(jedisPoolConfig,
                                             env.getProperty("redis.host"),
                                             Integer.parseInt(env.getProperty("redis.port")),
                                             Integer.parseInt(env.getProperty("redis.timeout")));
         return jedisPool;
-    }
-
-    @Bean("jedis")
-    public Jedis jedis(){
-        Jedis jedis = redisPoolFactory().getResource();
-        return jedis;
     }
 
 }

@@ -28,8 +28,6 @@ public class ParamAdminController {
     private SequenceService sequenceService;
     @Autowired
     private ParamAdminService paramAdminService;
-    @Autowired
-    private Jedis jedis;
 
     @RequestMapping("/getCollege")
     @ResponseBody
