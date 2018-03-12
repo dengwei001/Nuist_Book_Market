@@ -24,7 +24,7 @@ public class SynchronousOrder {
     @Autowired
     private OrderService orderService;
 
-    @Scheduled(fixedRate = 1000*3600)
+    @Scheduled(fixedRate = 1000*300)
     public void importOrderFromRedisToSql()throws Exception{
         Jedis jedis = jedisPool.getResource();
         System.out.println(DateUtils.getSysdate("yyyy-MM-dd hh:mm:ss"));
@@ -36,6 +36,5 @@ public class SynchronousOrder {
             order.addAll(jsonArray);
         }
         orderService.batchImportOrder(order);
-
     }
 }

@@ -59,17 +59,26 @@ public class OrderCenterController {
         Jedis jedis = jedisPool.getResource();
         User user = (User) SecurityUtils.getSubject().getPrincipal();
         String userId = user.getUserid();
-        JSONArray sellerOrder = orderService.getOrderFromRedis(userId+"sellerOrder");
-        JSONObject jsonSeller = jsonArrayService.query(sellerOrder,"ORDER_ID", (String) param.get("ORDER_ID"));
-        jsonSeller.put("ORDER_STATE","1");
-        JSONArray buyerOrder = orderService.getOrderFromRedis(jsonSeller.get("CUSTOM_ID")+"buyerOrder");
-        JSONObject jsonBuyer = jsonArrayService.query(buyerOrder,"ORDER_ID",(String) param.get("ORDER_ID"));
-        jsonBuyer.put("ORDER_STATE","1");
-        jsonArrayService.update(sellerOrder,jsonSeller,"ORDER_ID");
-        jsonArrayService.update(buyerOrder,jsonBuyer,"ORDER_ID");
-        jedis.set(userId+"sellerOrder", String.valueOf(sellerOrder));
-        jedis.set(jsonSeller.get("CUSTOM_ID")+"buyerOrder", String.valueOf(buyerOrder));
-        return true;
+        try {
+            JSONArray sellerOrder = orderService.getOrderFromRedis(userId+"sellerOrder");
+            JSONObject jsonSeller = jsonArrayService.query(sellerOrder,"ORDER_ID", (String) param.get("ORDER_ID"));
+            jsonSeller.put("ORDER_STATE","1");
+            JSONArray buyerOrder = orderService.getOrderFromRedis(jsonSeller.get("CUSTOM_ID")+"buyerOrder");
+            JSONObject jsonBuyer = jsonArrayService.query(buyerOrder,"ORDER_ID",(String) param.get("ORDER_ID"));
+            jsonBuyer.put("ORDER_STATE","1");
+            jsonArrayService.update(sellerOrder,jsonSeller,"ORDER_ID");
+            jsonArrayService.update(buyerOrder,jsonBuyer,"ORDER_ID");
+            jedis.set(userId+"sellerOrder", String.valueOf(sellerOrder));
+            jedis.set(jsonSeller.get("CUSTOM_ID")+"buyerOrder", String.valueOf(buyerOrder));
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }finally {
+            jedisPool.returnResource(jedis);
+
+        }
+
     }
 
     @RequestMapping("/confirmReceiving")
@@ -78,19 +87,28 @@ public class OrderCenterController {
         Jedis jedis = jedisPool.getResource();
         User user = (User) SecurityUtils.getSubject().getPrincipal();
         String userId = user.getUserid();
-        JSONArray buyerOrder = orderService.getOrderFromRedis(userId+"buyerOrder");
-        JSONObject jsonBuyer = jsonArrayService.query(buyerOrder,"ORDER_ID", (String) param.get("ORDER_ID"));
-        JSONArray sellerOrder = orderService.getOrderFromRedis(jsonBuyer.get("SELLER_ID")+"sellerOrder");
-        JSONObject jsonSeller = jsonArrayService.query(sellerOrder,"ORDER_ID",(String) param.get("ORDER_ID"));
-        jsonBuyer.put("ORDER_STATE","2");
-        jsonSeller.put("ORDER_STATE","2");
-        jsonArrayService.del(sellerOrder,"ORDER_ID", (String) param.get("ORDER_ID"));
-        jsonArrayService.del(buyerOrder,"ORDER_ID", (String) param.get("ORDER_ID"));
-        sellerOrder.add(jsonSeller);
-        buyerOrder.add(jsonBuyer);
-        jedis.set(userId+"buyerOrder", String.valueOf(buyerOrder));
-        jedis.set(jsonBuyer.get("SELLER_ID")+"sellerOrder", String.valueOf(sellerOrder));
-        return true;
+        try {
+            JSONArray buyerOrder = orderService.getOrderFromRedis(userId+"buyerOrder");
+            JSONObject jsonBuyer = jsonArrayService.query(buyerOrder,"ORDER_ID", (String) param.get("ORDER_ID"));
+            JSONArray sellerOrder = orderService.getOrderFromRedis(jsonBuyer.get("SELLER_ID")+"sellerOrder");
+            JSONObject jsonSeller = jsonArrayService.query(sellerOrder,"ORDER_ID",(String) param.get("ORDER_ID"));
+            jsonBuyer.put("ORDER_STATE","2");
+            jsonSeller.put("ORDER_STATE","2");
+            jsonArrayService.del(sellerOrder,"ORDER_ID", (String) param.get("ORDER_ID"));
+            jsonArrayService.del(buyerOrder,"ORDER_ID", (String) param.get("ORDER_ID"));
+            sellerOrder.add(jsonSeller);
+            buyerOrder.add(jsonBuyer);
+            jedis.set(userId+"buyerOrder", String.valueOf(buyerOrder));
+            jedis.set(jsonBuyer.get("SELLER_ID")+"sellerOrder", String.valueOf(sellerOrder));
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }finally {
+            jedisPool.returnResource(jedis);
+
+        }
+
     }
 
     @RequestMapping("/cancelOrder")
@@ -100,51 +118,60 @@ public class OrderCenterController {
         User user = (User) SecurityUtils.getSubject().getPrincipal();
         String userId = user.getUserid();
         String bookId = null;
-        switch ((String)param.get("ROLE")){
-            case "buyer":
-                JSONArray buyerOrder1 = orderService.getOrderFromRedis(userId+"buyerOrder");
-                JSONObject jsonBuyer1 = jsonArrayService.query(buyerOrder1,"ORDER_ID", (String) param.get("ORDER_ID"));
-                JSONArray sellerOrder1 = orderService.getOrderFromRedis(jsonBuyer1.get("SELLER_ID")+"sellerOrder");
-                JSONObject jsonSeller1 = jsonArrayService.query(sellerOrder1,"ORDER_ID",(String) param.get("ORDER_ID"));
-                jsonBuyer1.put("ORDER_STATE","3");
-                jsonSeller1.put("ORDER_STATE","3");
-                jsonArrayService.del(sellerOrder1,"ORDER_ID", (String) param.get("ORDER_ID"));
-                jsonArrayService.del(buyerOrder1,"ORDER_ID", (String) param.get("ORDER_ID"));
-                sellerOrder1.add(jsonSeller1);
-                buyerOrder1.add(jsonBuyer1);
-                jedis.set(userId+"buyerOrder", String.valueOf(buyerOrder1));
-                jedis.set(jsonBuyer1.get("SELLER_ID")+"sellerOrder", String.valueOf(sellerOrder1));
-                bookId= (String) jsonBuyer1.get("BOOK_ID");
-                break;
-            case "seller":
-                JSONArray sellerOrder2 = orderService.getOrderFromRedis(userId+"sellerOrder");
-                JSONObject jsonSeller2 = jsonArrayService.query(sellerOrder2,"ORDER_ID", (String) param.get("ORDER_ID"));
-                jsonSeller2.put("ORDER_STATE","3");
-                JSONArray buyerOrder2 = orderService.getOrderFromRedis(jsonSeller2.get("CUSTOM_ID")+"buyerOrder");
-                JSONObject jsonBuyer2 = jsonArrayService.query(buyerOrder2,"ORDER_ID",(String) param.get("ORDER_ID"));
-                jsonBuyer2.put("ORDER_STATE","3");
-                jsonArrayService.del(sellerOrder2,"ORDER_ID", (String) param.get("ORDER_ID"));
-                jsonArrayService.del(buyerOrder2,"ORDER_ID", (String) param.get("ORDER_ID"));
-                sellerOrder2.add(jsonSeller2);
-                buyerOrder2.add(jsonBuyer2);
-                jedis.set(userId+"sellerOrder", String.valueOf(sellerOrder2));
-                jedis.set(jsonSeller2.get("CUSTOM_ID")+"buyerOrder", String.valueOf(buyerOrder2));
-                bookId = (String) jsonSeller2.get("BOOK_ID");
-                break;
+        try {
+            switch ((String)param.get("ROLE")){
+                case "buyer":
+                    JSONArray buyerOrder1 = orderService.getOrderFromRedis(userId+"buyerOrder");
+                    JSONObject jsonBuyer1 = jsonArrayService.query(buyerOrder1,"ORDER_ID", (String) param.get("ORDER_ID"));
+                    JSONArray sellerOrder1 = orderService.getOrderFromRedis(jsonBuyer1.get("SELLER_ID")+"sellerOrder");
+                    JSONObject jsonSeller1 = jsonArrayService.query(sellerOrder1,"ORDER_ID",(String) param.get("ORDER_ID"));
+                    jsonBuyer1.put("ORDER_STATE","3");
+                    jsonSeller1.put("ORDER_STATE","3");
+                    jsonArrayService.del(sellerOrder1,"ORDER_ID", (String) param.get("ORDER_ID"));
+                    jsonArrayService.del(buyerOrder1,"ORDER_ID", (String) param.get("ORDER_ID"));
+                    sellerOrder1.add(jsonSeller1);
+                    buyerOrder1.add(jsonBuyer1);
+                    jedis.set(userId+"buyerOrder", String.valueOf(buyerOrder1));
+                    jedis.set(jsonBuyer1.get("SELLER_ID")+"sellerOrder", String.valueOf(sellerOrder1));
+                    bookId= (String) jsonBuyer1.get("BOOK_ID");
+                    break;
+                case "seller":
+                    JSONArray sellerOrder2 = orderService.getOrderFromRedis(userId+"sellerOrder");
+                    JSONObject jsonSeller2 = jsonArrayService.query(sellerOrder2,"ORDER_ID", (String) param.get("ORDER_ID"));
+                    jsonSeller2.put("ORDER_STATE","3");
+                    JSONArray buyerOrder2 = orderService.getOrderFromRedis(jsonSeller2.get("CUSTOM_ID")+"buyerOrder");
+                    JSONObject jsonBuyer2 = jsonArrayService.query(buyerOrder2,"ORDER_ID",(String) param.get("ORDER_ID"));
+                    jsonBuyer2.put("ORDER_STATE","3");
+                    jsonArrayService.del(sellerOrder2,"ORDER_ID", (String) param.get("ORDER_ID"));
+                    jsonArrayService.del(buyerOrder2,"ORDER_ID", (String) param.get("ORDER_ID"));
+                    sellerOrder2.add(jsonSeller2);
+                    buyerOrder2.add(jsonBuyer2);
+                    jedis.set(userId+"sellerOrder", String.valueOf(sellerOrder2));
+                    jedis.set(jsonSeller2.get("CUSTOM_ID")+"buyerOrder", String.valueOf(buyerOrder2));
+                    bookId = (String) jsonSeller2.get("BOOK_ID");
+                    break;
+            }
+            Map map = new HashMap();
+            map.put("BOOK_ID",bookId);
+            List list = combineService.queryBookById(map);
+            int stock=0;
+            if (list.size()>0){
+                Map book = (Map) list.get(0);
+                stock = Integer.parseInt(String.valueOf(book.get("STOCK"))) + Integer.parseInt(String.valueOf(param.get("NUM")));
+            }else {
+                stock = Integer.parseInt(String.valueOf(param.get("NUM")));
+            }
+            map.put("STOCK",stock);
+            combineService.updateBookById(map);
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }finally {
+            jedisPool.returnResource(jedis);
+
         }
-        Map map = new HashMap();
-        map.put("BOOK_ID",bookId);
-        List list = combineService.queryBookById(map);
-        int stock=0;
-        if (list.size()>0){
-            Map book = (Map) list.get(0);
-            stock = Integer.parseInt(String.valueOf(book.get("STOCK"))) + Integer.parseInt(String.valueOf(param.get("NUM")));
-        }else {
-            stock = Integer.parseInt(String.valueOf(param.get("NUM")));
-        }
-        map.put("STOCK",stock);
-        combineService.updateBookById(map);
-        return true;
+
     }
 
 

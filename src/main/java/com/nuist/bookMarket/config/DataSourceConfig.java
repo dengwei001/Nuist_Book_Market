@@ -47,7 +47,7 @@ public class DataSourceConfig {
         return dataSource;
     }
 
-    //注册redis数据库
+    //注册redis数据库连接池
     @Bean("jedisPool")
     public JedisPool redisPoolFactory() {
         JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();

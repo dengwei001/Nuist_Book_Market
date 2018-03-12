@@ -16,7 +16,7 @@ boot:
   datasource:
       url: jdbc:mysql://120.79.93.1:3306/book_trade?serverTimezone=UTC&autoReconnect=true&useUnicode=true&characterEncoding=utf8
       username: root
-      password: root
+      password: D@www
       driverClassName: com.mysql.jdbc.Driver
       validationQuery: select 1
       maxActive: 20

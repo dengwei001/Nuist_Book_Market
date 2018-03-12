@@ -107,8 +107,8 @@ public class BookMarketApplicationTests {
 
 	@Test
 	public void testmd5() throws UnsupportedEncodingException, NoSuchAlgorithmException {
-		String s = "888888";
-		logger.debug(MD5Utils.md5("888888"));
+		String s = "123456";
+		logger.debug(MD5Utils.md5("123456"));
 	}
 
 	@Test

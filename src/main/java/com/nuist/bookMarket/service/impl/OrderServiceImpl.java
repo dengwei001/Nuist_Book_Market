@@ -56,11 +56,18 @@ public class OrderServiceImpl implements OrderService{
     @Override
     public JSONArray getOrderFromRedis(String orderKey) {
         Jedis jedis = jedisPool.getResource();
-        String order = jedis.get(orderKey);
-        if (order!=null){
-            return JSONArray.parseArray(order);
-        }else {
+        try {
+            String order = jedis.get(orderKey);
+            if (order!=null){
+                return JSONArray.parseArray(order);
+            }else {
+                return new JSONArray();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
             return new JSONArray();
+        }finally {
+            jedisPool.returnResource(jedis);
         }
     }
 
