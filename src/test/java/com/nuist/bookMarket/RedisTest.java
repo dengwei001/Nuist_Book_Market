@@ -8,6 +8,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class RedisTest {
@@ -27,8 +30,12 @@ public class RedisTest {
                 if (jedis != null) {
 //                  jedis.close();
                     jedisPool.returnResource(jedis);
+
                 }
             }
         }
     }
+
+
+
 }

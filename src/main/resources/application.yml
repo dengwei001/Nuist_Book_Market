@@ -32,7 +32,7 @@ boot:
       removeAbandoned: true
 
 redis:
-  host: 120.79.93.1
+  host: 127.0.0.1
   port: 6379
   timeout: 10000
   maxWait: 10000

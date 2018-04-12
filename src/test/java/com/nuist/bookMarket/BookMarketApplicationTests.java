@@ -134,12 +134,14 @@ public class BookMarketApplicationTests {
 
 	@Test
 	public void testJedisPool() {
-		Jedis jedis = jedisPool.getResource();
+//		Jedis jedis = jedisPool.getResource();
+		Jedis jedis = new Jedis("120.79.93.1", Integer.parseInt("7001"));
+		jedis.auth("D@www19951006");
 		logger.debug(jedis.get("dengwei"));
 		List list = schoolBookMapper.selectAll();
 		jedis.lpush("testList", String.valueOf(list));
 		logger.debug(String.valueOf(jedis.lrange("testList",0,-1)));
-		jedis.hmset("testMap", (Map<String, String>) list.get(0));
+//		jedis.hmset("testMap", (Map<String, String>) list.get(0));
 		for (int i=0;i<list.size();i++){
 			jedis.lpush("testList", String.valueOf(list.get(i)));
 		}

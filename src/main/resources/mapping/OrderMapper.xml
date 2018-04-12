@@ -3,7 +3,7 @@
 <mapper namespace="com.nuist.bookMarket.mapper.OrderMapper">
 
 <insert id="batchImportOrder">
-        INSERT INTO orderCenter (ORDER_ID,BOOK_ID,BOOK_NAME,NUM,PRICE,AMOUNT,CUSTOM_ID,CUSTOM,CUSTOM_MOBILE,SELLER_ID,SELLER,SELLER_MOBILE,CREATE_TIME,END_TIME,ORDER_STATE)
+        INSERT INTO ordercenter (ORDER_ID,BOOK_ID,BOOK_NAME,NUM,PRICE,AMOUNT,CUSTOM_ID,CUSTOM,CUSTOM_MOBILE,SELLER_ID,SELLER,SELLER_MOBILE,CREATE_TIME,END_TIME,ORDER_STATE)
         VALUES
     <foreach collection="list" item="item" index="index" open="" close="" separator=",">
 (#{item.ORDER_ID},#{item.BOOK_ID},#{item.BOOK_NAME},#{item.NUM},#{item.PRICE},#{item.AMOUNT},#{item.CUSTOM_ID},#{item.CUSTOM},#{item.CUSTOM_MOBILE},#{item.SELLER_ID},#{item.SELLER},#{item.SELLER_MOBILE},#{item.CREATE_TIME},#{item.END_TIME},#{item.ORDER_STATE})
