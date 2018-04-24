@@ -21,6 +21,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List getUserList(Map param) {
+        return userMapper.selectUserByParam(param);
+    }
+
+    @Override
     public int insertUser(Map map) {
         return userMapper.insertUser(map);
     }

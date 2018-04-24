@@ -6,7 +6,7 @@
     <where>
       STOCK>0
       <if test="BOOK_ID!=null and BOOK_ID!=''">
-        BOOK_ID = #{BOOK_ID}
+        AND BOOK_ID = #{BOOK_ID}
       </if>
       <if test="BOOK_NAME != null and BOOK_NAME != ''">
         AND BOOK_NAME LIKE CONCAT('%',#{BOOK_NAME},'%')

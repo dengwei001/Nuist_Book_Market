@@ -35,6 +35,11 @@
                 </thead>
             </table>
             <div id="buyerToolbar" style="width: 100%;text-align: right;">
+                <a href="javascript:void (0)" onclick="getBuyerOrderByState('all')">全部</a>
+                <a href="javascript:void (0)" onclick="getBuyerOrderByState('0')">未处理</a>
+                <a href="javascript:void (0)" onclick="getBuyerOrderByState('1')">已处理</a>
+                <a href="javascript:void (0)" onclick="getBuyerOrderByState('2')">已完成</a>
+                <a href="javascript:void (0)" onclick="getBuyerOrderByState('3')">已取消</a>
                 <button onclick="changeDiv('buyerDiv')">查看小店订单</button>
             </div>
         </div>
@@ -59,6 +64,11 @@
                 </thead>
             </table>
             <div id="sellerToolbar" style="width: 100%;text-align: right;">
+                <a href="javascript:void (0)" onclick="getSellerOrderByState('all')">全部</a>
+                <a href="javascript:void (0)" onclick="getSellerOrderByState('0')">未处理</a>
+                <a href="javascript:void (0)" onclick="getSellerOrderByState('1')">已处理</a>
+                <a href="javascript:void (0)" onclick="getSellerOrderByState('2')">已完成</a>
+                <a href="javascript:void (0)" onclick="getSellerOrderByState('3')">已取消</a>
                 <button onclick="changeDiv('sellerDiv')">查看购买订单</button>
             </div>
         </div>

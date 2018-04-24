@@ -140,10 +140,13 @@ function creatBook(row){
     carLink.attr('href','javascript:void(0)');
     carLink.addClass('carA');
     carLink.attr('onclick','addToShopping('+row.BOOK_ID+','+'"schoolBook"'+')');
-    var carLogo=$('<img/>');
-    carLogo.attr('src','/book_market/images/shoppingCar.jpg');
-    carLogo.addClass('carLogo');
+    var carLogo=$('<i><i/>');
+    carLogo.addClass('fa fa-shopping-cart fa-3x floatLeft');
+    var addToCar=$('<p></p>');
+    addToCar.text('加入购物车');
+    addToCar.addClass('floatLeft')
     carLogo.appendTo(carLink);
+    addToCar.appendTo(carLink);
     carLink.appendTo(linkDiv);
     linkDiv.addClass('linkDiv');
     linkDiv.appendTo(bookDiv);

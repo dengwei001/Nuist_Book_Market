@@ -26,7 +26,6 @@ public class SynchronousOrder {
 
     @Scheduled(fixedRate = 1000*300)
     public void importOrderFromRedisToSql()throws Exception{
-        Jedis jedis = jedisPool.getResource();
         System.out.println(DateUtils.getSysdate("yyyy-MM-dd hh:mm:ss"));
         List userIdList = userService.getUserId();
         JSONArray order = new JSONArray();

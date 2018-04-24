@@ -33,7 +33,7 @@ function openChangePassword() {
 function openChangeMobile() {
     $('#changeMobile').dialog('open')
 }
-function changePasswprd() {
+function changePsd() {
     var oldPassword=$('#oldPassword').textbox('getValue');
     var newPassword=$('#newPassword').textbox('getValue');
     var rePassword=$('#rePassword').textbox('getValue');

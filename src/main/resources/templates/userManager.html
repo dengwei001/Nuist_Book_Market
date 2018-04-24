@@ -13,11 +13,19 @@
     <title>userManager</title>
 </head>
 <body>
-    <div>
-
+    <div id="queryParam" style="width:100%;padding: 15px 15px 15px 15px;">
+        <label>角色:</label>
+        <select id="userRoleCombobox" class="easyui-combobox" name="userRole" style="width:150px;">
+            <option value="all" selected="selected">全部</option>
+            <option value="adminFugled">超级管理员</option>
+            <option value="administrator">管理员</option>
+            <option value="commonUser">普通用户</option>
+        </select>
+        <label>昵称:</label><input id="name" class="easyui-textbox" style="width:150px;height:32px;"/>
+        <a href="javascript:void(0)" data-options="iconCls:'icon-search'" class="easyui-linkbutton" onclick="queryUserList()"> </a>
     </div>
     <div style="width: 100%;height: 100%">
-        <table id="userManager" class="easyui-datagrid" title="用户管理" data-options="singleSelect:false,collapsible:true,method:'get',toolbar:'#toolbar'">
+        <table id="userManager" class="easyui-datagrid" title="用户管理" data-options="singleSelect:false,collapsible:true,method:'get'">
             <thead>
             <tr>
                 <th field="ck" checkbox="true"></th>
@@ -30,8 +38,15 @@
             </tr>
             </thead>
         </table>
-        <div id="toolbar" style="width: 100%;text-align: right;">
-
+        <div style="width: 100%;">
+            <div id="changePassword" title="修改密码" class="easyui-dialog" style="padding: 30px;text-align: center">
+                <div>
+                    <label>用 户 ID:</label><input class="easyui-textbox" disabled="disabled" type="text" id="userIdText" /><br/><br/>
+                    <label>修改密码:</label><input class="easyui-textbox" type="password" id="newPassword" /><br/><br/>
+                    <label>重复密码:</label><input class="easyui-textbox" type="password" id="rePassword" /><br/><br/>
+                    <input class="easyui-linkbutton" id="button1" onclick="changePsd()" value="修改" style="width: 50px;height: 25px;font-size: 18px"/>
+                </div>
+            </div>
         </div>
     </div>
 </body>

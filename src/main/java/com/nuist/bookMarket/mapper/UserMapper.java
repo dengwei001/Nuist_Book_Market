@@ -10,6 +10,8 @@ public interface UserMapper {
 
     User selectByUserName(String username);
 
+    List selectUserByParam(Map map);
+
     User selectByUserId(String userId);
 
     List<Map<String,Object>> selectAll();

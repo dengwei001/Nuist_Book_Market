@@ -4,7 +4,6 @@ $(function () {
         view:buyerardview,
         fitColumns:true,
         pagination:true,
-        url:'/book_market/orderCenter/getOrder?order=buyerOrder'
     })
     $('#buyerOrder').datagrid('getPager').pagination({
         pageSize: 10,//每页显示的记录条数，默认为10
@@ -16,13 +15,13 @@ $(function () {
     $('#buyerOrder').datagrid('resize',{
         height:$(window).height()
     })
+    getBuyerOrderByState('all');
 
     $('#sellerOrder').datagrid({
         fit:false,
         view:sellerCardView,
         fitColumns:true,
         pagination:true,
-        url:'/book_market/orderCenter/getOrder?order=sellerOrder'
     })
     $('#sellerOrder').datagrid('getPager').pagination({
         pageSize: 10,//每页显示的记录条数，默认为10
@@ -31,11 +30,12 @@ $(function () {
         afterPageText: '页    共 {pages} 页',
         displayMsg: '当前显示 {from} - {to} 条记录   共 {total} 条记录',
     });
+    getSellerOrderByState('all');
     $('#sellerOrder').datagrid('resize',{
         height:$(window).height()
     })
 })
-window,onload=function () {
+window.onload=function () {
     $('#sellerDiv').css('display','none');
 }
 
@@ -302,5 +302,29 @@ function confirmReceiving(orderId) {
                 }
             })
         }
+    })
+}
+
+function getBuyerOrderByState(state) {
+    var params={};
+    params.order='buyerOrder';
+    if (state!='all'){
+        params.ORDER_STATE=state;
+    }
+    $('#buyerOrder').datagrid({
+        queryParams:params,
+        url:'/book_market/orderCenter/getOrderByState'
+    })
+}
+
+function getSellerOrderByState(state) {
+    var params={};
+    params.order='sellerOrder';
+    if (state!='all'){
+        params.ORDER_STATE=state;
+    }
+    $('#sellerOrder').datagrid({
+        queryParams:params,
+        url:'/book_market/orderCenter/getOrderByState'
     })
 }

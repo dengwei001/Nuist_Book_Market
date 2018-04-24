@@ -77,6 +77,11 @@ public class ViewController {
         return "orderCenter";
     }
 
+    @RequestMapping("/index1")
+    public String toIndex1(){
+        return "index1";
+    }
+
     @RequestMapping("/administrstor")
     public String toAdministrstor(){
         User user = (User) SecurityUtils.getSubject().getPrincipal();
@@ -93,10 +98,10 @@ public class ViewController {
     }
 
 
-    @RequestMapping("/getUserName")
+    @RequestMapping("/getUserInfo")
     @ResponseBody
-    public String getUserName(){
+    public Object getUserInfo(){
         User user = (User) SecurityUtils.getSubject().getPrincipal();
-        return user.getName();
+        return user;
     }
 }

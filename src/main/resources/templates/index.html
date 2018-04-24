@@ -1,28 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8"/>
-    <title>index</title>
-    <link rel="stylesheet" type="text/css" href="./easyui/themes/bootstrap/easyui.css"/>
-    <link rel="stylesheet" type="text/css" href="./easyui/themes/icon.css"/>
-    <link rel="stylesheet" type="text/css" href="./css/index.css"/>
+    <meta charset="UTF-8" />
+    <title>书市</title>
+
+    <link rel="stylesheet" type="text/css" href="http://cdn.bootcss.com/font-awesome/4.6.0/css/font-awesome.min.css" />
+    <link rel='stylesheet prefetch' href='css/normalize.css' />
+    <link rel="stylesheet" href="css/leftNavigation.css" media="screen" type="text/css" />
     <script type="text/javascript" src="./easyui/jquery.min.js"></script>
     <script type="text/javascript" src="./easyui/jquery.easyui.min.js"></script>
     <script type="text/javascript" src="./js/easyui-lang-zh_CN.js"></script>
     <script type="text/javascript" src="./js/index.js"></script>
-
 </head>
-<body class="easyui-layout" fit="true">
-    <div id="indexTab" class="easyui-tabs" style="width:100%;height:100%;">
-        <div id="tabs1" title="教课书籍" style="display:none;overflow: hidden;width: 1215px" >
-            <iframe name="schbook" id="schbook" frameborder="no" scrolling="no" style="width: 100%;height: 100%;overflow: hidden"></iframe>
+
+<body style="width: 100%;height: 100%;overflow: hidden;">
+
+    <div class="container">
+        <div style="background: white;width: 100%;height: 100%">
+            <div style="width:15%;float: left">
+                <nav>
+                    <ul class="mcd-menu">
+                        <li> <a id="schoolBookA" href="/book_market/schoolbook" target="mainPage" class="active"> <i class="fa fa-book"></i> <strong>教科书籍</strong></a> </li>
+                        <li> <a id="referenceA" href="/book_market/reference" target="mainPage"> <i class="fa fa-book"></i> <strong>拓展读物</strong></a> </li>
+                        <li> <a id="novelA" href="/book_market/novel" target="mainPage"> <i class="fa fa-book"></i> <strong>小说、文学</strong></a> </li>
+                    </ul>
+                </nav>
+            </div>
+
+            <div id="iframeDiv" style="float: left;width: 80%;">
+                <iframe name="mainPage" id="mainPage" src="/book_market/schoolbook" frameborder="true" scrolling="yes" style="width: 100%;height: 100%;"></iframe>
+            </div>
         </div>
-        <div title="拓展读物" style="overflow:hidden;display:none;">
-            <iframe name="reference" id="reference" frameborder="no" scrolling="no" style="width: 100%;height: 100%;overflow: hidden"></iframe>
-        </div>
-        <div title="小说、文学" style="display:none;overflow:hidden;">
-            <iframe name="novel" id="novel" frameborder="no" scrolling="no" style="width: 100%;height: 100%;overflow: hidden"></iframe>
-        </div>
+
+
     </div>
+
 </body>
 </html>

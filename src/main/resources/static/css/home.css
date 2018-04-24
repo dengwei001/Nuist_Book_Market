@@ -1,13 +1,59 @@
-*{margin:0;padding:0;list-style-type:none;}
-body{background-color:#fff;font-size:18px;font-family:"Arial","Tahoma","微软雅黑","雅黑";line-height:18px;padding:0px;margin:0px;text-align:left;}
-a{display:block;float:left;}del, div.clear{height:0px;font-size:0px;line-height:0px;padding:0px;margin:0px;display:block;clear:both;overflow:hidden;}
-#navigation{width:100%;text-align:left;margin:auto auto auto auto;}
-/*导航*/
-.menu10{font-size:14px;line-height:14px;background:blue  repeat-x left top;
-    margin-bottom:0px;}
-.menu10 .center10{width:100%;height:46px;background: #0E2D5F;float:left;}
-.menu10 a:link{height:26px;width:80px;background:url("/book_market/images/aback.jpg") repeat-x left top; text-decoration:none;color:#fff;padding:20px 40px 0px 40px;}
-.menu10 a:visited{height:26px;background:deepskyblue; text-decoration:none;color:#fff;padding:20px 40px 0px 40px;}
-.menu10 a:hover{ background:blueviolet;color:white;background-position:left -46px;}
-.menu10 a:active{color:white;background-position:left -46px;}
+body {
+    /*background: #F2F2F2;*/
+    overflow-x: hidden;
+    background: #0000ff59;
+    padding: 0px;
+    margin: 0;
+    font-family: 'Open Sans', Arial, sans-serif;
+}
+.mynav ul {
+    float: left;
+    margin: 0px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: left;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    list-style-type: none;
+    padding: 0;
+}
 
+.mynav li:not(:last-child) {
+    margin-right: 20px;
+}
+
+.mynav a {
+    display: block;
+    font-size: 20px;
+    color: black;
+    text-decoration: none;
+    padding: 7px 15px;
+}
+
+.underline {
+    position: absolute;
+    border-bottom: 4px solid transparent;
+    z-index: -1;
+    -webkit-transform: translateX(-60px);
+    transform: translateX(-60px);
+}
+
+.mynav a,
+.target {
+    -webkit-transition: all .35s ease-in-out;
+    transition: all .35s ease-in-out;
+}
+
+.userName{
+    float: right;
+    font-size: 15px;
+    padding: 7px 5px ;
+    color: white;
+}
+.logout{
+    float: right;
+    padding: 5px 10px ;
+}

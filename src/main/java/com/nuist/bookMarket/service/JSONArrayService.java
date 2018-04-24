@@ -10,4 +10,6 @@ public interface JSONArrayService {
     JSONArray update(JSONArray jsonArray,JSONObject jsonObject,String id);
 
     JSONObject query(JSONArray jsonArray,String id,String value);
+
+    JSONArray queryJSONArray(JSONArray jsonArray, String id,String value);
 }

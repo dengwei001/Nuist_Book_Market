@@ -1,5 +1,7 @@
 $(function(){
+    $('#changePassword').dialog('close');
     $('#registerDialog').dialog('close');
+    $('#forgetPassword').dialog('close');
     $.idcode.setCode();//设置验证码
     $('.easyui-textbox').textbox({
         iconAlign:'left'
@@ -25,6 +27,11 @@ function submitLogin() {
 
 function openRegister() {
     $('#registerDialog').dialog('open');
+}
+function openFgDialog() {
+    var username = $('#username').textbox('getValue');
+    $('#fgUsername').textbox('setValue',username);
+    $('#forgetPassword').dialog('open');
 }
 
 function registerUser() {
@@ -114,6 +121,25 @@ function sendMessageCode() {
         });
     }
 }
+function sendFgMessageCode() {
+    var username = $('#fgUsername').textbox('getValue');
+    if (username.length > 0) {
+        // 需要先禁用按钮（为防止用户重复点击）
+        $("#sendFgCode").attr('disabled', 'disabled');
+        $('#fgUsername').attr('disabled','disabled')
+        $.ajax({
+            type: 'post',
+            data: {
+                username: username
+            },
+            url: '/book_market/register/getFgMessageCode',
+            success: function (data) {
+                timeLeft = SEND_INTERVAL;
+                timeCountFg();
+            }
+        });
+    }
+}
 /**
  * 重新发送计时
  **/
@@ -129,4 +155,98 @@ function timeCount() {
             $("#resMobile").attr('disabled',false)
         }
     }, 1000);
+}
+function timeCountFg() {
+    window.setTimeout(function() {
+        if(timeLeft > 0) {
+            timeLeft -= 1;
+            $("#sendFgCode").attr('value',timeLeft + "后重新发送");
+            timeCount();
+        } else {
+            $("#sendFgCode").attr('value',"重新发送");
+            $("#sendFgCode").attr('disabled',false)
+            $("#fgUsername").attr('disabled',false)
+        }
+    }, 1000);
+}
+
+function forgetNextStep() {
+    $.ajax({
+        type: 'post',
+        data: {
+            code: $('#fgMessageCode').textbox('getValue')
+        },
+        url: '/book_market/register/validateMessageCode',
+        success:function (data) {
+            if (data==true){
+                $('#forgetPassword').dialog('close');
+                $('#changePassword').dialog('open');
+            }
+
+        }
+    })
+}
+
+function changePasswprd() {
+    var username = $('#fgUsername').textbox('getValue');
+    var newPassword=$('#newPassword').textbox('getValue');
+    var rePassword=$('#rePassword').textbox('getValue');
+    if (newPassword==rePassword&&newPassword.length>=6){
+        $.ajax({
+            type:'post',
+            data:{
+                username:username,
+                newPassword:newPassword
+            },
+            url:'/book_market/register/changePassword',
+            success:function (data) {
+                if (data==1){
+                    $.messager.show({
+                        title:'成功',
+                        msg:'修改成功',
+                        timeout:1000,
+                        showType:'slide',
+                        style:{
+                            right:'',
+                            bottom:''
+                        }
+                    });
+                    $('#changePassword').dialog('close');
+                }else {
+                    $.messager.show({
+                        title:'失败',
+                        msg:'用户不存在',
+                        timeout:1000,
+                        showType:'slide',
+                        style:{
+                            right:'',
+                            bottom:''
+                        }
+                    });
+                }
+            }
+        })
+    }else if (newPassword!=rePassword){
+        $.messager.show({
+            title:'警告',
+            msg:'输入的两次密码不相同',
+            timeout:1000,
+            showType:'slide',
+            style:{
+                right:'',
+                bottom:''
+            }
+        })
+    }else if (newPassword.length<6){
+        $.messager.show({
+            title:'警告',
+            msg:'密码不能小于6位',
+            timeout:1000,
+            showType:'slide',
+            style:{
+                right:'',
+                bottom:''
+            }
+        })
+    }
 }

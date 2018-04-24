@@ -39,19 +39,47 @@ public class OrderCenterController {
         int rows = Integer.parseInt((String) param.get("rows"));
         User user = (User) SecurityUtils.getSubject().getPrincipal();
         String userId = user.getUserid();
-        JSONArray buyerOrder = orderService.getOrderFromRedis(userId+param.get("order"));
-        int total = buyerOrder.size();
+        JSONArray order = orderService.getOrderFromRedis(userId+param.get("order"));
+        int total = order.size();
         List list;
         if (page*rows>total){
-            list = buyerOrder.subList((page-1)*rows,buyerOrder.size());
+            list = order.subList((page-1)*rows,order.size());
         }else {
-            list = buyerOrder.subList((page-1)*rows,page*rows);
+            list = order.subList((page-1)*rows,page*rows);
         }
         Map<String,Object> resultMap = new HashMap<>();
         resultMap.put("total",total);
         resultMap.put("rows",list);
         return resultMap;
     }
+
+    @RequestMapping("/getOrderByState")
+    @ResponseBody
+    public Object getOrderByState(@RequestParam Map param){
+        int page = Integer.parseInt((String) param.get("page"));
+        int rows = Integer.parseInt((String) param.get("rows"));
+        User user = (User) SecurityUtils.getSubject().getPrincipal();
+        String userId = user.getUserid();
+        JSONArray orderAll = orderService.getOrderFromRedis(userId+param.get("order"));
+        JSONArray order = new JSONArray();
+        if (param.containsKey("ORDER_STATE")){
+            order = jsonArrayService.queryJSONArray(orderAll,"ORDER_STATE",param.get("ORDER_STATE").toString());
+        }else {
+            order = orderAll;
+        }
+        int total = order.size();
+        List list;
+        if (page*rows>total){
+            list = order.subList((page-1)*rows,order.size());
+        }else {
+            list = order.subList((page-1)*rows,page*rows);
+        }
+        Map<String,Object> resultMap = new HashMap<>();
+        resultMap.put("total",total);
+        resultMap.put("rows",list);
+        return resultMap;
+    }
+
 
     @RequestMapping("/confirmTransaction")
     @ResponseBody

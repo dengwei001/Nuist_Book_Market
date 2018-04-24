@@ -1,27 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8"/>
+    <meta charset="UTF-8" />
     <title>管理中心</title>
-    <link rel="stylesheet" type="text/css" href="./easyui/themes/bootstrap/easyui.css"/>
-    <link rel="stylesheet" type="text/css" href="./easyui/themes/icon.css"/>
-    <link rel="stylesheet" type="text/css" href="./css/administrstor.css"/>
+
+    <link rel="stylesheet" type="text/css" href="http://cdn.bootcss.com/font-awesome/4.6.0/css/font-awesome.min.css" />
+    <link rel='stylesheet prefetch' href='css/normalize.css' />
+    <link rel="stylesheet" href="css/leftNavigation.css" media="screen" type="text/css" />
     <script type="text/javascript" src="./easyui/jquery.min.js"></script>
     <script type="text/javascript" src="./easyui/jquery.easyui.min.js"></script>
     <script type="text/javascript" src="./js/easyui-lang-zh_CN.js"></script>
     <script type="text/javascript" src="./js/administrstor.js"></script>
 </head>
-<body class="easyui-layout" fit="true">
-    <div id="paramTab" class="easyui-tabs" style="width:100%;height:100%;overflow:hidden;">
-        <div title="参数维护" style="display:none;overflow: hidden" >
-            <iframe name="paramMain" id="paramMain" frameborder="no" scrolling="yes" style="width: 100%;height: 100%;"></iframe>
+
+<body style="width: 100%;height: 100%;overflow: hidden;">
+
+<div class="container">
+    <div style="background: white;width: 100%;height: 100%">
+        <div style="width:15%;float: left">
+            <nav>
+                <ul class="mcd-menu">
+                    <li> <a id="paramAdminA" href="/book_market/paramAdmin" target="mainPage" class="active"> <i class="fa fa-edit"></i> <strong>参数维护</strong></a> </li>
+                    <li> <a id="userManagerA" href="/book_market/userManager" target="mainPage"> <i class="fa fa-user"></i> <strong>用户管理</strong></a> </li>
+
+                </ul>
+            </nav>
         </div>
-        <div title="用户管理" style="overflow:hidden;padding:20px;display:none;">
-            <iframe name="userManager" id="userManager" frameborder="no" scrolling="yes" style="width: 100%;height: 100%;"></iframe>
-        </div>
-        <div title="功能权限维护" style="padding:20px;display:none;">
-            tab3
+
+        <div id="iframeDiv" style="float: left;width: 80%;">
+            <iframe name="mainPage" id="mainPage" src="/book_market/paramAdmin" frameborder="true" scrolling="yes" style="width: 100%;height: 100%;"></iframe>
         </div>
     </div>
+
+
+</div>
+
 </body>
 </html>

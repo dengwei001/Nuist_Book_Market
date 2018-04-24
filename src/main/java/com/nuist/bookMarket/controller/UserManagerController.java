@@ -6,6 +6,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.nuist.bookMarket.model.User;
 import com.nuist.bookMarket.service.UserService;
+import com.nuist.bookMarket.util.MD5Utils;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,6 +33,8 @@ public class UserManagerController {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("userRole",user.getUserrole());
         jsonObject.put("userId",user.getUserid());
+        jsonObject.put("name",user.getName());
+        jsonObject.put("mobile",user.getMobile());
         return jsonObject;
     }
 
@@ -65,6 +68,31 @@ public class UserManagerController {
         param.put("userRole","commonUser");
         return userService.setAdmin(param);
     }
+
+    @RequestMapping("/getUserListByParam")
+    @ResponseBody
+    public Object getUserListByParam(@RequestParam Map param){
+        PageHelper.startPage(Integer.parseInt(param.get("page").toString()),Integer.parseInt(param.get("rows").toString()),true);
+        if ("all".equals(param.get("USER_ROLE").toString())){
+            param.put("USER_ROLE",null);
+        }
+        List list = userService.getUserList(param);
+        Map<String,Object> resultMap = new HashMap<>();
+        resultMap.put("total",Integer.parseInt(String.valueOf(new PageInfo(list).getTotal())));
+        resultMap.put("rows",list);
+        return resultMap;
+    }
+
+    @RequestMapping("/changePassword")
+    @ResponseBody
+    public Object changePassword(@RequestParam Map param){
+        String newPassword = MD5Utils.md5((String) param.get("newPassword"));
+        Map map = new HashMap();
+        map.put("password",newPassword);
+        map.put("userId",param.get("userId"));
+        return userService.changePassword(map);
+    }
+
 
 
 

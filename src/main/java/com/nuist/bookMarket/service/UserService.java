@@ -8,6 +8,8 @@ import java.util.Map;
 public interface UserService {
     User getUserByUserName(String username);
 
+    List getUserList(Map param);
+
     User getUserByUserId(String userId);
 
     int insertUser(Map map);

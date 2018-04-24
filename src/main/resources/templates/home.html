@@ -15,24 +15,26 @@
 
 </head>
 <body style="margin: 0px">
-    <!--<div style="text-align: center">-->
-        <!--<img src="/images/upground3.jpg" style="width: 50%;height: auto;"/>-->
-    <!--</div>-->
-    <div class="menu10">
-        <div class="center10" style="text-align: center">
-            <a style="float: left;padding:0px 0px 0px 0px;">
-                <img src="/book_market/images/nuist.jpg" style="width: 46px;height: 46px"/>
-            </a>
-            <a href="/book_market/index" target="homeMain"><font size="4px">书  市</font></a>
-            <a href="/book_market/userCenter" target="homeMain"><font size="4px">个人中心</font></a>
-            <a href="/book_market/administrstor" target="homeMain"><font size="4px">管理员</font></a>
-            <a id="logout" href="/book_market/logout" style="float: right;padding:0px 0px 0px 0px;width: 46px;height: 46px">
-                <img id="logout" src="/book_market/images/login-out.png" style="width: 46px;height: 46px;" />
-            </a>
-            <a id="username" href="#" style="float: right;padding-right: 0px;padding-left: 0px;"></a>
-
+    <div>
+        <div style="float: left;padding-right: 10px">
+            <img id="logo" src="/book_market/images/nuist.jpg" style="width: 42px;height: 42px"/>
         </div>
-        <div class="clear"></div>
+        <div style="float: left">
+            <nav class="mynav">
+                <ul>
+                    <li><a href="/book_market/index" target="homeMain">书  市</a></li>
+                    <li><a href="/book_market/userCenter" target="homeMain">个人中心</a></li>
+                    <li id="adminModel"><a href="/book_market/administrstor" target="homeMain">管理员</a></li>
+                </ul>
+            </nav>
+            <span class="underline"></span>
+        </div>
+        <div class="logout">
+            <a href="/book_market/logout"><img id="logout" src="/book_market/images/login-out.png"/></a>
+        </div>
+        <div class="userName">
+            <span id="username">用户001</span>
+        </div>
     </div>
     <div id="mainPage" style="overflow: hidden" >
         <iframe name="homeMain" id="homeMain" src="/book_market/index" frameborder="true" scrolling="yes" style="width: 100%;height: 100%;"></iframe>

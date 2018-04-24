@@ -8,10 +8,12 @@ html { overflow-x:hidden; }
     position: relative;
     background: #fff;
     text-align: center;
-    width: 19%;
-    margin: 3px 3px 3px 3px;
+    width: 205px;
+    margin: 8px 8px 8px 8px;
     height: 330px;
     float: left;
+    border: 1px solid #6b9cde;
+    box-shadow: 3px 3px 4px #000;
 }
 .bookImg{
     height: 200px;
@@ -35,10 +37,10 @@ html { overflow-x:hidden; }
     bottom: 0px;
     float: right;
     padding-left: 20px;
-    text-align: center;
+    text-align: left;
 }
 .carA{
-
+    color: grey;
 }
 .carLogo{
     float: right;
@@ -49,4 +51,24 @@ html { overflow-x:hidden; }
     padding: 0px 0px 0px 0px;
     color: red;
     font-family: "Arial", "Tahoma", "微软雅黑", "雅黑";
+}
+.floatLeft{
+    float: left;
+}
+
+.button1{
+    width: 200px;
+    padding:8px;
+    background-color: #428bca;
+    border-color: #357ebd;
+    color: #fff;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px; /* future proofing */
+    -khtml-border-radius: 10px; /* for old Konqueror browsers */
+    text-align: center;
+    vertical-align: middle;
+    border: 1px solid transparent;
+    font-weight: 900;
+    font-size:125%
 }
